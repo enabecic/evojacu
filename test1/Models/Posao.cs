@@ -38,6 +38,15 @@ namespace evojacu.Models
 
         public string Adresa { get; set; }
 
+        [ForeignKey(nameof(Korisnik))]
+        public int KorisnikID { get; set; }
+        public Korisnik Korisnik { get; set; }
+
+
+        [ForeignKey(nameof(Zadatak))]
+        public int ZadatakStraniID { get; set; }
+        public Zadatak Zadatak { get; set; }
+
 
 
     }

@@ -28,6 +28,9 @@ namespace evojacu.Models
         public DbSet<Obaveza> Obaveze { get; set; }
         public DbSet<EmailObavijest> EmailObavijesti { get; set; }
         public DbSet<RangLista> RangListe { get; set; }
+        public DbSet<Gost> Gosti { get; set; }
+        public DbSet<Recenzija> Recenzije { get; set; }
+        public DbSet<Zadatak> Zadaci { get; set; }
 
 
     }

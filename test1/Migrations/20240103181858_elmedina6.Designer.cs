@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using evojacu.Models;
 
@@ -11,9 +12,11 @@ using evojacu.Models;
 namespace evojacu.Migrations
 {
     [DbContext(typeof(evojacuDBContext))]
-    partial class evojacuDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240103181858_elmedina6")]
+    partial class elmedina6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
