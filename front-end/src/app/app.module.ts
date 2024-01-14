@@ -8,6 +8,7 @@ import { PocetnaComponent } from './pocetna/pocetna.component';
 import { KorisnickiProfilComponent } from './korisnicki-profil/korisnicki-profil.component';
 import { PotraznjaComponent } from './potraznja/potraznja.component';
 import { PonudaComponent } from './ponuda/ponuda.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,14 +22,15 @@ import { PonudaComponent } from './ponuda/ponuda.component';
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      {path:'login', component:LoginComponent},
-      {path:'pocetna', component:PocetnaComponent},
-      {path:'korisnickiProfil', component:KorisnickiProfilComponent},
-      {path:'potraznja', component:PotraznjaComponent},
-      {path:'ponuda', component:PonudaComponent},
+      {path: 'login', component: LoginComponent},
+      {path: 'pocetna', component: PocetnaComponent},
+      {path: 'korisnickiProfil', component: KorisnickiProfilComponent},
+      {path: 'potraznja', component: PotraznjaComponent},
+      {path: 'ponuda', component: PonudaComponent},
 
 
-    ])
+    ]),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

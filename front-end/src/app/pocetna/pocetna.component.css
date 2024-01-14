@@ -27,6 +27,11 @@ h2{
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-left: 60px;
+  padding: 0;
+  width: 100%; /* Proširuje .container do kraja stranice */
+  box-sizing: border-box; /* Uzima u obzir padding prilikom računanja ukupne širine */
+
 }
 .centered-button1,
 .centered-button2{
@@ -65,7 +70,7 @@ h2{
   cursor: pointer;
 }
 .slikaDatum{
-  width: 130px;
+  width: 250px;
   padding-right: 100px;
 }
 p{
@@ -194,7 +199,7 @@ p{
 .zvijezdica{
   width: 25px;
   height: 25px;
-  margin-left: 8px;
+  margin-left: 5px;
 }
 .containerPopularno{
   display: flex;
