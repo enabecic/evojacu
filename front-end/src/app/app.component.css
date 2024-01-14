@@ -1,0 +1,201 @@
+body,html{
+  margin: 0;
+  padding: 0;
+  height: 230vh;
+  background-color: rgb(244,244,244);;
+}
+*{
+  margin: 0;
+  padding: 0;
+
+}
+html{
+  background-color: rgb(244,244,244);
+}
+h1{
+  text-align: center;
+  font-family: "Book Antiqua";
+  font-size: xxx-large;
+  color: rgb(48,48,48);
+}
+h2{
+  font-family: "Book Antiqua";
+  font-size: xx-large;
+  color: rgb(48,48,48);
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.centered-button1,
+.centered-button2{
+  flex-grow: 1;
+  background-color: rgb(218,208,174); /* Crvena boja za button-red */
+  color: #fff; /* Bijeli tekst */
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.centered-button2 {
+  background-color: rgb(225,224,224);
+  color: rgb(48,48,48);
+  font-weight: bold;
+}
+.containerSlika {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px; /* Dodajte potrebni razmak između teksta i slike */
+}
+
+.left-content {
+  text-align: left;
+}
+
+.right-content {
+  text-align: right;
+}
+.korisnickiProfil{
+  width: 50px;
+  cursor: pointer;
+}
+.slikaDatum{
+  width: 130px;
+  padding-right: 100px;
+}
+p{
+  font-family: "Book Antiqua";
+
+}
+.datum{
+  background-color: rgb(218,208,174);
+  border-radius: 10px;
+  height: 180px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.tekst-container {
+  flex-grow: 1; /* Tekst-container raste kako bi popunio dostupni prostor */
+  padding: 0 6px; /* Dodajte potrebne margine između tekstova i slike */
+  padding-bottom: 40px;
+}
+.uPotraziSi{
+  font-size: xxx-large;
+  padding-left: 100px;
+}
+.tekst{
+  padding-left: 100px;
+  font-size: x-large;
+}
+.btnDesno,.btnLijevo{
+  width: 50px;
+  height: 50px;
+  background-color: rgb(225,224,224);
+  color: rgb(48,48,48);
+  font-weight: bold;
+  border: 0;
+
+}
+.kocka-roza {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(218,208,174);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Postavlja ravnotežu između elemenata */
+  padding: 15px; /* Padding između roze kvadrata i bijelih kvadrata */
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+.bijeli {
+  width: calc(50% - 5px); /* Polovina širine s paddingom sa svake strane */
+  height: calc(50% - 10px); /* Polovina visine s paddingom sa svake strane */
+  background-color: #fff;
+
+  box-sizing: border-box; /* Osigurava da padding bude uključen u ukupnu širinu i visinu */
+}
+
+.sveTekst{
+  color: rgb(48,48,48);
+  padding-left: 50px;
+}
+
+.slikeZadataka{
+  width: 165px;
+  height: 150px;
+  border-radius: 10px;
+}
+
+/* styles.css */
+.red-container {
+  display: flex;
+  align-items: center;
+}
+
+.button-slike-container img {
+  margin-right: 50px; /* Dodatni razmak između slika */
+}
+
+/* Dodatni stilovi prema vašim potrebama */
+
+.btnLijevo
+ {
+  margin-left: 50px; /* Dodatni razmak na lijevoj strani teksta i dugmadi */
+  margin-right: 50px;
+}
+.lijevoRozi{
+  margin-left: 50px;
+}
+.Inline{
+  display: inline-block;
+}
+.tekstZadataka{
+  padding-left: 50px;
+  font-family: "Book Antiqua";
+  color: rgb(48,48,48);
+}
+.populrno{
+  padding-left: 50px;
+}
+.bijelaPozadina{
+  background-color: white;
+  width: 400px;
+  height: 350px;
+  border-radius: 10px;
+  margin-left: 50px;
+  margin-right: 20px;
+
+}
+.komplet{
+  padding: 25px;
+  width: 350px;
+  height: 250px;
+
+}
+.slikaUKompletu{
+  width: 350px;
+  height: 250px;
+  border-radius: 10px;
+}
+.tekstUkoppletu{
+  font-family: "Book Antiqua";
+  color: rgb(48,48,48);
+  font-size: 20px;
+}
+.zvijezdica{
+  width: 25px;
+  height: 25px;
+  margin-left: 8px;
+}
+.containerPopularno{
+  display: flex;
+}
