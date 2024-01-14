@@ -6,20 +6,26 @@ import { LoginComponent } from './login/login.component';
 import {RouterModule} from "@angular/router";
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { KorisnickiProfilComponent } from './korisnicki-profil/korisnicki-profil.component';
+import { PotraznjaComponent } from './potraznja/potraznja.component';
+import { PonudaComponent } from './ponuda/ponuda.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     PocetnaComponent,
-    KorisnickiProfilComponent
+    KorisnickiProfilComponent,
+    PotraznjaComponent,
+    PonudaComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path:'login', component:LoginComponent},
       {path:'pocetna', component:PocetnaComponent},
-      {path:'korisnickiProfil', component:KorisnickiProfilComponent}
+      {path:'korisnickiProfil', component:KorisnickiProfilComponent},
+      {path:'potraznja', component:PotraznjaComponent},
+      {path:'ponuda', component:PonudaComponent},
 
 
     ])
