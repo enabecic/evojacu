@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using evojacu.Models;
 
@@ -11,9 +12,11 @@ using evojacu.Models;
 namespace evojacu.Migrations
 {
     [DbContext(typeof(evojacuDBContext))]
-    partial class evojacuDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240103171924_elmedina5")]
+    partial class elmedina5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,9 +237,6 @@ namespace evojacu.Migrations
                     b.Property<int>("VrijemeIzvrsavanjaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ZadatakStraniID")
-                        .HasColumnType("int");
-
                     b.HasKey("ZadatakID");
 
                     b.HasIndex("FazaPoslaId");
@@ -246,8 +246,6 @@ namespace evojacu.Migrations
                     b.HasIndex("KorisnikID");
 
                     b.HasIndex("VrijemeIzvrsavanjaId");
-
-                    b.HasIndex("ZadatakStraniID");
 
                     b.ToTable("Poslovi");
                 });
@@ -571,12 +569,6 @@ namespace evojacu.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("evojacu.Models.Zadatak", "Zadatak")
-                        .WithMany()
-                        .HasForeignKey("ZadatakStraniID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("FazaPosla");
 
                     b.Navigation("Grad");
@@ -584,8 +576,6 @@ namespace evojacu.Migrations
                     b.Navigation("Korisnik");
 
                     b.Navigation("VrijemeIzvrsavanja");
-
-                    b.Navigation("Zadatak");
                 });
 
             modelBuilder.Entity("evojacu.Models.Poslodavac", b =>

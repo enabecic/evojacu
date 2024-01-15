@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using evojacu.Models;
 
@@ -11,9 +12,11 @@ using evojacu.Models;
 namespace evojacu.Migrations
 {
     [DbContext(typeof(evojacuDBContext))]
-    partial class evojacuDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240103151226_elmedina4")]
+    partial class elmedina4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,9 +237,6 @@ namespace evojacu.Migrations
                     b.Property<int>("VrijemeIzvrsavanjaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ZadatakStraniID")
-                        .HasColumnType("int");
-
                     b.HasKey("ZadatakID");
 
                     b.HasIndex("FazaPoslaId");
@@ -246,8 +246,6 @@ namespace evojacu.Migrations
                     b.HasIndex("KorisnikID");
 
                     b.HasIndex("VrijemeIzvrsavanjaId");
-
-                    b.HasIndex("ZadatakStraniID");
 
                     b.ToTable("Poslovi");
                 });
@@ -481,32 +479,6 @@ namespace evojacu.Migrations
                     b.ToTable("VrstePlacanja");
                 });
 
-            modelBuilder.Entity("evojacu.Models.Zadatak", b =>
-                {
-                    b.Property<int>("ZadatakId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ZadatakId"));
-
-                    b.Property<int>("KategorijaID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Naziv")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Opis")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ZadatakId");
-
-                    b.HasIndex("KategorijaID");
-
-                    b.ToTable("Zadaci");
-                });
-
             modelBuilder.Entity("evojacu.Models.EmailObavijest", b =>
                 {
                     b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
@@ -571,12 +543,6 @@ namespace evojacu.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("evojacu.Models.Zadatak", "Zadatak")
-                        .WithMany()
-                        .HasForeignKey("ZadatakStraniID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("FazaPosla");
 
                     b.Navigation("Grad");
@@ -584,8 +550,6 @@ namespace evojacu.Migrations
                     b.Navigation("Korisnik");
 
                     b.Navigation("VrijemeIzvrsavanja");
-
-                    b.Navigation("Zadatak");
                 });
 
             modelBuilder.Entity("evojacu.Models.Poslodavac", b =>
@@ -681,17 +645,6 @@ namespace evojacu.Migrations
                     b.Navigation("StanjePlacanja");
 
                     b.Navigation("VrstaPlacanja");
-                });
-
-            modelBuilder.Entity("evojacu.Models.Zadatak", b =>
-                {
-                    b.HasOne("evojacu.Models.Kategorija", "Kategorija")
-                        .WithMany()
-                        .HasForeignKey("KategorijaID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Kategorija");
                 });
 #pragma warning restore 612, 618
         }
