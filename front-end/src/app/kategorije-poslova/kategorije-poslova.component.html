@@ -1,1 +1,18 @@
 <p>kategorije-poslova works!</p>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Naziv kategorije</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr *ngFor="let item of kategorije">
+    <th>{{item.kategorijaID}}</th>
+    <th>{{item.naziv}}</th>
+  </tr>
+  </tbody>
+
+</table>

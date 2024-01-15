@@ -10,6 +10,7 @@ import { PotraznjaComponent } from './potraznja/potraznja.component';
 import { PonudaComponent } from './ponuda/ponuda.component';
 import {FormsModule} from "@angular/forms";
 import { KategorijePoslovaComponent } from './kategorije-poslova/kategorije-poslova.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -23,12 +24,14 @@ import { KategorijePoslovaComponent } from './kategorije-poslova/kategorije-posl
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
       {path: 'login', component: LoginComponent},
       {path: 'pocetna', component: PocetnaComponent},
       {path: 'korisnickiProfil', component: KorisnickiProfilComponent},
       {path: 'potraznja', component: PotraznjaComponent},
       {path: 'ponuda', component: PonudaComponent},
+      {path: 'kategorijePoslova', component: KategorijePoslovaComponent},
 
 
     ]),
