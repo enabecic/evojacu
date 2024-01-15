@@ -9,6 +9,7 @@ import { KorisnickiProfilComponent } from './korisnicki-profil/korisnicki-profil
 import { PotraznjaComponent } from './potraznja/potraznja.component';
 import { PonudaComponent } from './ponuda/ponuda.component';
 import {FormsModule} from "@angular/forms";
+import { KategorijePoslovaComponent } from './kategorije-poslova/kategorije-poslova.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {FormsModule} from "@angular/forms";
     PocetnaComponent,
     KorisnickiProfilComponent,
     PotraznjaComponent,
-    PonudaComponent
+    PonudaComponent,
+    KategorijePoslovaComponent
   ],
   imports: [
     BrowserModule,
