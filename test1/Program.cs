@@ -11,6 +11,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<evojacuDBContext>(options =>
     options.UseSqlServer(config.GetConnectionString("evojacu")));
 
+//CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
+
+
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -28,6 +42,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowOrigin");//CORS policy
 
 app.UseAuthorization();
 
