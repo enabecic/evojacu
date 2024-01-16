@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: rgb(244,244,244);
+}
+
+
+h1 {
+  font-family: "Book Antiqua";
+  display: inline-block;
+  padding-left: 2rem;
+}
+
+h2 {
+  font-family: "Book Antiqua";
+  font-size: xx-large;
+}
+
+.Kategorija {
+  padding-top: 3rem;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+  font-size: xxx-large;
+}
+
+hr {
+  color: saddlebrown;
+}
+.Nazad {
+  border: none;
+  display: inline-block;
+}
+
+.Katalog {
+  padding-left: 7.1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.containerPonude {
+  padding-left: 13.5rem;
+  padding-top: 2.3rem;
+  padding-bottom: 2.3rem;
+  display: flex;
+  gap: 7rem;
+}
+.Pozadina {
+  background-color: white;
+  width: 400px;
+  height: 350px;
+  border-radius: 10px;
+  margin-left: 50px;
+  margin-right: 20px;
+}
+
+.Ponuda {
+  padding: 25px;
+  width: 350px;
+  height: 250px;
+}
+
+.SlikaPonude {
+  width: 350px;
+  height: 250px;
+  border-radius: 10px;
+}
+
+.Star {
+  width: 25px;
+  height: 25px;
+  margin-left: 5px;
+}
+
+.TekstPonude {
+  font-family: "Book Antiqua";
+  color: rgb(48,48,48);
+  font-size: 20px;
+}
