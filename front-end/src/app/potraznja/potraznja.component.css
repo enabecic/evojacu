@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: rgb(244,244,244);
+}
+
+h1 {
+  font-family: "Book Antiqua";
+  display: inline-block;
+  padding-left: 2rem;
+}
+
+.Potražnja {
+  padding-top: 3rem;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+  font-size: xxx-large;
+}
+.Nazad {
+  border: none;
+  display: inline-block;
+}
+
+.SlikaPotraznje {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+.SlikaP {
+  width: 650px;
+  height: 450px;
+  border-radius: 10px;
+}
+
+.ImePrezime, .NazivZad, .OpisPosla, .Cijena, .Kategory {
+  padding-left: 3rem;
+  padding-top: 3rem;
+}
+
+.Tekst {
+  font-family: "Book Antiqua";
+  font-size: xx-large;
+}
+
+.Dodaj {
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
+}
+.DugmeDodaj {
+  background-color: rgb(218, 208, 174);
+  border-radius: 10px;
+  border: 0;
+  width: 30%;
+  height: 50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}  
