@@ -6,6 +6,7 @@ describe('PocetnaComponent', () => {
   let component: PocetnaComponent;
   let fixture: ComponentFixture<PocetnaComponent>;
 
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PocetnaComponent]
