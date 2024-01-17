@@ -11,6 +11,7 @@ import { PonudaComponent } from './ponuda/ponuda.component';
 import {FormsModule} from "@angular/forms";
 import { KategorijePoslovaComponent } from './kategorije-poslova/kategorije-poslova.component';
 import {HttpClientModule} from "@angular/common/http";
+import { RegistracijaloginComponent } from './registracijalogin/registracijalogin.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {HttpClientModule} from "@angular/common/http";
     KorisnickiProfilComponent,
     PotraznjaComponent,
     PonudaComponent,
-    KategorijePoslovaComponent
+    KategorijePoslovaComponent,
+    RegistracijaloginComponent
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,8 @@ import {HttpClientModule} from "@angular/common/http";
       {path: 'potraznja', component: PotraznjaComponent},
       {path: 'ponuda', component: PonudaComponent},
       {path: 'kategorijePoslova', component: KategorijePoslovaComponent},
+      {path: 'registracijalogin' , component: RegistracijaloginComponent},
+
 
 
     ]),

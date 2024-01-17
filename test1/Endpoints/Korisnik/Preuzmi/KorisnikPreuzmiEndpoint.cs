@@ -27,7 +27,11 @@ namespace evojacu.Endpoints.Korisnik.Preuzmi
             if (korisnik != null)
             {
                 Console.WriteLine("Korisnik je pronađen!");
-                throw new Exception("Postojeca email ili lozinka");
+
+                return new KorisnikPreuzmiResponse
+                {
+                    Id = korisnik.KorisnikID
+                };
 
 
             }

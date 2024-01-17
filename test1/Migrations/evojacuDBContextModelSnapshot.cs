@@ -512,13 +512,13 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
                         .WithMany()
                         .HasForeignKey("PoslodavacID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Posloprimaoc", "Posloprimaoc")
                         .WithMany()
                         .HasForeignKey("PosloprimaocID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Poslodavac");
@@ -531,13 +531,13 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Posloprimaoc", "Posloprimaoc")
                         .WithMany()
                         .HasForeignKey("PosloprimaocID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Prioritet", "Prioritet")
                         .WithMany()
                         .HasForeignKey("PrioritetID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Posloprimaoc");
@@ -550,31 +550,31 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.FazaPosla", "FazaPosla")
                         .WithMany()
                         .HasForeignKey("FazaPoslaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Grad", "Grad")
                         .WithMany()
                         .HasForeignKey("GradId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.VrijemeIzvrsavanja", "VrijemeIzvrsavanja")
                         .WithMany()
                         .HasForeignKey("VrijemeIzvrsavanjaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Zadatak", "Zadatak")
                         .WithMany()
                         .HasForeignKey("ZadatakStraniID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("FazaPosla");
@@ -593,7 +593,7 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Korisnik");
@@ -604,7 +604,7 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Korisnik");
@@ -615,7 +615,7 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Korisnik");
@@ -626,19 +626,19 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Posao", "Posao")
                         .WithMany()
                         .HasForeignKey("PosaoID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
                         .WithMany()
                         .HasForeignKey("PoslodavacID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Posloprimaoc", "Posloprimaoc")
                         .WithMany()
                         .HasForeignKey("PosloprimaocID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Posao");
@@ -653,25 +653,25 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.VrstaPlacanja", "VrstaPlacanja")
                         .WithMany()
                         .HasForeignKey("NacinPlacanjaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Posao", "Posao")
                         .WithMany()
                         .HasForeignKey("PosaoID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
                         .WithMany()
                         .HasForeignKey("PoslodavacID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.StanjePlacanja", "StanjePlacanja")
                         .WithMany()
                         .HasForeignKey("StanjePlacanjaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Posao");
@@ -688,7 +688,7 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Kategorija", "Kategorija")
                         .WithMany()
                         .HasForeignKey("KategorijaID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Kategorija");

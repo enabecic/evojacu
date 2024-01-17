@@ -12,8 +12,8 @@ using evojacu.Models;
 namespace evojacu.Migrations
 {
     [DbContext(typeof(evojacuDBContext))]
-    [Migration("20240103114340_elmedina1")]
-    partial class elmedina1
+    [Migration("20240117152607_test")]
+    partial class test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,22 @@ namespace evojacu.Migrations
                     b.HasKey("FazaPoslaID");
 
                     b.ToTable("FazePoslova");
+                });
+
+            modelBuilder.Entity("evojacu.Models.Gost", b =>
+                {
+                    b.Property<int>("GostID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GostID"));
+
+                    b.Property<int>("BrojPosjeta")
+                        .HasColumnType("int");
+
+                    b.HasKey("GostID");
+
+                    b.ToTable("Gosti");
                 });
 
             modelBuilder.Entity("evojacu.Models.Grad", b =>
@@ -221,6 +237,9 @@ namespace evojacu.Migrations
                     b.Property<int>("VrijemeIzvrsavanjaId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ZadatakStraniID")
+                        .HasColumnType("int");
+
                     b.HasKey("ZadatakID");
 
                     b.HasIndex("FazaPoslaId");
@@ -230,6 +249,8 @@ namespace evojacu.Migrations
                     b.HasIndex("KorisnikID");
 
                     b.HasIndex("VrijemeIzvrsavanjaId");
+
+                    b.HasIndex("ZadatakStraniID");
 
                     b.ToTable("Poslovi");
                 });
@@ -324,6 +345,41 @@ namespace evojacu.Migrations
                     b.HasIndex("KorisnikID");
 
                     b.ToTable("RangListe");
+                });
+
+            modelBuilder.Entity("evojacu.Models.Recenzija", b =>
+                {
+                    b.Property<int>("RecenzijaID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecenzijaID"));
+
+                    b.Property<string>("Komentar")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Ocjena")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PosaoID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PoslodavacID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosloprimaocID")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecenzijaID");
+
+                    b.HasIndex("PosaoID");
+
+                    b.HasIndex("PoslodavacID");
+
+                    b.HasIndex("PosloprimaocID");
+
+                    b.ToTable("Recenzije");
                 });
 
             modelBuilder.Entity("evojacu.Models.StanjePlacanja", b =>
@@ -428,18 +484,44 @@ namespace evojacu.Migrations
                     b.ToTable("VrstePlacanja");
                 });
 
+            modelBuilder.Entity("evojacu.Models.Zadatak", b =>
+                {
+                    b.Property<int>("ZadatakId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ZadatakId"));
+
+                    b.Property<int>("KategorijaID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Naziv")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ZadatakId");
+
+                    b.HasIndex("KategorijaID");
+
+                    b.ToTable("Zadaci");
+                });
+
             modelBuilder.Entity("evojacu.Models.EmailObavijest", b =>
                 {
                     b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
                         .WithMany()
                         .HasForeignKey("PoslodavacID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Posloprimaoc", "Posloprimaoc")
                         .WithMany()
                         .HasForeignKey("PosloprimaocID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Poslodavac");
@@ -452,13 +534,13 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Posloprimaoc", "Posloprimaoc")
                         .WithMany()
                         .HasForeignKey("PosloprimaocID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Prioritet", "Prioritet")
                         .WithMany()
                         .HasForeignKey("PrioritetID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Posloprimaoc");
@@ -471,25 +553,31 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.FazaPosla", "FazaPosla")
                         .WithMany()
                         .HasForeignKey("FazaPoslaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Grad", "Grad")
                         .WithMany()
                         .HasForeignKey("GradId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.VrijemeIzvrsavanja", "VrijemeIzvrsavanja")
                         .WithMany()
                         .HasForeignKey("VrijemeIzvrsavanjaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("evojacu.Models.Zadatak", "Zadatak")
+                        .WithMany()
+                        .HasForeignKey("ZadatakStraniID")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("FazaPosla");
@@ -499,6 +587,8 @@ namespace evojacu.Migrations
                     b.Navigation("Korisnik");
 
                     b.Navigation("VrijemeIzvrsavanja");
+
+                    b.Navigation("Zadatak");
                 });
 
             modelBuilder.Entity("evojacu.Models.Poslodavac", b =>
@@ -506,7 +596,7 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Korisnik");
@@ -517,7 +607,7 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Korisnik");
@@ -528,10 +618,37 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
                         .HasForeignKey("KorisnikID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Korisnik");
+                });
+
+            modelBuilder.Entity("evojacu.Models.Recenzija", b =>
+                {
+                    b.HasOne("evojacu.Models.Posao", "Posao")
+                        .WithMany()
+                        .HasForeignKey("PosaoID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
+                        .WithMany()
+                        .HasForeignKey("PoslodavacID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("evojacu.Models.Posloprimaoc", "Posloprimaoc")
+                        .WithMany()
+                        .HasForeignKey("PosloprimaocID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Posao");
+
+                    b.Navigation("Poslodavac");
+
+                    b.Navigation("Posloprimaoc");
                 });
 
             modelBuilder.Entity("evojacu.Models.Transakcija", b =>
@@ -539,25 +656,25 @@ namespace evojacu.Migrations
                     b.HasOne("evojacu.Models.VrstaPlacanja", "VrstaPlacanja")
                         .WithMany()
                         .HasForeignKey("NacinPlacanjaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Posao", "Posao")
                         .WithMany()
                         .HasForeignKey("PosaoID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
                         .WithMany()
                         .HasForeignKey("PoslodavacID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("evojacu.Models.StanjePlacanja", "StanjePlacanja")
                         .WithMany()
                         .HasForeignKey("StanjePlacanjaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Posao");
@@ -567,6 +684,17 @@ namespace evojacu.Migrations
                     b.Navigation("StanjePlacanja");
 
                     b.Navigation("VrstaPlacanja");
+                });
+
+            modelBuilder.Entity("evojacu.Models.Zadatak", b =>
+                {
+                    b.HasOne("evojacu.Models.Kategorija", "Kategorija")
+                        .WithMany()
+                        .HasForeignKey("KategorijaID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Kategorija");
                 });
 #pragma warning restore 612, 618
         }
