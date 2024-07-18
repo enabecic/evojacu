@@ -7,5 +7,6 @@
         public string Adresa { get; set; }
         public int VrijemeIzvrsavanjaID { get; set; }
         public int FazaPoslaID { get; set; }
+        public float Cijena { get; set; }
     }
 }

@@ -1,32 +1,47 @@
-body,html{
+body, html {
   margin: 0;
   padding: 0;
-  height: 230vh;
-  background-color: rgb(244,244,244);;
+  height: 100vh; /* Adjusted for better height management */
+  background-color: rgb(244, 244, 244);
 }
-*{
-  margin: 0;
-  padding: 0;
 
+* {
+  margin: 0;
+  padding: 0;
 }
-html{
-  background-color: rgb(244,244,244);
+
+html {
+  background-color: rgb(244, 244, 244);
 }
-h1{
+
+h1 {
   text-align: center;
   font-family: "Book Antiqua";
   font-size: xxx-large;
-  color: rgb(48,48,48);
+  color: rgb(48, 48, 48);
+  margin-top: 20px; /* Added margin for better spacing */
 }
 
-.navigacija{
+.nav-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Allows wrapping for better responsiveness */
+  gap: 10px; /* Added space between buttons */
+  margin-top: 20px; /* Added margin for spacing */
+}
+
+.navigacija {
   background-color: rgb(218, 208, 174);
   border: 0;
   border-radius: 10px;
-  width: 150px;
+  flex: 1 1 150px; /* Makes the buttons take equal space and allows wrapping */
   height: 40px;
-  margin-right: 2px;
   color: white;
   font-weight: bold;
+  text-align: center;
+  line-height: 40px; /* Centers the text vertically */
 }
 
+button.router-link-active {
+  background-color: rgb(184, 174, 150); /* Optional: Different background for the active link */
+}

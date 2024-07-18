@@ -10,6 +10,7 @@
         public string Adresa { get; set; }
         public int PoslodavacID { get; set; }
         public int ZadatakStraniID { get; set; }
+        public float Cijena { get; set; }
 
     }
 }

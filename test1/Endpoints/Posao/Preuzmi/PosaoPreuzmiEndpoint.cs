@@ -37,7 +37,8 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                    PosaoID = x.ZadatakID,
                    ZadatakStraniID= x.ZadatakStraniID,
                    NazivZadatka=x.Zadatak.Naziv,
-                   DatumObjave=x.DatumObjave
+                   DatumObjave=x.DatumObjave, 
+                   Cijena=x.Cijena
                }).ToListAsync(cancellationToken: cancellationToken);
 
 

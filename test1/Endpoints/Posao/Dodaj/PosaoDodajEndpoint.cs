@@ -29,7 +29,8 @@ namespace evojacu.Endpoints.Posao.Dodaj
                 //JePonuda = request.JePonuda,
                 Adresa = request.Adresa,
                 ZadatakStraniID = request.ZadatakStraniID,
-                DatumObjave = DateTime.Now
+                DatumObjave = DateTime.Now, 
+                Cijena= request.Cijena
             };
 
             _applicationDbContext.Add(noviObj);

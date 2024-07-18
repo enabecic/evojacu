@@ -22,5 +22,6 @@
         public int ZadatakStraniID { get; set; }
         public string NazivZadatka { get; set; }
         public DateTime DatumObjave { get; set; }
+        public float Cijena { get; set; }
     }
 }
