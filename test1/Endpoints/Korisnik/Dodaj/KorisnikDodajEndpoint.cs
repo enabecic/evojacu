@@ -21,7 +21,12 @@ namespace evojacu.Endpoints.Korisnik.Dodaj
             {
                 Username = request.Username,
                 Email = request.Email,
-                Lozinka = request.Lozinka
+                Lozinka = request.Lozinka,
+                Ime = request.Ime,
+                Prezime= request.Prezime,
+                Adresa= request.Adresa,
+                Zanimanje= request.Zanimanje,
+                Telefon = request.Telefon
             };
             _applicationDbContext.Korisnici.Add(noviObj);
 

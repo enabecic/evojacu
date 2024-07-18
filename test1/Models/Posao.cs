@@ -34,13 +34,13 @@ namespace evojacu.Models
 
         //prebacila sam u Transakciju da bude PosaoID
         public string OpisPosla { get; set; }
-        public bool JePonuda { get; set; }
+       // public bool JePonuda { get; set; }
 
         public string Adresa { get; set; }
 
-        [ForeignKey(nameof(Korisnik))]
-        public int KorisnikID { get; set; }
-        public Korisnik Korisnik { get; set; }
+        [ForeignKey(nameof(Poslodavac))]
+        public int PoslodavacID { get; set; }
+        public Poslodavac Poslodavac { get; set; }
 
 
         [ForeignKey(nameof(Zadatak))]
@@ -48,6 +48,7 @@ namespace evojacu.Models
         public Zadatak Zadatak { get; set; }
 
 
+        public DateTime DatumObjave { get; set; }
 
     }
 }

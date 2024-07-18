@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using evojacu.Helpers;
 using evojacu.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace evojacu.Endpoints.FazaPosla.Preuzmi
 {
@@ -19,22 +20,35 @@ namespace evojacu.Endpoints.FazaPosla.Preuzmi
 
         public override async Task<FazaPoslaPreuzmiResponse> Obradi([FromQuery] FazaPoslaPreuzmiRequest request, CancellationToken cancellationToken = default)
         {
-            var fazeposlova = _applicationDbContext.FazePoslova.ToList();
 
-            var fazaposla = fazeposlova.FirstOrDefault(k => k.Naziv == request.Naziv);
+            var fazePoslova = await _applicationDbContext.FazePoslova.Where(x => request.Naziv == null || x.Naziv.ToLower().StartsWith(request.Naziv.ToLower()))
+                .Select(x => new FazaPoslaPreuzmiResponseFazaPosla()
+                {
+                     FazaPoslaID= x.FazaPoslaID,
+                      Naziv= x.Naziv,
+                       Opis= x.Opis
+                }).ToListAsync(cancellationToken: cancellationToken);
 
-            if (fazeposlova != null)
+            return new FazaPoslaPreuzmiResponse
             {
-                Console.WriteLine("Faza posla je pronađena!");
-                throw new Exception("Postojeca faza posla");
+                FazePoslova = fazePoslova
+            };
+            //var fazeposlova = _applicationDbContext.FazePoslova.ToList();
+
+            //var fazaposla = fazeposlova.FirstOrDefault(k => k.Naziv == request.Naziv);
+
+            //if (fazeposlova != null)
+            //{
+            //    Console.WriteLine("Faza posla je pronađena!");
+            //    throw new Exception("Postojeca faza posla");
 
 
-            }
-            else
-            {
-                Console.WriteLine("Faza posla nije pronađena!");
-                throw new Exception("Ne postoji faza posla");
-            }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Faza posla nije pronađena!");
+            //    throw new Exception("Ne postoji faza posla");
+            //}
 
 
         }

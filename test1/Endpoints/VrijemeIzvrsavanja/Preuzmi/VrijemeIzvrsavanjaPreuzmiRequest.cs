@@ -2,7 +2,7 @@
 {
     public class VrijemeIzvrsavanjaPreuzmiRequest
     {
-        public DateTime PocetnoVr { get; set; }
-        public DateTime KrajnjeVr { get; set; }
+        //public DateTime PocetnoVr { get; set; }
+        //public DateTime KrajnjeVr { get; set; }
     }
 }

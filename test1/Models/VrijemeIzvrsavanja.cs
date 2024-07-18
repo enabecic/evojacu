@@ -5,7 +5,7 @@ namespace evojacu.Models
     {
             [Key]
             public int VrijemeIzvrsavanjaID { get; set; }
-            public DateTime PocetakVremena { get; set; }
+            //public DateTime PocetakVremena { get; set; }
             public DateTime KrajVremena { get; set; }
 
           

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using evojacu.Helpers;
 using evojacu.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace evojacu.Endpoints.Grad.Preuzmi
 {
@@ -19,22 +20,35 @@ namespace evojacu.Endpoints.Grad.Preuzmi
 
         public override async Task<GradPreuzmiResponse> Obradi([FromQuery]GradPreuzmiRequest request, CancellationToken cancellationToken = default)
         {
-            var gradovi = _applicationDbContext.Gradovi.ToList();
 
-            var grad = gradovi.FirstOrDefault(k => k.Naziv == request.Naziv);
+            var gradovi = await _applicationDbContext.Gradovi.Where(x => request.Naziv == null || x.Naziv.ToLower().StartsWith(request.Naziv.ToLower()))
+                .Select(x => new GradPreuzmiResponseGrad()
+                {
+                    Naziv = x.Naziv,
+                    GradID = x.GradID
+                }).ToListAsync(cancellationToken: cancellationToken);
 
-            if (gradovi != null)
+            return new GradPreuzmiResponse
             {
-                Console.WriteLine("Grad je pronađen!");
-                throw new Exception("Postojeci Grad");
+                Gradovi = gradovi
+            };
+
+            //var gradovi = _applicationDbContext.Gradovi.ToList();
+
+            //var grad = gradovi.FirstOrDefault(k => k.Naziv == request.Naziv);
+
+            //if (gradovi != null)
+            //{
+            //    Console.WriteLine("Grad je pronađen!");
+            //    throw new Exception("Postojeci Grad");
 
 
-            }
-            else
-            {
-                Console.WriteLine("Grad nije pronađen!");
-                throw new Exception("Ne postoji Grad");
-            }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Grad nije pronađen!");
+            //    throw new Exception("Ne postoji Grad");
+            //}
 
 
         }

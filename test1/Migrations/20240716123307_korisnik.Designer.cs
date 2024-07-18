@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using evojacu.Models;
 
@@ -11,9 +12,11 @@ using evojacu.Models;
 namespace evojacu.Migrations
 {
     [DbContext(typeof(evojacuDBContext))]
-    partial class evojacuDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240716123307_korisnik")]
+    partial class korisnik
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,21 +237,21 @@ namespace evojacu.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DatumObjave")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("FazaPoslaId")
                         .HasColumnType("int");
 
                     b.Property<int>("GradId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("JePonuda")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("KorisnikID")
+                        .HasColumnType("int");
+
                     b.Property<string>("OpisPosla")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PoslodavacID")
-                        .HasColumnType("int");
 
                     b.Property<int>("VrijemeIzvrsavanjaId")
                         .HasColumnType("int");
@@ -262,7 +265,7 @@ namespace evojacu.Migrations
 
                     b.HasIndex("GradId");
 
-                    b.HasIndex("PoslodavacID");
+                    b.HasIndex("KorisnikID");
 
                     b.HasIndex("VrijemeIzvrsavanjaId");
 
@@ -283,6 +286,7 @@ namespace evojacu.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("NazivKompanije")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PoslodavacID");
@@ -574,9 +578,9 @@ namespace evojacu.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("evojacu.Models.Poslodavac", "Poslodavac")
+                    b.HasOne("evojacu.Models.Korisnik", "Korisnik")
                         .WithMany()
-                        .HasForeignKey("PoslodavacID")
+                        .HasForeignKey("KorisnikID")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -596,7 +600,7 @@ namespace evojacu.Migrations
 
                     b.Navigation("Grad");
 
-                    b.Navigation("Poslodavac");
+                    b.Navigation("Korisnik");
 
                     b.Navigation("VrijemeIzvrsavanja");
 

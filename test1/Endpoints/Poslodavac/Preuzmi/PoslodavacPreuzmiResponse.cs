@@ -2,7 +2,14 @@
 {
     public class PoslodavacPreuzmiResponse
     {
-        public int KorisnikId { get; set; }
-        public string NazivKompanije { get; set; }
+        public List<PoslodavacPreuzmiResponsePoslodavci> Poslodavci { get; set; }
+    }
+
+    public class PoslodavacPreuzmiResponsePoslodavci
+    {
+        public int PoslodavacID { get; set; }
+        public int KorisnikID { get; set; }
+        public string? NazivKompanije { get; set; }
+        public string UserName { get; set; }
     }
 }

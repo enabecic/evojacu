@@ -26,16 +26,18 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                    FazaPoslaID = x.FazaPoslaId,
                    NazivFazePosla = x.FazaPosla.Naziv,
                    Adresa = x.Adresa,
-                   JePonuda = x.JePonuda,
+                  // JePonuda = x.JePonuda,
                    GradID = x.GradId,
                    VrijemeIzvrsavanjaID = x.VrijemeIzvrsavanjaId,
+                   KrajVremena=x.VrijemeIzvrsavanja.KrajVremena,
                    NazivGrada = x.Grad.Naziv,
                    OpisPosla = x.OpisPosla,
-                   KorisnikID = x.KorisnikID,
-                   UserName = x.Korisnik.Username,
+                   PoslodavacID = x.PoslodavacID,
+                   UserName = x.Poslodavac.Korisnik.Username,
                    PosaoID = x.ZadatakID,
                    ZadatakStraniID= x.ZadatakStraniID,
-                   NazivZadatka=x.Zadatak.Naziv
+                   NazivZadatka=x.Zadatak.Naziv,
+                   DatumObjave=x.DatumObjave
                }).ToListAsync(cancellationToken: cancellationToken);
 
 

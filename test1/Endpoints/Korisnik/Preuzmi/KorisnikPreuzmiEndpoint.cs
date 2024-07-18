@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using evojacu.Helpers;
 using evojacu.Models;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace evojacu.Endpoints.Korisnik.Preuzmi
 {
@@ -20,26 +20,46 @@ namespace evojacu.Endpoints.Korisnik.Preuzmi
 
         public override async Task<KorisnikPreuzmiResponse> Obradi([FromQuery] KorisnikPreuzmiRequest request, CancellationToken cancellationToken = default)
         {
-            var korisnici = _applicationDbContext.Korisnici.ToList();
 
-            var korisnik = korisnici.FirstOrDefault(k => k.Email == request.Email);
-
-            if (korisnik != null)
-            {
-                Console.WriteLine("Korisnik je pronađen!");
-
-                return new KorisnikPreuzmiResponse
+            var korisnici = await _applicationDbContext.Korisnici
+                .Select(x => new KorisnikPreuzmiResponseKorisnici()
                 {
-                    Id = korisnik.KorisnikID
-                };
+                    Email = x.Email,
+                    Ime = x.Ime,
+                    Prezime = x.Prezime,
+                    Adresa = x.Adresa,
+                    Telefon = x.Telefon,
+                    KorisnikID = x.KorisnikID,
+                    Username = x.Username,
+                    Lozinka = x.Lozinka,
+                    Zanimanje = x.Zanimanje
+                }).ToListAsync(cancellationToken: cancellationToken);
 
-
-            }
-            else
+            return new KorisnikPreuzmiResponse
             {
-                Console.WriteLine("Korisnik nije pronađen!");
-                throw new Exception("Ne postoji email ili lozinka");
-            }
+                Korisnici = korisnici
+            };
+
+            //var korisnici = _applicationDbContext.Korisnici.ToList();
+
+            //var korisnik = korisnici.FirstOrDefault(k => k.Email == request.Email);
+
+            //if (korisnik != null)
+            //{
+            //    Console.WriteLine("Korisnik je pronađen!");
+
+            //    return new KorisnikPreuzmiResponse
+            //    {
+            //        Id = korisnik.KorisnikID
+            //    };
+
+
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Korisnik nije pronađen!");
+            //    throw new Exception("Ne postoji email ili lozinka");
+            //}
 
 
         }

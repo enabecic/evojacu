@@ -20,7 +20,7 @@ namespace evojacu.Models
 
         //public Korisnik Korisnik { get; set; }
 
-        public string NazivKompanije { get; set; }
+        public string? NazivKompanije { get; set; }
 
     }
 

@@ -2,6 +2,12 @@
 {
     public class GradPreuzmiResponse
     {
-        public int GradId { get; set; }
+        public List<GradPreuzmiResponseGrad> Gradovi { get; set; }
+    }
+
+    public class GradPreuzmiResponseGrad
+    {
+        public int GradID { get; set; }
+        public string Naziv { get; set; }
     }
 }

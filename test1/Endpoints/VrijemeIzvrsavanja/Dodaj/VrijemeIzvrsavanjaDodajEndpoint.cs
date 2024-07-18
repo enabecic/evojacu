@@ -23,7 +23,7 @@ namespace evojacu.Endpoints.VrijemeIzvrsavanja.Dodaj
             var noviObj = new evojacu.Models.VrijemeIzvrsavanja
             {
 
-                PocetakVremena = request.PocetnoVr,
+                //PocetakVremena = request.PocetnoVr,
                 KrajVremena= request.KrajnjeVr
             };
             _applicationDbContext.VremenaIzvrsavanja.Add(noviObj);

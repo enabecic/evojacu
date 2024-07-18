@@ -28,7 +28,7 @@ namespace evojacu.Endpoints.VrijemeIzvrsavanja.Update
                 throw new Exception("Nema vremena koji posjeduje ID -> " + request.vrijemeid);
             }
 
-            vremena.PocetakVremena = request.PocetakVr;
+            //vremena.PocetakVremena = request.PocetakVr;
             vremena.KrajVremena = request.KrajVr;
 
 

@@ -2,6 +2,6 @@
 {
     public class PoslodavacPreuzmiRequest
     {
-        public int PoslodavacID { get; set; }
+        //public int PoslodavacID { get; set; }
     }
 }

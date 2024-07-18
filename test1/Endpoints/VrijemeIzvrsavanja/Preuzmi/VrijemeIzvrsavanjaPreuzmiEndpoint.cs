@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using evojacu.Helpers;
 using evojacu.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace evojacu.Endpoints.VrijemeIzvrsavanja.Preuzmi
 {
@@ -19,23 +20,36 @@ namespace evojacu.Endpoints.VrijemeIzvrsavanja.Preuzmi
 
         public override async Task<VrijemeIzvrsavanjaPreuzmiResponse> Obradi([FromQuery] VrijemeIzvrsavanjaPreuzmiRequest request, CancellationToken cancellationToken = default)
         {
-            var vremena = _applicationDbContext.VremenaIzvrsavanja.ToList();
 
-            var vrijeme = vremena.FirstOrDefault(k => k.PocetakVremena == request.PocetnoVr && k.KrajVremena == request.KrajnjeVr);
+            var vremenaIzvrsavanja = await _applicationDbContext.VremenaIzvrsavanja
+                .Select(x => new VrijemeIzvrsavanjaPreuzmiResponseVremenaIzvrsavanja()
+                {
+                    VrijemeIzvrsavanjaID = x.VrijemeIzvrsavanjaID,
+                    KrajVremena = x.KrajVremena
+                }).ToListAsync(cancellationToken: cancellationToken);
 
-
-            if (vremena != null)
+            return new VrijemeIzvrsavanjaPreuzmiResponse
             {
-                Console.WriteLine("Vrijeme je pronađeno!");
-                throw new Exception("Postojece vrijeme");
+                VremenaIzvrsavanja = vremenaIzvrsavanja
+            }; 
+
+            //var vremena = _applicationDbContext.VremenaIzvrsavanja.ToList();
+
+            //var vrijeme = vremena.FirstOrDefault(k =>  k.KrajVremena == request.KrajnjeVr);
 
 
-            }
-            else
-            {
-                Console.WriteLine("Vrijeme nije pronađeno!");
-                throw new Exception("Ne postoji vrijeme");
-            }
+            //if (vremena != null)
+            //{
+            //    Console.WriteLine("Vrijeme je pronađeno!");
+            //    throw new Exception("Postojece vrijeme");
+
+
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Vrijeme nije pronađeno!");
+            //    throw new Exception("Ne postoji vrijeme");
+            //}
 
 
         }

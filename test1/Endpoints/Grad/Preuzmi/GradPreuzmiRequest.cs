@@ -2,6 +2,6 @@
 {
     public class GradPreuzmiRequest
     {
-        public string Naziv { get; set; }
+        public string? Naziv { get; set; }
     }
 }

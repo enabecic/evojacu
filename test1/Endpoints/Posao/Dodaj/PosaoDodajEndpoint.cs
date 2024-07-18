@@ -21,14 +21,15 @@ namespace evojacu.Endpoints.Posao.Dodaj
         {
             var noviObj = new evojacu.Models.Posao
             {
-                KorisnikID = request.KorisnikID,
+                PoslodavacID = request.PoslodavacID,
                 VrijemeIzvrsavanjaId = request.VrijemeIzvrsavanjaID,
                 GradId = request.GradID,
                 FazaPoslaId = request.FazaPoslaID,
                 OpisPosla = request.OpisPosla,
-                JePonuda = request.JePonuda,
+                //JePonuda = request.JePonuda,
                 Adresa = request.Adresa,
-                ZadatakStraniID=request.ZadatakStraniID
+                ZadatakStraniID = request.ZadatakStraniID,
+                DatumObjave = DateTime.Now
             };
 
             _applicationDbContext.Add(noviObj);

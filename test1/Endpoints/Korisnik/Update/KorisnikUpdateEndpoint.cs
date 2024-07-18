@@ -30,8 +30,13 @@ namespace evojacu.Endpoints.Korisnik.Update
             korisnici.Username = request.Username;
             korisnici.Email = request.Email;
             korisnici.Lozinka = request.Lozinka;
+            korisnici.Ime= request.Ime;
+            korisnici.Prezime= request.Prezime;
+            korisnici.Zanimanje= request.Zanimanje;
+            korisnici.Telefon= request.Telefon;
+            korisnici.Adresa= request.Adresa;
 
-            await _applicationDbContext.SaveChangesAsync();//izvrašva se "insert into Ispit value ...."
+            await _applicationDbContext.SaveChangesAsync();
 
             return new KorisnikUpdateResponse
             {
