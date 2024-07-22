@@ -1,0 +1,59 @@
+<div *ngIf="posao" class="detail-container">
+  <h2>Detalji o poslu</h2>
+  <hr>
+  <br>
+  <div class="detail-row">
+    <p class="label"><strong>Naziv posla:</strong></p>
+    <p class="value">{{ posao.nazivZadatka }}</p>
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>Opis posla:</strong></p>
+    <p class="value">{{ posao.opisPosla }}</p>
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>Poslodavac:</strong></p>
+    <p class="value">{{ posao.userName }}</p>
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>Datum objave:</strong></p>
+    <p class="value">{{ posao.datumObjave | date }}</p>
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>Rok izvršavanja:</strong></p>
+    <p class="value">{{ posao.krajVremena | date }}</p>
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>Grad:</strong></p>
+    <p class="value">{{ posao.nazivGrada }}</p>
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>Adresa:</strong></p>
+    <p class="value">{{ posao.adresa }}</p>
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>GPS:</strong></p>
+    <p class="value">
+    <div class="toggle-container">
+      <div class="toggle-button" [ngClass]="{'enabled': posao.ukljucenGPS, 'disabled': !posao.ukljucenGPS}">
+        <div class="inner-circle" [ngClass]="{'enabled': posao.ukljucenGPS, 'disabled': !posao.ukljucenGPS}"></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="detail-row">
+    <p class="label"><strong>Cijena:</strong></p>
+    <p class="value">{{ posao.cijena }} KM</p>
+  </div>
+
+  <br>
+  <br>
+
+  <div class="dugme">
+    <button class="odaberi">Odaberi</button>
+  </div>
+  <br>
+
+
+
+</div>
+<br>

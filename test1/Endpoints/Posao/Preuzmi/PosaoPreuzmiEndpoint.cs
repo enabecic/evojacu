@@ -38,7 +38,8 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                    ZadatakStraniID= x.ZadatakStraniID,
                    NazivZadatka=x.Zadatak.Naziv,
                    DatumObjave=x.DatumObjave, 
-                   Cijena=x.Cijena
+                   Cijena=x.Cijena,
+                   UkljucenGPS=x.UkljucenGPS
                }).ToListAsync(cancellationToken: cancellationToken);
 
 
@@ -46,6 +47,42 @@ namespace evojacu.Endpoints.Posao.Preuzmi
             {
                 Poslovi = poslovi
             };
+        }
+
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PosaoPreuzmiResponsePosao>> GetPosaoById(int id, CancellationToken cancellationToken = default)
+        {
+            var posao = await _applicationDbContext.Poslovi
+                .Where(x => x.ZadatakID == id)
+                .Select(x => new PosaoPreuzmiResponsePosao()
+                {
+                    FazaPoslaID = x.FazaPoslaId,
+                    NazivFazePosla = x.FazaPosla.Naziv,
+                    Adresa = x.Adresa,
+                    GradID = x.GradId,
+                    VrijemeIzvrsavanjaID = x.VrijemeIzvrsavanjaId,
+                    KrajVremena = x.VrijemeIzvrsavanja.KrajVremena,
+                    NazivGrada = x.Grad.Naziv,
+                    OpisPosla = x.OpisPosla,
+                    PoslodavacID = x.PoslodavacID,
+                    UserName = x.Poslodavac.Korisnik.Username,
+                    PosaoID = x.ZadatakID,
+                    ZadatakStraniID = x.ZadatakStraniID,
+                    NazivZadatka = x.Zadatak.Naziv,
+                    DatumObjave = x.DatumObjave,
+                    Cijena = x.Cijena,
+                    UkljucenGPS= x.UkljucenGPS
+                })
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            if (posao == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(posao);
         }
     }
 }

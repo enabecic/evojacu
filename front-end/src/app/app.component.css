@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100vh; /* Adjusted for better height management */
+  height: 100%; /* Adjusted for better height management */
   background-color: rgb(244, 244, 244);
 }
 

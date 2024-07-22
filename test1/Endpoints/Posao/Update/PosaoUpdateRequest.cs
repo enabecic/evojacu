@@ -8,5 +8,6 @@
         public int VrijemeIzvrsavanjaID { get; set; }
         public int FazaPoslaID { get; set; }
         public float Cijena { get; set; }
+        public bool UkljucenGPS { get; set; }
     }
 }

@@ -1,0 +1,124 @@
+/* Osnovni stilovi za cijelu stranicu */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Kontejner detalja */
+.detail-container {
+  font-size: 1.3rem;
+  font-family: "Book Antiqua";
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 20px auto; /* Centriranje kontejnera */
+  box-sizing: border-box; /* Uključuje padding u ukupnu širinu */
+}
+
+strong{
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-family: "Book Antiqua";
+  font-size: 2rem;
+  text-align: center;
+}
+
+/* Raspored redova s lijeva i desna */
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Stil za oznaku (label) */
+.label {
+  flex: 1;
+  text-align: left;
+  padding-right: 10px; /* Razmak od desne strane */
+}
+
+/* Stil za vrijednost */
+.value {
+  flex: 1;
+  text-align: right;
+  padding-left: 10px; /* Razmak od lijeve strane */
+}
+
+/* Toggle button kontejner */
+.toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Stil za vanjski krug (toggle button) */
+.toggle-button {
+  display: flex;
+  align-items: center;
+  width: 60px; /* Promjer vanjskog kruga */
+  height: 30px;
+  border-radius: 15px; /* Polumjer da bi bio kružan */
+  background-color: #9E9E9E; /* Zadana boja */
+  position: relative;
+}
+
+/* Stil za unutarnji krug (toggle button) */
+.inner-circle {
+  width: 26px; /* Promjer unutarnjeg kruga */
+  height: 26px;
+  border-radius: 50%;
+  background-color: #FFFFFF; /* Boja unutarnjeg kruga */
+  position: absolute;
+  top: 50%;
+  left: 2px; /* Početni položaj unutarnjeg kruga */
+  transform: translateY(-50%);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Toggle button boja kad je omogućeno */
+.toggle-button.enabled {
+  background-color: #42b642; /* Zelena boja kad je omogućeno */
+}
+
+/* Toggle button boja kad je onemogućeno */
+.toggle-button.disabled {
+  background-color: #9E9E9E; /* Siva boja kad je onemogućeno */
+}
+
+/* Pozicioniranje unutarnjeg kruga kad je omogućeno */
+.inner-circle.enabled {
+  left: calc(100% - 28px); /* Pomak za desno */
+}
+
+/* Pozicioniranje unutarnjeg kruga kad je onemogućeno */
+.inner-circle.disabled {
+  left: 2px; /* Pomak za lijevo */
+}
+
+.dugme {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+.odaberi {
+  background-color: rgb(218, 208, 174);
+  border: 0;
+  border-radius: 10px;
+  width: 250px; /* Širina dugmeta */
+  height: 40px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px; /* Centriranje teksta vertikalno */
+}
+
+
+

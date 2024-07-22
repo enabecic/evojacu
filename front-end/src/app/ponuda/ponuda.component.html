@@ -8,14 +8,28 @@
     <h1>Sve kategorije</h1>
   </div>
   <br>
-  <div class="Katalog">
-    <h2>Katalog</h2>
+
+  <div class="pretraga-container">
+    <div class="pretraga-wrapper">
+      <input
+        type="text"
+        placeholder="Pretraži poslove..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearchChange()"
+        class="pretraga-input"
+      />
+      <span class="clear-button" *ngIf="searchTerm" (click)="clearSearch()">&times;</span>
+    </div>
   </div>
+
+
+
+
 </header>
 
 <main>
   <div class="containerPonude">
-    <div *ngFor="let posao of poslovi" class="Pozadina">
+    <div class="Pozadina" *ngFor="let posao of filteredPoslovi" (click)="navigateToDetails(posao.posaoID)">
       <div class="Ponuda">
         <p class="TekstPonude">{{ posao.nazivZadatka }}</p>
         <p class="TekstPonude">{{ posao.cijena }} KM</p>
@@ -23,4 +37,5 @@
     </div>
   </div>
 </main>
+
 </body>

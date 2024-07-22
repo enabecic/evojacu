@@ -11,6 +11,7 @@
         public int PoslodavacID { get; set; }
         public int ZadatakStraniID { get; set; }
         public float Cijena { get; set; }
+        public bool UkljucenGPS { get; set; }
 
     }
 }

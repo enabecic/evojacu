@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import { KategorijePoslovaComponent } from './kategorije-poslova/kategorije-poslova.component';
 import {HttpClientModule} from "@angular/common/http";
 import { RegistracijaloginComponent } from './registracijalogin/registracijalogin.component';
+import { PosaoDetaljiComponent } from './posao-detalji/posao-detalji.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RegistracijaloginComponent } from './registracijalogin/registracijalogi
     PotraznjaComponent,
     PonudaComponent,
     KategorijePoslovaComponent,
-    RegistracijaloginComponent
+    RegistracijaloginComponent,
+    PosaoDetaljiComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,7 @@ import { RegistracijaloginComponent } from './registracijalogin/registracijalogi
       {path: 'ponuda', component: PonudaComponent},
       {path: 'kategorijePoslova', component: KategorijePoslovaComponent},
       {path: 'registracijalogin' , component: RegistracijaloginComponent},
-
+      { path: 'posao-detalji/:id', component: PosaoDetaljiComponent },
 
 
     ]),

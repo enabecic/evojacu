@@ -30,7 +30,7 @@ namespace evojacu.Endpoints.Posao.Update
             posao.VrijemeIzvrsavanjaId = request.VrijemeIzvrsavanjaID;
             posao.OpisPosla=request.OpisPosla;
             posao.Cijena=request.Cijena;
-
+            posao.UkljucenGPS = request.UkljucenGPS;
 
             await _applicationDbContext.SaveChangesAsync();
 

@@ -51,6 +51,7 @@ namespace evojacu.Models
         public DateTime DatumObjave { get; set; }
 
         public float Cijena { get; set; }
+        public bool UkljucenGPS { get; set; }
 
     }
 }
