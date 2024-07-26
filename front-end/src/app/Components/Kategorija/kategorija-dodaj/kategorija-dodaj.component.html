@@ -1,0 +1,47 @@
+
+
+<button class="form-label" (click)="novaKategorija()">Nova kategorija</button>
+
+<div *ngIf="nova_kategorija != null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj komponentu</h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="nova_kategorija = null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Naziv komponente</label>
+          <input [(ngModel)]="nova_kategorija.naziv" class="form-control" placeholder="Naziv">
+        </div>
+        <div>
+          <label>Nova slika</label>
+          <input id="slika-input" type="file" accept="image/*" (change)="generisi_preview()">
+          <img style="max-width: 100%; height: 200px" src="{{this.nova_kategorija?.slika_base64_format}}">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="nova_kategorija = null">Close</button>
+        <button type="button" class="btn btn-primary" (click)="snimiKategoriju()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Naziv</th>
+    <th>Slika</th>
+    <th>Akcija</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of kategorije">
+    <td>{{ item.naziv }}</td>
+    <td>
+      <img class="profilna-slika" style="max-width: 100%; height: 100px" [src]="MojConfig.adresa_servera + '/Kategorija/slika?id=' + item.kategorijaID">
+    </td>
+  </tr>
+  </tbody>
+</table>

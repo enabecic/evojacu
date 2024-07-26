@@ -7,5 +7,6 @@ namespace evojacu.Models
         [Key]
         public int KategorijaID { get; set; }
         public string Naziv { get; set; }
+        public string? Slika { get; set; }
     }
 }

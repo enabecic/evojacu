@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {KategorijaPreuzmiResponse, KategorijaPreuzmiResponseKategorija} from "./kategorija-preuzmi-response";
-import {MojConfig} from "../moj-config";
+import {MojConfig} from "../../moj-config";
 
 @Component({
   selector: 'app-kategorije-poslova',

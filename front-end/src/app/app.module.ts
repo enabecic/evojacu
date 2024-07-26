@@ -9,10 +9,12 @@ import { KorisnickiProfilComponent } from './korisnicki-profil/korisnicki-profil
 import { PotraznjaComponent } from './potraznja/potraznja.component';
 import { PonudaComponent } from './ponuda/ponuda.component';
 import {FormsModule} from "@angular/forms";
-import { KategorijePoslovaComponent } from './kategorije-poslova/kategorije-poslova.component';
+import { KategorijePoslovaComponent } from './Components/kategorije-poslova/kategorije-poslova.component';
 import {HttpClientModule} from "@angular/common/http";
 import { RegistracijaloginComponent } from './registracijalogin/registracijalogin.component';
 import { PosaoDetaljiComponent } from './posao-detalji/posao-detalji.component';
+import { KategorijaDodajComponent } from './Components/Kategorija/kategorija-dodaj/kategorija-dodaj.component';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { PosaoDetaljiComponent } from './posao-detalji/posao-detalji.component';
     PonudaComponent,
     KategorijePoslovaComponent,
     RegistracijaloginComponent,
-    PosaoDetaljiComponent
+    PosaoDetaljiComponent,
+    KategorijaDodajComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -38,6 +42,7 @@ import { PosaoDetaljiComponent } from './posao-detalji/posao-detalji.component';
       {path: 'kategorijePoslova', component: KategorijePoslovaComponent},
       {path: 'registracijalogin' , component: RegistracijaloginComponent},
       { path: 'posao-detalji/:id', component: PosaoDetaljiComponent },
+      {path: 'kategorija-dodaj' , component: KategorijaDodajComponent},
 
 
     ]),
