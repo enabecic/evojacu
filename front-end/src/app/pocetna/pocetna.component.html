@@ -1,9 +1,6 @@
-
-
-<body>
 <div class="containerSlika">
   <div class="left-content">
-    <h2>Dobrodošli </h2>
+    <h2>Dobrodošli</h2>
   </div>
   <div routerLink="/korisnickiProfil" class="right-content">
     <img class="korisnickiProfil" src="assets/profil.png" alt="profil">
@@ -17,8 +14,6 @@
 
 <br>
 
-
-
 <div class="datum">
   <div class="tekst-container">
     <p class="uPotraziSi">U potrazi si?</p>
@@ -31,34 +26,13 @@
 <br>
 <br><br>
 
-<div class="red-container">
-  <div class="lijevoRozi">
-    <div class="kocka-roza">
-      <div class="bijeli"></div>
-      <div class="bijeli"></div>
-      <div class="bijeli"></div>
-      <div class="bijeli"></div>
+<div class="carousel-container">
+  <button (click)="prevPage()" class="carousel-button">&lt;</button>
+  <div class="carousel">
+    <div *ngFor="let kategorija of currentKategorije" class="kategorija">
+      <img class="kategorija-slika" [src]="kategorija.slika" alt="Kategorija slika">
+      <p>{{ kategorija.naziv }}</p>
     </div>
-    <p class="sveTekst">Sve</p>
   </div>
-
+  <button (click)="nextPage()" class="carousel-button">&gt;</button>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-

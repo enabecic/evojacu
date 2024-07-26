@@ -1,44 +1,47 @@
-body,html{
+body, html {
   margin: 0;
   padding: 0;
   height: 230vh;
-  background-color: rgb(244,244,244);;
+  background-color: rgb(244, 244, 244);
 }
-*{
 
+* {
   margin: 0;
   padding: 0;
+}
 
+html {
+  background-color: rgb(244, 244, 244);
 }
-html{
-  background-color: rgb(244,244,244);
-}
-h1{
+
+h1 {
   text-align: center;
   font-family: "Book Antiqua";
   font-size: xxx-large;
-  color: rgb(48,48,48);
+  color: rgb(48, 48, 48);
 }
-h2{
+
+h2 {
   font-family: "Book Antiqua";
   font-size: xx-large;
-  color: rgb(48,48,48);
+  color: rgb(48, 48, 48);
 }
+
 .container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
   margin-left: 60px;
   padding: 0;
-  width: 100%; /* Proširuje .container do kraja stranice */
-  box-sizing: border-box; /* Uzima u obzir padding prilikom računanja ukupne širine */
-
+  width: 100%;
+  box-sizing: border-box;
 }
+
 .centered-button1,
-.centered-button2{
+.centered-button2 {
   flex-grow: 1;
-  background-color: rgb(218,208,174); /* Crvena boja za button-red */
-  color: #fff; /* Bijeli tekst */
+  background-color: rgb(218, 208, 174);
+  color: #fff;
   padding: 15px;
   font-size: 18px;
   border: none;
@@ -48,15 +51,16 @@ h2{
 }
 
 .centered-button2 {
-  background-color: rgb(225,224,224);
-  color: rgb(48,48,48);
+  background-color: rgb(225, 224, 224);
+  color: rgb(48, 48, 48);
   font-weight: bold;
 }
+
 .containerSlika {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px; /* Dodajte potrebni razmak između teksta i slike */
+  padding: 20px;
 }
 
 .left-content {
@@ -66,20 +70,23 @@ h2{
 .right-content {
   text-align: right;
 }
-.korisnickiProfil{
+
+.korisnickiProfil {
   width: 50px;
   cursor: pointer;
 }
-.slikaDatum{
+
+.slikaDatum {
   width: 250px;
   padding-right: 100px;
 }
-p{
-  font-family: "Book Antiqua";
 
+p {
+  font-family: "Book Antiqua";
 }
-.datum{
-  background-color: rgb(218,208,174);
+
+.datum {
+  background-color: rgb(218, 208, 174);
   border-radius: 10px;
   height: 180px;
   color: white;
@@ -89,15 +96,17 @@ p{
 }
 
 .tekst-container {
-  flex-grow: 1; /* Tekst-container raste kako bi popunio dostupni prostor */
-  padding: 0 6px; /* Dodajte potrebne margine između tekstova i slike */
+  flex-grow: 1;
+  padding: 0 6px;
   padding-bottom: 40px;
 }
-.uPotraziSi{
+
+.uPotraziSi {
   font-size: xxx-large;
   padding-left: 100px;
 }
-.tekst{
+
+.tekst {
   padding-left: 100px;
   font-size: x-large;
 }
@@ -105,43 +114,78 @@ p{
 .kocka-roza {
   width: 100px;
   height: 100px;
-  background-color: rgb(218,208,174);
+  background-color: rgb(218, 208, 174);
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Postavlja ravnotežu između elemenata */
-  padding: 15px; /* Padding između roze kvadrata i bijelih kvadrata */
+  justify-content: space-between;
+  padding: 15px;
   padding-top: 20px;
   border-radius: 10px;
 }
 
 .bijeli {
-  width: calc(50% - 5px); /* Polovina širine s paddingom sa svake strane */
-  height: calc(50% - 10px); /* Polovina visine s paddingom sa svake strane */
+  width: calc(50% - 5px);
+  height: calc(50% - 10px);
   background-color: #fff;
-
-  box-sizing: border-box; /* Osigurava da padding bude uključen u ukupnu širinu i visinu */
+  box-sizing: border-box;
 }
 
-.sveTekst{
-  color: rgb(48,48,48);
+.sveTekst {
+  color: rgb(48, 48, 48);
   padding-left: 50px;
 }
 
-
-
-/* styles.css */
 .red-container {
   display: flex;
   align-items: center;
 }
 
-.lijevoRozi{
+.lijevoRozi {
   margin-left: 50px;
 }
-.Inline{
+
+.Inline {
   display: inline-block;
 }
 
+.carousel {
+  display: flex;
+  overflow: hidden;
+  width: calc(100% - 100px);
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 
+.carousel-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
 
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
 
+.kategorija {
+  flex: 0 0 20%;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: white;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.kategorija-slika {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.arrow {
+  cursor: pointer;
+  font-size: 24px;
+  user-select: none;
+}
