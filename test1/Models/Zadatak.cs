@@ -12,5 +12,6 @@ namespace evojacu.Models
 
         public string Naziv { get; set; }
         public string Opis { get; set; }
+        public string? Slika { get; set; }
     }
 }

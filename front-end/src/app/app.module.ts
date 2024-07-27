@@ -14,6 +14,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { RegistracijaloginComponent } from './registracijalogin/registracijalogin.component';
 import { PosaoDetaljiComponent } from './posao-detalji/posao-detalji.component';
 import { KategorijaDodajComponent } from './Components/Kategorija/kategorija-dodaj/kategorija-dodaj.component';
+import { ZadatakComponent } from './Components/Zadatak/zadatak/zadatak.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { KategorijaDodajComponent } from './Components/Kategorija/kategorija-dod
     RegistracijaloginComponent,
     PosaoDetaljiComponent,
     KategorijaDodajComponent,
+    ZadatakComponent,
 
   ],
   imports: [
@@ -43,6 +45,7 @@ import { KategorijaDodajComponent } from './Components/Kategorija/kategorija-dod
       {path: 'registracijalogin' , component: RegistracijaloginComponent},
       { path: 'posao-detalji/:id', component: PosaoDetaljiComponent },
       {path: 'kategorija-dodaj' , component: KategorijaDodajComponent},
+      {path: 'zadatak' , component: ZadatakComponent},
 
 
     ]),
