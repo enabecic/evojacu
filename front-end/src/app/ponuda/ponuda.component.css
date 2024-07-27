@@ -48,27 +48,44 @@ hr {
   background-color: white;
   flex: 1 1 calc(33.333% - 1rem); /* Ažurirano zbog smanjenog gap-a */
   max-width: calc(33.333% - 1rem);
-  height: 350px;
+  height: auto; /* Automatska visina */
   border-radius: 10px;
   margin: 10px 0; /* Vertikalni razmak između kartica */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .Ponuda {
-  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Smanjen padding */
   width: 100%;
-  height: 100%;
+}
+
+.zadatak-slika {
+  max-width: 100%;
+  height: 170px;
+  margin-bottom: 10px; /* Razmak ispod slike */
+}
+
+.tekst-container {
+  text-align: center;
 }
 
 .TekstPonude {
   font-family: "Book Antiqua";
   color: rgb(48, 48, 48);
   font-size: 20px;
+  margin: 5px 0;
 }
 
 .pretraga-container {
   text-align: center;
   padding: 1rem 0;
-
 }
 
 .pretraga-wrapper {

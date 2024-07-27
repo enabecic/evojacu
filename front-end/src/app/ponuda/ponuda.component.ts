@@ -8,6 +8,7 @@ interface Posao {
   posaoID: number;
   nazivZadatka: string;
   cijena: number;
+  zadatakStraniID: number;
 }
 
 @Component({
@@ -55,6 +56,9 @@ export class PonudaComponent implements OnInit {
   }
 
 
+  getZadatakSlikaURL(zadatakID: number): string {
+    return `${MojConfig.adresa_servera}/Zadatak/slika?id=${zadatakID}`;
+  }
 
 
 }

@@ -8,7 +8,6 @@
     <h1>Sve kategorije</h1>
   </div>
   <br>
-
   <div class="pretraga-container">
     <div class="pretraga-wrapper">
       <input
@@ -21,21 +20,18 @@
       <span class="clear-button" *ngIf="searchTerm" (click)="clearSearch()">&times;</span>
     </div>
   </div>
-
-
-
-
 </header>
-
 <main>
   <div class="containerPonude">
     <div class="Pozadina" *ngFor="let posao of filteredPoslovi" (click)="navigateToDetails(posao.posaoID)">
       <div class="Ponuda">
-        <p class="TekstPonude">{{ posao.nazivZadatka }}</p>
-        <p class="TekstPonude">{{ posao.cijena }} KM</p>
+        <img class="zadatak-slika" [src]="getZadatakSlikaURL(posao.zadatakStraniID)" alt="Kategorija slika">
+        <div class="tekst-container">
+          <p class="TekstPonude">{{ posao.nazivZadatka }}</p>
+          <p class="TekstPonude">{{ posao.cijena }} KM</p>
+        </div>
       </div>
     </div>
   </div>
 </main>
-
 </body>

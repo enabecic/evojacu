@@ -43,4 +43,8 @@ export class PosaoDetaljiComponent implements OnInit {
   getPosaoById(id: number): Observable<Posao> {
     return this.http.get<Posao>(`${MojConfig.adresa_servera}/Posao-preuzmi/${id}`);
   }
+
+  getZadatakSlikaURL(zadatakID: number): string {
+    return `${MojConfig.adresa_servera}/Zadatak/slika?id=${zadatakID}`;
+  }
 }

@@ -3,9 +3,13 @@
   <hr>
   <br>
   <div class="detail-row">
+    <img class="zadatak-slika" [src]="getZadatakSlikaURL(posao.zadatakStraniID)" alt="Kategorija slika">
+  </div>
+  <div class="detail-row">
     <p class="label"><strong>Naziv posla:</strong></p>
     <p class="value">{{ posao.nazivZadatka }}</p>
   </div>
+
   <div class="detail-row">
     <p class="label"><strong>Opis posla:</strong></p>
     <p class="value">{{ posao.opisPosla }}</p>

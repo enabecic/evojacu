@@ -18,7 +18,7 @@ html, body {
   box-sizing: border-box; /* Uključuje padding u ukupnu širinu */
 }
 
-strong{
+strong {
   font-size: 1.5rem;
 }
 
@@ -48,6 +48,15 @@ h2 {
   flex: 1;
   text-align: right;
   padding-left: 10px; /* Razmak od lijeve strane */
+}
+
+/* Stil za sliku zadatka */
+.zadatak-slika {
+  max-width: 90%;
+  height: 300px;
+  max-height: 500px; /* Ograničenje maksimalne visine */
+  display: block; /* Blok element za centriranje */
+  margin: 0 auto; /* Automatsko centriranje */
 }
 
 /* Toggle button kontejner */
@@ -105,9 +114,8 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-
-
 }
+
 .odaberi {
   background-color: rgb(218, 208, 174);
   border: 0;
@@ -119,6 +127,3 @@ h2 {
   text-align: center;
   line-height: 40px; /* Centriranje teksta vertikalno */
 }
-
-
-
