@@ -82,6 +82,7 @@ namespace evojacu.Endpoints.Kategorija.Update
                         newWidth = original.Width * newMaxSize / original.Height;
                     }
 
+
                     using (SKBitmap resized = original.Resize(new SKImageInfo(newWidth, newHeight), SKFilterQuality.High))
                     using (SKImage image = SKImage.FromBitmap(resized))
                     using (SKData data = image.Encode(SKEncodedImageFormat.Jpeg, 80))

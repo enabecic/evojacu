@@ -6,6 +6,7 @@ import { MojConfig } from '../../../moj-config';
 interface Kategorija {
   kategorijaID: number;
   naziv: string;
+  timestamp?: number;
 }
 
 @Component({
@@ -17,6 +18,7 @@ export class KategorijaDodajComponent implements OnInit {
 
   kategorije: Kategorija[] = [];
   nova_kategorija: any;
+  nazivInvalid: boolean = false;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
@@ -30,13 +32,24 @@ export class KategorijaDodajComponent implements OnInit {
       naziv: '',
       slika_base64_format: ''
     };
+    this.nazivInvalid = false; // Resetujte stanje validacije prilikom dodavanja nove kategorije
   }
 
   snimiKategoriju() {
-    this.http.post("https://localhost:7027/Kategorija-dodaj", this.nova_kategorija).subscribe((x: any) => {
+    if (!this.nova_kategorija.naziv) {
+      this.nazivInvalid = true; // Postavite stanje validacije na true
+      return;
+    }
+
+    const url = this.nova_kategorija.kategorijaID === 0
+      ? `${MojConfig.adresa_servera}/Kategorija-dodaj`
+      : `${MojConfig.adresa_servera}/Kategorija-update`;
+
+    this.http.post(url, this.nova_kategorija).subscribe((x: any) => {
       alert("uredu");
-      this.getKategorije(); // osveži listu kategorija nakon dodavanja nove
+      this.getKategorije(); // osveži listu kategorija nakon dodavanja ili uređivanja
     });
+
     this.nova_kategorija = null;
   }
 
@@ -53,7 +66,10 @@ export class KategorijaDodajComponent implements OnInit {
 
   getKategorije(): void {
     this.http.get<{ kategorije: Kategorija[] }>(`${MojConfig.adresa_servera}/Kategorija-preuzmi`).subscribe(response => {
-      this.kategorije = response.kategorije;
+      this.kategorije = response.kategorije.map(kat => ({
+        ...kat,
+        timestamp: Date.now() // Dodavanje timestamp-a za cache busting
+      }));
     });
   }
 
@@ -64,7 +80,7 @@ export class KategorijaDodajComponent implements OnInit {
           this.getKategorije(); // Osveži listu kategorija nakon brisanja
           alert("Kategorija obrisana");
         }, error => {
-          alert("Greška prilikom brisanja kategorije");
+          alert("Greška prilikom brisanja kategorije, kategorija se koristi u zadacima");
         });
     }
   }
@@ -72,6 +88,15 @@ export class KategorijaDodajComponent implements OnInit {
   protected readonly MojConfig = MojConfig;
 
   urediKategoriju(item: Kategorija) {
-    
+    this.nova_kategorija = {
+      kategorijaID: item.kategorijaID,
+      naziv: item.naziv,
+      slika_base64_format: ''
+    };
+    this.nazivInvalid = false; // Resetujte stanje validacije prilikom uređivanja kategorije
+  }
+
+  onNazivChange() {
+    this.nazivInvalid = !this.nova_kategorija.naziv;
   }
 }
