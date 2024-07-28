@@ -1,0 +1,63 @@
+/* Stilizacija dugmeta "Nova kategorija" */
+.nova-kategorija-button {
+  background-color: rgb(218, 208, 174);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px; /* Povećano zaobljenje */
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.nova-kategorija-button:hover {
+  background-color: rgb(200, 190, 160);
+}
+
+/* Stilizacija za zatvaranje i čuvanje promjena dugmad u modal-u */
+.modal-button {
+  background-color: rgb(218, 208, 174);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px; /* Povećano zaobljenje */
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-button:hover {
+  background-color: rgb(200, 190, 160);
+}
+
+/* Stilizacija dugmadi "Obrisi" i "Uredi" */
+.action-button {
+  background-color: rgb(218, 208, 174);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px; /* Umjereno zaobljenje */
+  font-size: 16px; /* Povećana veličina fonta */
+  cursor: pointer;
+  font-weight: bold;
+  margin-right: 10px; /* Povećan razmak između dugmadi */
+}
+
+.action-button:hover {
+  background-color: rgb(200, 190, 160);
+}
+
+/* Stilizacija profilne slike */
+.profilna-slika {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Centriranje teksta vertikalno unutar tabela */
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center; /* Tekst centriran horizontalno */
+}

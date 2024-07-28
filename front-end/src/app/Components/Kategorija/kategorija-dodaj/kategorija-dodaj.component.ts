@@ -33,10 +33,8 @@ export class KategorijaDodajComponent implements OnInit {
   }
 
   snimiKategoriju() {
-    console.log("prije dodavanja");
     this.http.post("https://localhost:7027/Kategorija-dodaj", this.nova_kategorija).subscribe((x: any) => {
       alert("uredu");
-      console.log("poslije dodavanja");
       this.getKategorije(); // osveži listu kategorija nakon dodavanja nove
     });
     this.nova_kategorija = null;
@@ -53,12 +51,27 @@ export class KategorijaDodajComponent implements OnInit {
     }
   }
 
-  protected readonly MojConfig = MojConfig;
-
   getKategorije(): void {
     this.http.get<{ kategorije: Kategorija[] }>(`${MojConfig.adresa_servera}/Kategorija-preuzmi`).subscribe(response => {
-      console.log(response);
       this.kategorije = response.kategorije;
     });
+  }
+
+  obrisiKategoriju(kategorijaID: number): void {
+    if (confirm('Da li ste sigurni da želite obrisati ovu kategoriju?')) {
+      this.http.delete(`${MojConfig.adresa_servera}/Kategorija-obrisi`, { params: { KategorijaID: kategorijaID.toString() } })
+        .subscribe(() => {
+          this.getKategorije(); // Osveži listu kategorija nakon brisanja
+          alert("Kategorija obrisana");
+        }, error => {
+          alert("Greška prilikom brisanja kategorije");
+        });
+    }
+  }
+
+  protected readonly MojConfig = MojConfig;
+
+  urediKategoriju(item: Kategorija) {
+    
   }
 }

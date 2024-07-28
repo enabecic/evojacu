@@ -11,9 +11,7 @@
   <button routerLink="/potraznja" class="centered-button1">Potražnja</button>
   <button routerLink="/ponuda" class="centered-button2">Ponuda</button>
 </div>
-
 <br>
-
 <div class="datum">
   <div class="tekst-container">
     <p class="uPotraziSi">U potrazi si?</p>
@@ -22,17 +20,16 @@
   </div>
   <img class="slikaDatum" src="assets/date.png" alt="Datum slika">
 </div>
-<br>
-<br>
-<br><br>
-
+<br><br><br><br>
 <div class="carousel-container">
-  <button (click)="prevPage()" class="carousel-button">&lt;</button>
+  <button (click)="prevPage()" class="carousel-button arrow">&lt;</button>
   <div class="carousel">
-    <div *ngFor="let kategorija of currentKategorije" class="kategorija">
-      <img class="kategorija-slika" [src]="kategorija.slika" alt="Kategorija slika">
-      <p>{{ kategorija.naziv }}</p>
+    <div class="carousel-inner">
+      <div *ngFor="let kategorija of currentKategorije" class="kategorija">
+        <img class="kategorija-slika" [src]="kategorija.slika" alt="Kategorija slika">
+        <p>{{ kategorija.naziv }}</p>
+      </div>
     </div>
   </div>
-  <button (click)="nextPage()" class="carousel-button">&gt;</button>
+  <button (click)="nextPage()" class="carousel-button arrow">&gt;</button>
 </div>
