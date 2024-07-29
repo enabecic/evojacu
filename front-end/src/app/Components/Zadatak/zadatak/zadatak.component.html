@@ -1,20 +1,31 @@
-<button class="form-label" (click)="noviZadatak()">Novi zadatak</button>
-
+<hr>
+<br>
+<button class="novi-zadatak-button" (click)="noviZadatak()">Novi zadatak</button>
+<br>
+<br>
 <div *ngIf="novi_zadatak != null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">Dodaj komponentu</h5>
+        <h5 class="modal-title" id="exampleModalLiveLabel">
+          {{ novi_zadatak.zadatakId === 0 ? 'Dodaj zadatak' : 'Uredi zadatak' }}
+        </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="novi_zadatak = null"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
           <label class="form-label">Naziv zadatka</label>
-          <input [(ngModel)]="novi_zadatak.naziv" class="form-control" placeholder="Naziv">
+          <input [(ngModel)]="novi_zadatak.naziv" class="form-control" placeholder="Naziv" (input)="onNazivChange()">
+          <div *ngIf="nazivInvalid" class="text-danger">
+            Naziv je obavezno polje.
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Opis zadatka</label>
-          <input [(ngModel)]="novi_zadatak.opis" class="form-control" placeholder="Opis">
+          <input [(ngModel)]="novi_zadatak.opis" class="form-control" placeholder="Opis" (input)="onOpisChange()">
+          <div *ngIf="opisInvalid" class="text-danger">
+            Opis je obavezno polje.
+          </div>
         </div>
         <div class="mb-3">
           <label class="form-label">Kategorija</label>
@@ -36,7 +47,6 @@
   </div>
 </div>
 
-
 <table class="table table-striped">
   <thead>
   <tr>
@@ -50,6 +60,10 @@
     <td>{{ item.naziv }}</td>
     <td>
       <img class="profilna-slika" style="max-width: 100%; height: 100px" [src]="MojConfig.adresa_servera + '/Zadatak/slika?id=' + item.zadatakId">
+    </td>
+    <td>
+      <button class="action-button" (click)="urediZadatak(item)">Uredi</button>
+      <button class="action-button" (click)="obrisiZadatak(item.zadatakId)">Obrisi</button>
     </td>
   </tr>
   </tbody>
