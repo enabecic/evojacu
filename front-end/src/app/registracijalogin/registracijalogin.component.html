@@ -5,40 +5,149 @@
   <link rel="stylesheet" type="text/css" href="registracijalogin.component.css">
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
-
-
-
-
-
 <body>
 <div class="main">
   <input type="checkbox" id="chk" aria-hidden="true">
 
+  <!-- Login Form -->
+  <div class="login">
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <label for="chk" aria-hidden="true">Login</label>
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="loginData.email"
+        placeholder="Email"
+        required
+        #email="ngModel"
+        [class.invalid]="email.invalid && email.touched"
+        (ngModelChange)="resetLoginMessages(); isFormTouched = true"
+      >
+      <div *ngIf="email.invalid && email.touched && !loginErrorMessage" class="error-message">Email je obavezan i mora biti ispravan.</div>
 
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="loginData.lozinka"
+        placeholder="Password"
+        required
+        #password="ngModel"
+        [class.invalid]="password.invalid && password.touched"
+        (ngModelChange)="resetLoginMessages(); isFormTouched = true"
+      >
+      <div *ngIf="password.invalid && password.touched && !loginErrorMessage" class="error-message">Lozinka je obavezna.</div>
 
-  <div class="signup">
-    <form (submit)="register()">
-      <label for="chk" aria-hidden="true">Sign up</label>
-
-
-      <input type="text" name="username" [(ngModel)]="userData.username" placeholder="User name" required>
-
-
-      <input type="email" name="email" [(ngModel)]="userData.email" placeholder="Email" required>
-
-
-      <input type="password" name="password" [(ngModel)]="userData.lozinka" placeholder="Password" required>
-
-      <button type="submit">Sign up</button>
+      <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <div *ngIf="loginErrorMessage" class="error-message">{{ loginErrorMessage }}</div>
     </form>
   </div>
 
-  <div class="login">
-    <form (submit)="login()">
-      <label for="chk" aria-hidden="true">Login</label>
-      <input type="email" name="email" [(ngModel)]="loginData.email" placeholder="Email" required>
-      <input type="password" name="password" [(ngModel)]="loginData.lozinka" placeholder="Password" required>
-      <button type="submit">Login</button>
+  <!-- Sign Up Form -->
+  <div class="signup">
+    <form (ngSubmit)="register()" #signupForm="ngForm">
+      <label for="chk" aria-hidden="true">Sign up</label>
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="userData.username"
+        placeholder="User name"
+        required
+        #username="ngModel"
+        [class.invalid]="username.invalid && username.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="username.invalid && username.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Korisničko ime je obavezno.</div>
+
+      <input
+        type="email"
+        name="email"
+        [(ngModel)]="userData.email"
+        placeholder="Email"
+        required
+        #signupEmail="ngModel"
+        [class.invalid]="signupEmail.invalid && signupEmail.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="signupEmail.invalid && signupEmail.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Email je obavezan i mora biti ispravan.</div>
+
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="userData.lozinka"
+        placeholder="Password"
+        required
+        #signupPassword="ngModel"
+        [class.invalid]="signupPassword.invalid && signupPassword.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="signupPassword.invalid && signupPassword.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Lozinka je obavezna.</div>
+
+      <input
+        type="text"
+        name="ime"
+        [(ngModel)]="userData.ime"
+        placeholder="Ime"
+        required
+        #ime="ngModel"
+        [class.invalid]="ime.invalid && ime.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="ime.invalid && ime.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Ime je obavezno.</div>
+
+      <input
+        type="text"
+        name="prezime"
+        [(ngModel)]="userData.prezime"
+        placeholder="Prezime"
+        required
+        #prezime="ngModel"
+        [class.invalid]="prezime.invalid && prezime.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="prezime.invalid && prezime.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Prezime je obavezno.</div>
+
+      <input
+        type="text"
+        name="zanimanje"
+        [(ngModel)]="userData.zanimanje"
+        placeholder="Zanimanje"
+        required
+        #zanimanje="ngModel"
+        [class.invalid]="zanimanje.invalid && zanimanje.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="zanimanje.invalid && zanimanje.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Zanimanje je obavezno.</div>
+
+      <input
+        type="text"
+        name="adresa"
+        [(ngModel)]="userData.adresa"
+        placeholder="Adresa"
+        required
+        #adresa="ngModel"
+        [class.invalid]="adresa.invalid && adresa.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="adresa.invalid && adresa.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Adresa je obavezna.</div>
+
+      <input
+        type="text"
+        name="telefon"
+        [(ngModel)]="userData.telefon"
+        placeholder="Telefon"
+        required
+        #telefon="ngModel"
+        [class.invalid]="telefon.invalid && telefon.touched"
+        (ngModelChange)="resetRegistrationMessages(); isFormTouched = true"
+      >
+      <div *ngIf="telefon.invalid && telefon.touched && !isRegistrationSuccessful && isFormTouched" class="error-message">Telefon je obavezan.</div>
+
+      <button type="submit" [disabled]="signupForm.invalid">Sign up</button>
+
+      <div *ngIf="registrationSuccessMessage" class="success-message">{{ registrationSuccessMessage }}</div>
+      <div *ngIf="registrationErrorMessage && !registrationSuccessMessage" class="error-message">{{ registrationErrorMessage }}</div>
+
+      <div *ngIf="signupForm.invalid && (signupForm.touched || signupForm.submitted) && !isRegistrationSuccessful && isFormTouched" class="error-message">Sva polja su obavezna i moraju biti ispravna.</div>
     </form>
   </div>
 

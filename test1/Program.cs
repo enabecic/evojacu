@@ -1,6 +1,6 @@
-
 using Microsoft.EntityFrameworkCore;
 using evojacu.Models;
+using evojacu.Services; // Dodajte ovo za pristup UserService
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false)
@@ -8,10 +8,14 @@ var config = new ConfigurationBuilder()
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Dodajte DbContext i SQL Server podršku
 builder.Services.AddDbContext<evojacuDBContext>(options =>
     options.UseSqlServer(config.GetConnectionString("evojacu")));
 
-//CORS policy
+// Registrujte UserService
+builder.Services.AddScoped<UserService>();
+
+// CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin", builder =>
@@ -22,11 +26,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-
-
-
-// Add services to the container.
-
+// Dodajte usluge u kontejner
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -34,7 +34,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfigurišite HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -43,7 +43,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowOrigin");//CORS policy
+app.UseCors("AllowOrigin"); // CORS policy
 
 app.UseAuthorization();
 
