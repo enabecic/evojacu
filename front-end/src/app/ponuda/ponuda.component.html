@@ -1,8 +1,5 @@
 <body>
 <header>
-  <br>
-  <br>
-  <hr>
   <div class="Kategorija">
     <button routerLink="/pocetna" class="Nazad"> <- </button>
     <h1>
@@ -10,7 +7,6 @@
       <ng-template #englishSveKategorije>All Categories</ng-template>
     </h1>
   </div>
-  <br>
   <div class="pretraga-container">
     <div class="pretraga-wrapper">
       <input
@@ -31,8 +27,8 @@
         </svg>
       </span>
       <span class="clear-filter-button" (click)="clearFilter()">
-  Očisti filter
-</span>
+        Očisti filter
+      </span>
     </div>
   </div>
 </header>
@@ -56,9 +52,19 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="filterModalLabel">
-          {{ jezikService.isBosanski() ? 'Filter po cijeni' : 'Filter by Price' }}
+          {{ jezikService.isBosanski() ? 'Filtriraj poslove' : 'Filter jobs' }}
         </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="closeFilterModal()"></button>
+      </div>
+      <div class="modal-body">
+        <label class="form-label">
+          <span *ngIf="jezikService.isBosanski(); else englishCategory">Grad</span>
+          <ng-template #englishCategory>City</ng-template>
+        </label>
+        <select [(ngModel)]="selectedGradID" (change)="onGradChange($event)" class="form-control">
+          <option *ngFor="let grad of gradovi" [value]="grad.gradID">{{ grad.naziv }}</option>
+        </select>
+
       </div>
       <div class="modal-body">
         <label>{{ jezikService.isBosanski() ? 'Minimalna cijena:' : 'Minimum Price:' }}</label>

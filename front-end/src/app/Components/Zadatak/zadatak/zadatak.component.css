@@ -2,16 +2,25 @@
 .novi-zadatak-button {
   background-color: rgb(218, 208, 174);
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 10px; /* Povećano zaobljenje */
-  font-size: 16px;
+  border-radius: 12px; /* Povećano zaobljenje */
+  font-size: 17px;
   cursor: pointer;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+}
+
+.novi-zadatak-button .icon {
+  width: 24px; /* Velicina ikona */
+  height: 24px;
+  margin-right: 8px;
 }
 
 .novi-zadatak-button:hover {
-  background-color: rgb(200, 190, 160);
+  background-color: rgb(200, 190, 150);
 }
 
 /* Stilizacija za zatvaranje i čuvanje promjena dugmad u modal-u */
@@ -34,17 +43,24 @@
 .action-button {
   background-color: rgb(218, 208, 174);
   color: white;
-  padding: 10px 20px;
+  padding: 8px 16px; /* Smanjeno padding */
   border: none;
-  border-radius: 5px; /* Umjereno zaobljenje */
-  font-size: 16px; /* Povećana veličina fonta */
+  border-radius: 8px; /* Povećano zaobljenje */
+  font-size: 16px; /* Smanjena veličina fonta */
   cursor: pointer;
   font-weight: bold;
-  margin-right: 10px; /* Povećan razmak između dugmadi */
+  display: flex;
+  align-items: center;
+}
+
+.action-button .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px; /* Smanjen razmak između ikone i teksta */
 }
 
 .action-button:hover {
-  background-color: rgb(200, 190, 160);
+  background-color: rgb(200, 190, 150);
 }
 
 /* Stilizacija profilne slike */
@@ -52,7 +68,7 @@
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 8px; /* Povećano zaobljenje */
 }
 
 /* Centriranje teksta vertikalno unutar tabela */
@@ -60,4 +76,12 @@
 .table td {
   vertical-align: middle;
   text-align: center; /* Tekst centriran horizontalno */
+}
+
+/* Centriranje dugmadi u tabeli */
+.table .action-buttons {
+  display: flex;
+  justify-content: center; /* Centriranje dugmadi horizontalno */
+  gap: 2rem; /* Razmak između dugmadi */
+  padding: 2.5rem 1rem 2.5rem 1rem;
 }

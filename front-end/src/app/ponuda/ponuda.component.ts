@@ -10,6 +10,12 @@ interface Posao {
   nazivZadatka: string;
   cijena: number;
   zadatakStraniID: number;
+  gradID: number; // Ensure this is correctly mapped from the backend
+}
+
+interface Grad {
+  gradID: number;
+  naziv: string;
 }
 
 @Component({
@@ -20,9 +26,11 @@ interface Posao {
 export class PonudaComponent implements OnInit {
   poslovi: Posao[] = [];
   filteredPoslovi: Posao[] = [];
+  gradovi: Grad[] = [];
   searchTerm: string = '';
   minPrice: number = 0;
   maxPrice: number = 1000;
+  selectedGradID: number = 2; // Default to 1 (city with ID 1)
   showFilterModal: boolean = false;
 
   constructor(private http: HttpClient, private router: Router, public jezikService: JezikService) {}
@@ -32,10 +40,17 @@ export class PonudaComponent implements OnInit {
       this.poslovi = data.poslovi;
       this.filteredPoslovi = this.poslovi; // Initialize filtered list
     });
+    this.getGradovi();
   }
 
   getPoslovi(): Observable<any> {
     return this.http.get<any>(`${MojConfig.adresa_servera}/Posao-preuzmi`);
+  }
+
+  getGradovi(): void {
+    this.http.get<{ gradovi: Grad[] }>(`${MojConfig.adresa_servera}/Grad-preuzmi`).subscribe(response => {
+      this.gradovi = response.gradovi;
+    });
   }
 
   navigateToDetails(id: number): void {
@@ -43,16 +58,12 @@ export class PonudaComponent implements OnInit {
   }
 
   onSearchChange(): void {
-    const searchTermLower = this.searchTerm.toLowerCase();
-    this.filteredPoslovi = this.poslovi.filter(posao =>
-      posao.nazivZadatka.toLowerCase().startsWith(searchTermLower) &&
-      posao.cijena >= this.minPrice && posao.cijena <= this.maxPrice
-    );
+    this.applyFilter();
   }
 
   clearSearch(): void {
     this.searchTerm = '';
-    this.onSearchChange(); // Update filtered results
+    this.applyFilter(); // Update filtered results
   }
 
   openFilterModal(): void {
@@ -64,7 +75,12 @@ export class PonudaComponent implements OnInit {
   }
 
   applyFilter(): void {
-    this.onSearchChange(); // Apply both search term and filter
+    const searchTermLower = this.searchTerm.toLowerCase();
+    this.filteredPoslovi = this.poslovi.filter(posao =>
+      posao.nazivZadatka.toLowerCase().includes(searchTermLower) &&
+      posao.cijena >= this.minPrice && posao.cijena <= this.maxPrice &&
+      posao.gradID === this.selectedGradID
+    );
     this.closeFilterModal(); // Close the filter modal
   }
 
@@ -73,9 +89,10 @@ export class PonudaComponent implements OnInit {
   }
 
   clearFilter(): void {
-    // Reset minPrice and maxPrice to default values
+    // Reset filter values to default
     this.minPrice = 0;
     this.maxPrice = 1000;
+    this.selectedGradID = 1;
     this.searchTerm = '';
 
     // Fetch all jobs again
@@ -88,6 +105,11 @@ export class PonudaComponent implements OnInit {
     this.closeFilterModal();
   }
 
+  onGradChange(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.selectedGradID = +selectElement.value; // Ažurirajte selectedGradID
+    console.log(`Grad changed to: ${this.selectedGradID}`); // Debug log
+  }
+
+
 }
-
-

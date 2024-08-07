@@ -168,7 +168,7 @@ hr {
 }
 
 .modal-header, .modal-body, .modal-footer {
-  padding: 1.5rem;
+  padding: 1rem;
 }
 
 .modal-header {
@@ -185,24 +185,28 @@ hr {
 }
 
 .modal-body .form-label {
-  margin-bottom: 0.5rem;
+
 }
 
 .modal-body .form-control {
-  margin-bottom: 1rem;
+
 }
 
 .modal-footer .btn {
   margin: 0 0.5rem;
   padding: 0.5rem 1rem;
+
 }
 
 .modal-footer .btn-close {
   margin: 0 0.5rem;
+
+
 }
 
 .form-range {
   width: 100%;
+
 }
 
 .range-labels {
@@ -216,8 +220,8 @@ hr {
   margin-left: 4rem;
   padding: 0.5rem 1rem;
   font-size: 18px;
-  color: white; /* Adjust color to match router buttons */
-  background-color: rgb(184, 174, 150); /* Adjust background color to match router buttons */
+  color: white;
+  background-color: rgb(218, 208, 174);
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -227,9 +231,3 @@ hr {
 .clear-filter-button:hover {
   background-color: rgb(131, 127, 110); /* Darker shade for hover effect */
 }
-
-
-
-
-
-
