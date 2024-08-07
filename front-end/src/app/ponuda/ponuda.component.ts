@@ -64,11 +64,30 @@ export class PonudaComponent implements OnInit {
   }
 
   applyFilter(): void {
-    this.onSearchChange();
-    this.closeFilterModal();
+    this.onSearchChange(); // Apply both search term and filter
+    this.closeFilterModal(); // Close the filter modal
   }
 
   getZadatakSlikaURL(zadatakID: number): string {
     return `${MojConfig.adresa_servera}/Zadatak/slika?id=${zadatakID}`;
   }
+
+  clearFilter(): void {
+    // Reset minPrice and maxPrice to default values
+    this.minPrice = 0;
+    this.maxPrice = 1000;
+    this.searchTerm = '';
+
+    // Fetch all jobs again
+    this.getPoslovi().subscribe((data: any) => {
+      this.poslovi = data.poslovi;
+      this.filteredPoslovi = this.poslovi; // Reset filtered list
+    });
+
+    // Close the filter modal if it's open
+    this.closeFilterModal();
+  }
+
 }
+
+
