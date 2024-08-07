@@ -1,6 +1,9 @@
 <hr>
 <br>
-<button class="novi-zadatak-button" (click)="noviZadatak()">Novi zadatak</button>
+<button class="novi-zadatak-button" (click)="noviZadatak()">
+  <span *ngIf="jezikService.isBosanski(); else englishNoviZadatak">Novi zadatak</span>
+  <ng-template #englishNoviZadatak>New Task</ng-template>
+</button>
 <br>
 <br>
 <div *ngIf="novi_zadatak != null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
@@ -8,40 +11,67 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel">
-          {{ novi_zadatak.zadatakId === 0 ? 'Dodaj zadatak' : 'Uredi zadatak' }}
+          <span *ngIf="jezikService.isBosanski(); else englishModalTitleAdd">Dodaj zadatak</span>
+          <ng-template #englishModalTitleAdd> Add Task</ng-template>
+          <span *ngIf="jezikService.isBosanski(); else englishModalTitleEdit">Uredi zadatak</span>
+          <ng-template #englishModalTitleEdit>Edit Task</ng-template>
         </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="novi_zadatak = null"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <label class="form-label">Naziv zadatka</label>
-          <input [(ngModel)]="novi_zadatak.naziv" class="form-control" placeholder="Naziv" (input)="onNazivChange()">
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishTaskName">Naziv zadatka</span>
+            <ng-template #englishTaskName>Task Name</ng-template>
+          </label>
+          <input [(ngModel)]="novi_zadatak.naziv" class="form-control"
+                 [placeholder]="jezikService.isBosanski() ? 'Naziv' : 'Task Name'"
+                 (input)="onNazivChange()">
           <div *ngIf="nazivInvalid" class="text-danger">
-            Naziv je obavezno polje.
+            <span *ngIf="jezikService.isBosanski(); else englishTaskNameRequired">Naziv je obavezno polje.</span>
+            <ng-template #englishTaskNameRequired>Task name is required.</ng-template>
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label">Opis zadatka</label>
-          <input [(ngModel)]="novi_zadatak.opis" class="form-control" placeholder="Opis" (input)="onOpisChange()">
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishTaskDescription">Opis zadatka</span>
+            <ng-template #englishTaskDescription>Task Description</ng-template>
+          </label>
+          <input [(ngModel)]="novi_zadatak.opis" class="form-control"
+                 [placeholder]="jezikService.isBosanski() ? 'Opis' : 'Task Description'"
+                 (input)="onOpisChange()">
           <div *ngIf="opisInvalid" class="text-danger">
-            Opis je obavezno polje.
+            <span *ngIf="jezikService.isBosanski(); else englishTaskDescriptionRequired">Opis je obavezno polje.</span>
+            <ng-template #englishTaskDescriptionRequired>Task description is required.</ng-template>
           </div>
         </div>
         <div class="mb-3">
-          <label class="form-label">Kategorija</label>
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishCategory">Kategorija</span>
+            <ng-template #englishCategory>Category</ng-template>
+          </label>
           <select [(ngModel)]="novi_zadatak.kategorijaID" class="form-control">
-            <option *ngFor="let z of kategorijePodaci" [value]="z.kategorijaID">{{z.naziv}}</option>
+            <option *ngFor="let z of kategorijePodaci" [value]="z.kategorijaID">{{ z.naziv }}</option>
           </select>
         </div>
         <div class="mb-3">
-          <label class="form-label">Nova slika</label>
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishNewImage">Nova slika</span>
+            <ng-template #englishNewImage>New Image</ng-template>
+          </label>
           <input id="slika-input" type="file" accept="image/*" (change)="generisi_preview()">
           <img *ngIf="novi_zadatak.slika_base64_format" [src]="novi_zadatak.slika_base64_format" style="max-width: 100%; height: 200px;">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="novi_zadatak = null">Close</button>
-        <button type="button" class="btn btn-primary" (click)="snimiZadatak()">Save changes</button>
+        <button type="button" class="btn btn-secondary" (click)="novi_zadatak = null">
+          <span *ngIf="jezikService.isBosanski(); else englishClose">Zatvori</span>
+          <ng-template #englishClose>Close</ng-template>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="snimiZadatak()">
+          <span *ngIf="jezikService.isBosanski(); else englishSaveChanges">Spremi promjene</span>
+          <ng-template #englishSaveChanges>Save changes</ng-template>
+        </button>
       </div>
     </div>
   </div>
@@ -50,9 +80,18 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th>Naziv</th>
-    <th>Slika</th>
-    <th>Akcija</th>
+    <th>
+      <span *ngIf="jezikService.isBosanski(); else englishName">Naziv</span>
+      <ng-template #englishName>Name</ng-template>
+    </th>
+    <th>
+      <span *ngIf="jezikService.isBosanski(); else englishImage">Slika</span>
+      <ng-template #englishImage>Image</ng-template>
+    </th>
+    <th>
+      <span *ngIf="jezikService.isBosanski(); else englishAction">Akcija</span>
+      <ng-template #englishAction>Action</ng-template>
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -62,8 +101,14 @@
       <img class="profilna-slika" style="max-width: 100%; height: 100px" [src]="MojConfig.adresa_servera + '/Zadatak/slika?id=' + item.zadatakId">
     </td>
     <td>
-      <button class="action-button" (click)="urediZadatak(item)">Uredi</button>
-      <button class="action-button" (click)="obrisiZadatak(item.zadatakId)">Obrisi</button>
+      <button class="action-button" (click)="urediZadatak(item)">
+        <span *ngIf="jezikService.isBosanski(); else englishEdit">Uredi</span>
+        <ng-template #englishEdit>Edit</ng-template>
+      </button>
+      <button class="action-button" (click)="obrisiZadatak(item.zadatakId)">
+        <span *ngIf="jezikService.isBosanski(); else englishDelete">Obriši</span>
+        <ng-template #englishDelete>Delete</ng-template>
+      </button>
     </td>
   </tr>
   </tbody>

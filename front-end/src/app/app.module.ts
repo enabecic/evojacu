@@ -15,6 +15,7 @@ import { RegistracijaloginComponent } from './registracijalogin/registracijalogi
 import { PosaoDetaljiComponent } from './posao-detalji/posao-detalji.component';
 import { KategorijaDodajComponent } from './Components/Kategorija/kategorija-dodaj/kategorija-dodaj.component';
 import { ZadatakComponent } from './Components/Zadatak/zadatak/zadatak.component';
+import { JezikComponent } from './Components/jezik/jezik.component';
 
 
 @NgModule({
@@ -30,12 +31,14 @@ import { ZadatakComponent } from './Components/Zadatak/zadatak/zadatak.component
     PosaoDetaljiComponent,
     KategorijaDodajComponent,
     ZadatakComponent,
+    JezikComponent,
 
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot([
+      {path: '' , component: JezikComponent},
       {path: 'login', component: LoginComponent},
       {path: 'pocetna', component: PocetnaComponent},
       {path: 'korisnickiProfil', component: KorisnickiProfilComponent},

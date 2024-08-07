@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from "@angular/router";
+import {JezikService} from "./Services/jezik.service";
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'front-end';
-  constructor(public router:Router) {
+  constructor(public router:Router, public jezikService: JezikService) {
   }
 
 

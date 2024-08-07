@@ -3,16 +3,32 @@
 <h1>EVOJAĆU</h1>
 <br>
 <div class="nav-container">
-  <button routerLink="/zadatak" class="navigacija">Zadaci</button>
-  <button routerLink="/pocetna" class="navigacija">Početna</button>
-  <button routerLink="/kategorija-dodaj" class="navigacija">Kategorije</button>
-  <button routerLink="/ponuda" class="navigacija">Ponuda</button>
-  <button routerLink="/potraznja" class="navigacija">Potražnja</button>
-  <button routerLink="/registracijalogin" class="navigacija">Registracija/Prijava</button>
-
+  <button routerLink="/zadatak" class="navigacija">
+    <span *ngIf="jezikService.isBosanski(); else englishZadaci">Zadaci</span>
+    <ng-template #englishZadaci>Tasks</ng-template>
+  </button>
+  <button routerLink="/pocetna" class="navigacija">
+    <span *ngIf="jezikService.isBosanski(); else englishPocetna">Početna</span>
+    <ng-template #englishPocetna>Home</ng-template>
+  </button>
+  <button routerLink="/kategorija-dodaj" class="navigacija">
+    <span *ngIf="jezikService.isBosanski(); else englishKategorije">Kategorije</span>
+    <ng-template #englishKategorije>Categories</ng-template>
+  </button>
+  <button routerLink="/ponuda" class="navigacija">
+    <span *ngIf="jezikService.isBosanski(); else englishPonuda">Ponuda</span>
+    <ng-template #englishPonuda>Offer</ng-template>
+  </button>
+  <button routerLink="/potraznja" class="navigacija">
+    <span *ngIf="jezikService.isBosanski(); else englishPotraznja">Potražnja</span>
+    <ng-template #englishPotraznja>Demand</ng-template>
+  </button>
+  <button routerLink="/registracijalogin" class="navigacija">
+    <span *ngIf="jezikService.isBosanski(); else englishRegistracijaPrijava">Registracija/Prijava</span>
+    <ng-template #englishRegistracijaPrijava>Register/Login</ng-template>
+  </button>
 </div>
 <br><br>
 
 <router-outlet></router-outlet>
 </body>
-

@@ -5,19 +5,31 @@
   <hr>
   <div class="Kategorija">
     <button routerLink="/pocetna" class="Nazad"> <- </button>
-    <h1>Sve kategorije</h1>
+    <h1>
+      <span *ngIf="jezikService.isBosanski(); else englishSveKategorije">Sve kategorije</span>
+      <ng-template #englishSveKategorije>All Categories</ng-template>
+    </h1>
   </div>
   <br>
   <div class="pretraga-container">
     <div class="pretraga-wrapper">
       <input
         type="text"
-        placeholder="Pretraži poslove..."
+        [placeholder]="jezikService.isBosanski() ? 'Pretraži poslove...' : 'Search jobs...'"
         [(ngModel)]="searchTerm"
         (input)="onSearchChange()"
         class="pretraga-input"
       />
-      <span class="clear-button" *ngIf="searchTerm" (click)="clearSearch()">&times;</span>
+      <span class="clear-button" *ngIf="searchTerm" (click)="clearSearch()">
+        <svg class="clear-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 10.293l4.707-4.707L18 6.293 13.293 11 18 15.707l-1.293 1.293L12 12.293l-4.707 4.707L6 15.707 10.707 11 6 6.293 7.293 4.707z"/>
+        </svg>
+      </span>
+      <span class="filter-button" (click)="openFilterModal()">
+        <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M10 17l-5-5h10l-5 5zm0-7l-5-5h10l-5 5zm0 7l5-5H5l5 5z"/>
+        </svg>
+      </span>
     </div>
   </div>
 </header>
@@ -34,4 +46,39 @@
     </div>
   </div>
 </main>
+
+<!-- Filter Modal -->
+<div *ngIf="showFilterModal" class="modal fade show" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filterModalLabel">
+          {{ jezikService.isBosanski() ? 'Filter po cijeni' : 'Filter by Price' }}
+        </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="closeFilterModal()"></button>
+      </div>
+      <div class="modal-body">
+        <label>{{ jezikService.isBosanski() ? 'Minimalna cijena:' : 'Minimum Price:' }}</label>
+        <input type="range" [(ngModel)]="minPrice" min="0" max="1000" step="10" class="form-range" />
+        <div class="range-labels">
+          <span>{{ minPrice }} KM</span>
+        </div>
+
+        <label>{{ jezikService.isBosanski() ? 'Maksimalna cijena:' : 'Maximum Price:' }}</label>
+        <input type="range" [(ngModel)]="maxPrice" min="0" max="1000" step="10" class="form-range" />
+        <div class="range-labels">
+          <span>{{ maxPrice }} KM</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeFilterModal()">
+          {{ jezikService.isBosanski() ? 'Zatvori' : 'Close' }}
+        </button>
+        <button type="button" class="btn btn-primary" (click)="applyFilter()">
+          {{ jezikService.isBosanski() ? 'Primijeni' : 'Apply' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
