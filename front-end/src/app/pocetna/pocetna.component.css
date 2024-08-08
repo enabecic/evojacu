@@ -37,7 +37,7 @@ h2 {
   box-sizing: border-box;
 }
 
-.centered-button1{
+.centered-button1 {
   flex-grow: 1;
   background-color: rgb(218, 208, 174);
   color: #fff;
@@ -178,6 +178,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: transform 0.2s ease-in-out; /* Dodana animacija */
 }
 
 .kategorija-slika {
@@ -185,6 +186,15 @@ p {
   height: 150px;
   border-radius: 10px;
   object-fit: contain;
+  transition: transform 0.3s ease; /* Dodana animacija */
+}
+
+.kategorija:hover {
+  transform: scale(1.05); /* Povećanje pri hoveru */
+}
+
+.kategorija:hover .kategorija-slika {
+  transform: scale(1.1); /* Povećanje slike pri hoveru */
 }
 
 .arrow {
@@ -198,8 +208,6 @@ p {
   margin: 0 20px;
   color: white;
 }
-
-
 
 /* Stilovi za ponudu */
 .containerPonude {
@@ -261,7 +269,6 @@ p {
 }
 
 h4 {
-
   font-family: "Book Antiqua";
   font-size: xx-large;
   color: rgb(48, 48, 48);

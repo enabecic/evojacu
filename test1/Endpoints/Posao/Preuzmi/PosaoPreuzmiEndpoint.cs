@@ -20,7 +20,10 @@ namespace evojacu.Endpoints.Posao.Preuzmi
         [HttpGet]
         public override async Task<PosaoPreuzmiResponse> Obradi([FromQuery]PosaoPreuzmiRequest request, CancellationToken cancellationToken = default)
         {
-            var poslovi = await _applicationDbContext.Poslovi.Where(x => request.OpisPosla == null || x.OpisPosla.ToLower().Contains(request.OpisPosla.ToLower()))
+            var poslovi = await _applicationDbContext.Poslovi.Where(x =>
+            (request.OpisPosla == null || x.OpisPosla.ToLower().Contains(request.OpisPosla.ToLower())) &&
+            (request.KategorijaID == null || x.Zadatak.KategorijaID == request.KategorijaID) // Dodaj ovaj filter
+        )
                .Select(x => new PosaoPreuzmiResponsePosao()
                {
                    FazaPoslaID = x.FazaPoslaId,
@@ -39,7 +42,8 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                    NazivZadatka=x.Zadatak.Naziv,
                    DatumObjave=x.DatumObjave, 
                    Cijena=x.Cijena,
-                   UkljucenGPS=x.UkljucenGPS
+                   UkljucenGPS=x.UkljucenGPS,
+                   NazivKategorije=x.Zadatak.Kategorija.Naziv
                }).ToListAsync(cancellationToken: cancellationToken);
 
 

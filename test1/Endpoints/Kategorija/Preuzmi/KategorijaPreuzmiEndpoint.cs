@@ -34,5 +34,31 @@ namespace evojacu.Endpoints.Kategorija.Preuzmi
                 Kategorije=kategorije
             };
         }
+
+
+        [HttpGet("by-id/{id}")]
+        public async Task<IActionResult> GetKategorijaById(int id, CancellationToken cancellationToken = default)
+        {
+            var kategorija = await _applicationDbContext.Kategorije
+                .Where(x => x.KategorijaID == id)
+                .Select(x => new KategorijaPreuzmiResponseKategorija()
+                {
+                    KategorijaID = x.KategorijaID,
+                    Naziv = x.Naziv
+                })
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            if (kategorija == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new KategorijaPreuzmiResponse
+            {
+                Kategorije = new List<KategorijaPreuzmiResponseKategorija> { kategorija }
+            });
+        }
+
+
     }
 }

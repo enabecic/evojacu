@@ -9,7 +9,7 @@
 <br>
 <div class="container">
   <button routerLink="/potraznja" class="centered-button1">Potražnja</button>
-  
+
 </div>
 <br>
 <div class="datum">
@@ -25,7 +25,7 @@
   <button (click)="prevPage()" class="carousel-button arrow">&lt;</button>
   <div class="carousel">
     <div class="carousel-inner">
-      <div *ngFor="let kategorija of currentKategorije" class="kategorija">
+      <div *ngFor="let kategorija of currentKategorije" class="kategorija" (click)="navigateToPonuda(kategorija.kategorijaID)">
         <img class="kategorija-slika" [src]="kategorija.slika" alt="Kategorija slika">
         <p>{{ kategorija.naziv }}</p>
       </div>

@@ -3,8 +3,13 @@
   <div class="Kategorija">
     <button routerLink="/pocetna" class="Nazad"> <- </button>
     <h1>
-      <span *ngIf="jezikService.isBosanski(); else englishSveKategorije">Sve kategorije</span>
-      <ng-template #englishSveKategorije>All Categories</ng-template>
+      <span *ngIf="!nazivKategorije; else kategorijaNaziv">
+        <span *ngIf="jezikService.isBosanski(); else englishSveKategorije">Sve kategorije</span>
+        <ng-template #englishSveKategorije>All Categories</ng-template>
+      </span>
+      <ng-template #kategorijaNaziv>
+        {{ nazivKategorije }}
+      </ng-template>
     </h1>
   </div>
   <div class="pretraga-container">

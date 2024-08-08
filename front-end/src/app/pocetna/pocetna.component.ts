@@ -85,4 +85,10 @@ export class PocetnaComponent implements OnInit {
       this.currentPage++;
     }
   }
+
+  navigateToPonuda(kategorijaID: number): void {
+    this.router.navigate(['/ponuda'], { queryParams: { kategorijaID } });
+  }
+
+
 }
