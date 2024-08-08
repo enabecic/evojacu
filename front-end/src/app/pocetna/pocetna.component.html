@@ -9,7 +9,7 @@
 <br>
 <div class="container">
   <button routerLink="/potraznja" class="centered-button1">Potražnja</button>
-  <button routerLink="/ponuda" class="centered-button2">Ponuda</button>
+  
 </div>
 <br>
 <div class="datum">
@@ -32,4 +32,19 @@
     </div>
   </div>
   <button (click)="nextPage()" class="carousel-button arrow">&gt;</button>
+</div>
+
+<br>
+<h4>Najnoviji poslovi</h4>
+<br>
+<div class="containerPonude">
+  <div class="Pozadina" *ngFor="let posao of poslovi" (click)="navigateToDetails(posao.posaoID)">
+    <div class="Ponuda">
+      <img class="zadatak-slika" [src]="getZadatakSlikaURL(posao.zadatakStraniID)" alt="Kategorija slika">
+      <div class="tekst-container2">
+        <p class="TekstPonude">{{ posao.nazivZadatka }}</p>
+        <p class="TekstPonude">{{ posao.cijena }} KM</p>
+      </div>
+    </div>
+  </div>
 </div>

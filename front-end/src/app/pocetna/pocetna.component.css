@@ -37,8 +37,7 @@ h2 {
   box-sizing: border-box;
 }
 
-.centered-button1,
-.centered-button2 {
+.centered-button1{
   flex-grow: 1;
   background-color: rgb(218, 208, 174);
   color: #fff;
@@ -198,4 +197,75 @@ p {
   border-radius: 5px;
   margin: 0 20px;
   color: white;
+}
+
+
+
+/* Stilovi za ponudu */
+.containerPonude {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Razmak između kartica */
+  gap: 1rem; /* Smanjite razmak između kartica */
+  padding: 2.3rem 5rem; /* Smanjite padding sa strane */
+}
+
+.Pozadina {
+  background-color: white;
+  flex: 1 1 calc(33.333% - 1rem); /* Ažurirano zbog smanjenog gap-a */
+  max-width: calc(33.333% - 1rem);
+  height: auto; /* Automatska visina */
+  border-radius: 10px;
+  margin: 10px 0; /* Vertikalni razmak između kartica */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s; /* Dodaj animaciju transformacije */
+}
+
+.Pozadina:hover {
+  transform: scale(1.05); /* Povećaj element pri hoveru */
+}
+
+.Ponuda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Smanjen padding */
+  width: 100%;
+}
+
+.zadatak-slika {
+  max-width: 100%;
+  height: 170px;
+  margin-bottom: 10px; /* Razmak ispod slike */
+  border-radius: 5%; /* Dodaj zaobljenje slike */
+  transition: transform 0.3s ease; /* Animacija prilikom hovera */
+}
+
+.Pozadina:hover .zadatak-slika {
+  transform: scale(1.1); /* Povećaj sliku pri hoveru */
+}
+
+.tekst-container2 {
+  text-align: center;
+}
+
+.TekstPonude {
+  font-family: "Book Antiqua";
+  color: rgb(48, 48, 48);
+  font-size: 20px;
+  margin: 5px 0;
+}
+
+h4 {
+
+  font-family: "Book Antiqua";
+  font-size: xx-large;
+  color: rgb(48, 48, 48);
+  margin-top: 70px;
+  margin-bottom: 50px;
+  padding-left: 20px;
 }
