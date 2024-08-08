@@ -77,7 +77,7 @@ export class PonudaComponent implements OnInit {
 
         if (kategorija) {
           this.nazivKategorije = kategorija.naziv;
-          
+
         } else {
           this.nazivKategorije = 'Kategorija nije pronađena';
         }

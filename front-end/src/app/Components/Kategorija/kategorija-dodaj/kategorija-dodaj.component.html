@@ -1,34 +1,65 @@
+<!-- Dugme za otvaranje modala -->
 <hr>
 <br>
-<button class="nova-kategorija-button" (click)="novaKategorija()">Nova kategorija</button>
+<button class="nova-kategorija-button" (click)="novaKategorija()">
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 5v14M5 12h14"/>
+  </svg>
+  <span *ngIf="jezikService.isBosanski(); else englishNewCategory">Nova kategorija</span>
+  <ng-template #englishNewCategory>New Category</ng-template>
+</button>
 <br><br>
+
+<!-- Overlay za zamućenje pozadine -->
+<div class="overlay" *ngIf="nova_kategorija != null"></div>
+
+<!-- Modalni dijalog -->
 <div *ngIf="nova_kategorija != null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel">
-          {{ nova_kategorija.kategorijaID === 0 ? 'Dodaj kategoriju' : 'Uredi kategoriju' }}
+          <span *ngIf="nova_kategorija.kategorijaID === 0; else editCategory">
+            <span *ngIf="jezikService.isBosanski(); else englishAddCategory">Dodaj kategoriju</span>
+            <ng-template #englishAddCategory>Add Category</ng-template>
+          </span>
+          <ng-template #editCategory>
+            <span *ngIf="jezikService.isBosanski(); else englishEditCategory">Uredi kategoriju</span>
+            <ng-template #englishEditCategory>Edit Category</ng-template>
+          </ng-template>
         </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="nova_kategorija = null"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
-          <label class="form-label">Naziv kategorije</label>
-          <input [(ngModel)]="nova_kategorija.naziv" class="form-control" placeholder="Naziv" (input)="onNazivChange()">
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishCategoryName">Naziv kategorije</span>
+            <ng-template #englishCategoryName>Category Name</ng-template>
+          </label>
+          <input [(ngModel)]="nova_kategorija.naziv" class="form-control" placeholder="{{jezikService.isBosanski() ? 'Naziv' : 'Category Name'}}" (input)="onNazivChange()">
           <div *ngIf="nazivInvalid" class="text-danger">
-            Naziv je obavezno polje.
+            <span *ngIf="jezikService.isBosanski(); else englishCategoryNameRequired">Naziv je obavezno polje.</span>
+            <ng-template #englishCategoryNameRequired>Category name is required.</ng-template>
           </div>
         </div>
-
         <div>
-          <label>Nova slika</label>
+          <label>
+            <span *ngIf="jezikService.isBosanski(); else englishNewImage">Nova slika</span>
+            <ng-template #englishNewImage>New Image</ng-template>
+          </label>
           <input id="slika-input" type="file" accept="image/*" (change)="generisi_preview()">
           <img *ngIf="nova_kategorija.slika_base64_format" style="max-width: 100%; height: 200px" [src]="nova_kategorija?.slika_base64_format">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="modal-button" (click)="nova_kategorija = null">Close</button>
-        <button type="button" class="modal-button" (click)="snimiKategoriju()">Save changes</button>
+        <button type="button" class="modal-button" (click)="nova_kategorija = null">
+          <span *ngIf="jezikService.isBosanski(); else englishClose">Zatvori</span>
+          <ng-template #englishClose>Close</ng-template>
+        </button>
+        <button type="button" class="modal-button" (click)="snimiKategoriju()">
+          <span *ngIf="jezikService.isBosanski(); else englishSaveChanges">Spremi promjene</span>
+          <ng-template #englishSaveChanges>Save changes</ng-template>
+        </button>
       </div>
     </div>
   </div>
@@ -37,9 +68,18 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th>Naziv</th>
-    <th>Slika</th>
-    <th>Akcija</th>
+    <th>
+      <span *ngIf="jezikService.isBosanski(); else englishName">Naziv</span>
+      <ng-template #englishName>Name</ng-template>
+    </th>
+    <th>
+      <span *ngIf="jezikService.isBosanski(); else englishImage">Slika</span>
+      <ng-template #englishImage>Image</ng-template>
+    </th>
+    <th>
+      <span *ngIf="jezikService.isBosanski(); else englishAction">Akcija</span>
+      <ng-template #englishAction>Action</ng-template>
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -48,9 +88,21 @@
     <td>
       <img class="profilna-slika" style="max-width: 100%; height: 100px" [src]="MojConfig.adresa_servera + '/Kategorija/slika?id=' + item.kategorijaID + '&timestamp=' + item.timestamp">
     </td>
-    <td>
-      <button class="action-button" (click)="obrisiKategoriju(item.kategorijaID)">Obrisi</button>
-      <button class="action-button" (click)="urediKategoriju(item)">Uredi</button>
+    <td class="action-buttons">
+      <button class="action-button" (click)="obrisiKategoriju(item.kategorijaID)">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 6h12M4 6h16M6 6l1-1h10l1 1M5 6h14v13H5V6zm1 1v12h12V7H6z"/>
+        </svg>
+        <span *ngIf="jezikService.isBosanski(); else englishDelete">Obriši</span>
+        <ng-template #englishDelete>Delete</ng-template>
+      </button>
+      <button class="action-button" (click)="urediKategoriju(item)">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 17.25V21h3.75L17.658 9.092l-3.75-3.75L3 17.25zM20.712 7.288a1 1 0 00-1.414 0L16.598 8.704l3.75 3.75 1.414-1.414a1 1 0 000-1.414l-2.05-2.05z"/>
+        </svg>
+        <span *ngIf="jezikService.isBosanski(); else englishEdit">Uredi</span>
+        <ng-template #englishEdit>Edit</ng-template>
+      </button>
     </td>
   </tr>
   </tbody>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MojConfig } from '../../../moj-config';
+import {JezikService} from "../../../Services/jezik.service";
 
 interface Kategorija {
   kategorijaID: number;
@@ -20,7 +21,7 @@ export class KategorijaDodajComponent implements OnInit {
   nova_kategorija: any;
   nazivInvalid: boolean = false;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, public jezikService: JezikService) {}
 
   ngOnInit(): void {
     this.getKategorije();

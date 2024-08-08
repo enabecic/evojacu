@@ -19,9 +19,9 @@
     <span *ngIf="jezikService.isBosanski(); else englishPonuda">Ponuda</span>
     <ng-template #englishPonuda>Offer</ng-template>
   </button>
-  <button routerLink="/potraznja" class="navigacija">
-    <span *ngIf="jezikService.isBosanski(); else englishPotraznja">Potražnja</span>
-    <ng-template #englishPotraznja>Demand</ng-template>
+  <button routerLink="/korisnickiProfil" class="navigacija">
+    <span *ngIf="jezikService.isBosanski(); else englishPotraznja">Korisnički profil</span>
+    <ng-template #englishPotraznja>User profile</ng-template>
   </button>
   <button routerLink="/registracijalogin" class="navigacija">
     <span *ngIf="jezikService.isBosanski(); else englishRegistracijaPrijava">Registracija/Prijava</span>

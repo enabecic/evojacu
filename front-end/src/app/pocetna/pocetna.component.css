@@ -47,7 +47,14 @@ h2 {
   cursor: pointer;
   border-radius: 10px;
   font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease; /* Dodajte tranziciju */
 }
+
+.centered-button1:hover {
+  transform: scale(1.05); /* Povećanje dugmeta pri hoveru */
+  background-color: rgb(200, 190, 150);/* Potamnjivanje pozadine pri hoveru */
+}
+
 
 .centered-button2 {
   background-color: rgb(225, 224, 224);
@@ -103,48 +110,13 @@ p {
 .uPotraziSi {
   font-size: xxx-large;
   padding-left: 100px;
+  padding-top: 2.5rem;
 }
 
 .tekst {
   padding-left: 100px;
   font-size: x-large;
-}
-
-.kocka-roza {
-  width: 100px;
-  height: 100px;
-  background-color: rgb(218, 208, 174);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 15px;
-  padding-top: 20px;
-  border-radius: 10px;
-}
-
-.bijeli {
-  width: calc(50% - 5px);
-  height: calc(50% - 10px);
-  background-color: #fff;
-  box-sizing: border-box;
-}
-
-.sveTekst {
-  color: rgb(48, 48, 48);
-  padding-left: 50px;
-}
-
-.red-container {
-  display: flex;
-  align-items: center;
-}
-
-.lijevoRozi {
-  margin-left: 50px;
-}
-
-.Inline {
-  display: inline-block;
+  padding-bottom: 1.5rem;
 }
 
 .carousel-container {
@@ -197,7 +169,7 @@ p {
   transform: scale(1.1); /* Povećanje slike pri hoveru */
 }
 
-.arrow {
+.carousel-button {
   cursor: pointer;
   font-size: 24px;
   user-select: none;
@@ -207,9 +179,27 @@ p {
   border-radius: 5px;
   margin: 0 20px;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-in-out;
 }
 
-/* Stilovi za ponudu */
+.carousel-button:hover {
+  transform: scale(1.1); /* Povećanje dugmadi pri hoveru */
+}
+
+.arrow-icon {
+  width: 24px; /* Veličina ikone */
+  height: 24px;
+  stroke: currentColor;
+  transition: transform 0.2s ease-in-out;
+}
+
+.carousel-button:hover .arrow-icon {
+  transform: scale(1.1); /* Povećanje ikone pri hoveru */
+}
+
 .containerPonude {
   display: flex;
   flex-wrap: wrap;

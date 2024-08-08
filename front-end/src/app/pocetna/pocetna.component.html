@@ -1,6 +1,9 @@
 <div class="containerSlika">
   <div class="left-content">
-    <h2>Dobrodošli</h2>
+    <h2>
+      <span *ngIf="jezikService.isBosanski(); else englishWelcome">Dobrodošli</span>
+      <ng-template #englishWelcome>Welcome</ng-template>
+    </h2>
   </div>
   <div routerLink="/korisnickiProfil" class="right-content">
     <img class="korisnickiProfil" src="assets/profil.png" alt="profil">
@@ -8,21 +11,33 @@
 </div>
 <br>
 <div class="container">
-  <button routerLink="/potraznja" class="centered-button1">Potražnja</button>
-
+  <button routerLink="/ponuda" class="centered-button1">
+    <span *ngIf="jezikService.isBosanski(); else englishDemand">Ponuda</span>
+    <ng-template #englishDemand>Offer</ng-template>
+  </button>
 </div>
 <br>
 <div class="datum">
   <div class="tekst-container">
-    <p class="uPotraziSi">U potrazi si?</p>
+    <p class="uPotraziSi">
+      <span *ngIf="jezikService.isBosanski(); else englishLookingFor">U potrazi si?</span>
+      <ng-template #englishLookingFor>Looking for?</ng-template>
+    </p>
     <br>
-    <p class="tekst">Odaberi datum i vrijeme kada ti je neko potreban</p>
+    <p class="tekst">
+      <span *ngIf="jezikService.isBosanski(); else englishSelectDate">Odaberi datum i vrijeme kada ti je neko potreban</span>
+      <ng-template #englishSelectDate>Select the date and time when someone is needed</ng-template>
+    </p>
   </div>
   <img class="slikaDatum" src="assets/date.png" alt="Datum slika">
 </div>
 <br><br><br><br>
 <div class="carousel-container">
-  <button (click)="prevPage()" class="carousel-button arrow">&lt;</button>
+  <button (click)="prevPage()" class="carousel-button arrow">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd"/>
+    </svg>
+  </button>
   <div class="carousel">
     <div class="carousel-inner">
       <div *ngFor="let kategorija of currentKategorije" class="kategorija" (click)="navigateToPonuda(kategorija.kategorijaID)">
@@ -31,11 +46,17 @@
       </div>
     </div>
   </div>
-  <button (click)="nextPage()" class="carousel-button arrow">&gt;</button>
+  <button (click)="nextPage()" class="carousel-button arrow">
+    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd"/>
+    </svg>
+  </button>
 </div>
-
 <br>
-<h4>Najnoviji poslovi</h4>
+<h4>
+  <span *ngIf="jezikService.isBosanski(); else englishLatestJobs">Najnoviji poslovi</span>
+  <ng-template #englishLatestJobs>Latest Jobs</ng-template>
+</h4>
 <br>
 <div class="containerPonude">
   <div class="Pozadina" *ngFor="let posao of poslovi" (click)="navigateToDetails(posao.posaoID)">

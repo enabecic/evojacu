@@ -1,17 +1,43 @@
+/* Stil za overlay koji se pojavljuje iza modala */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Poluprovidna crna pozadina */
+  backdrop-filter: blur(5px); /* Zamućenje pozadine */
+  z-index: 1040; /* Treba biti iznad ostalih sadržaja ali ispod modala */
+}
+
+/* Stilizacija za modal */
+.modal {
+  z-index: 1050; /* Treba biti iznad overlay-a */
+}
+
 /* Stilizacija dugmeta "Nova kategorija" */
 .nova-kategorija-button {
   background-color: rgb(218, 208, 174);
   color: white;
-  padding: 10px 20px;
+  padding: 12px 24px;
   border: none;
-  border-radius: 10px; /* Povećano zaobljenje */
-  font-size: 16px;
+  border-radius: 12px; /* Povećano zaobljenje */
+  font-size: 17px;
   cursor: pointer;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-left: 2rem;
+}
+
+.nova-kategorija-button .icon {
+  width: 24px; /* Velicina ikona */
+  height: 24px;
+  margin-right: 8px;
 }
 
 .nova-kategorija-button:hover {
-  background-color: rgb(200, 190, 160);
+  background-color: rgb(200, 190, 150);
 }
 
 /* Stilizacija za zatvaranje i čuvanje promjena dugmad u modal-u */
@@ -34,30 +60,49 @@
 .action-button {
   background-color: rgb(218, 208, 174);
   color: white;
-  padding: 10px 20px;
+  padding: 8px 16px; /* Smanjeno padding */
   border: none;
-  border-radius: 5px; /* Umjereno zaobljenje */
-  font-size: 16px; /* Povećana veličina fonta */
+  border-radius: 8px; /* Povećano zaobljenje */
+  font-size: 16px; /* Smanjena veličina fonta */
   cursor: pointer;
   font-weight: bold;
-  margin-right: 10px; /* Povećan razmak između dugmadi */
+  display: flex;
+  align-items: center;
+
+}
+
+.action-button .icon {
+  width: 20px; /* Velicina ikona */
+  height: 20px;
+  margin-right: 6px; /* Manji razmak između ikone i teksta */
 }
 
 .action-button:hover {
   background-color: rgb(200, 190, 160);
 }
 
-/* Stilizacija profilne slike */
 .profilna-slika {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  border-radius: 5px;
+  border-radius: 8px; /* Povećano zaobljenje */
 }
 
-/* Centriranje teksta vertikalno unutar tabela */
 .table th,
 .table td {
   vertical-align: middle;
   text-align: center; /* Tekst centriran horizontalno */
+}
+
+/* Centriranje dugmadi u tabeli */
+.table .action-buttons {
+  display: flex;
+  justify-content: center; /* Centriranje dugmadi horizontalno */
+  gap: 2rem; /* Razmak između dugmadi */
+  padding: 2.5rem 1rem 2.5rem 1rem;
+}
+
+/* Optional: Ako je potrebno da se ceo sadržaj (osim modala) zakloni */
+body.modal-open {
+  overflow: hidden; /* Sprečava skrolovanje kada je modal otvoren */
 }
