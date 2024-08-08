@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MojConfig } from '../moj-config'; // Importujte MojConfig
+import { MojConfig } from '../moj-config';
+import {JezikService} from "../Services/jezik.service"; // Importujte MojConfig
 
 interface Posao {
   posaoID: number;
@@ -31,7 +32,7 @@ interface Posao {
 export class PosaoDetaljiComponent implements OnInit {
   posao: Posao | undefined;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient, public jezikService: JezikService) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

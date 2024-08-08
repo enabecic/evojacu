@@ -1,3 +1,19 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Poluprovidna crna pozadina */
+  backdrop-filter: blur(5px); /* Zamućenje pozadine */
+  z-index: 1040; /* Treba biti iznad ostalih sadržaja ali ispod modala */
+}
+
+/* Stilizacija za modal */
+.modal {
+  z-index: 1050; /* Treba biti iznad overlay-a */
+}
+
 /* Stilizacija dugmeta "Novi zadatak" */
 .novi-zadatak-button {
   background-color: rgb(218, 208, 174);

@@ -11,6 +11,9 @@
 <br>
 <br>
 
+<!-- Overlay za zamućenje pozadine -->
+<div class="overlay" *ngIf="novi_zadatak != null"></div>
+
 <!-- Modal for Adding or Editing Task -->
 <div *ngIf="novi_zadatak != null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">

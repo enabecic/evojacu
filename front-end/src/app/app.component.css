@@ -40,7 +40,14 @@ h1 {
   font-weight: bold;
   text-align: center;
   line-height: 40px; /* Centers the text vertically */
+  transition: transform 0.2s, background-color 0.2s; /* Smooth transition for transform and color */
 }
+
+.navigacija:hover {
+  transform: scale(1.05); /* Increases the size slightly */
+  background-color: rgb(184, 174, 150); /* Slightly darker shade for hover */
+}
+
 
 button.router-link-active {
   background-color: rgb(184, 174, 150); /* Optional: Different background for the active link */

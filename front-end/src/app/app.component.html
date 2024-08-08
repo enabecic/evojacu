@@ -3,27 +3,27 @@
 <h1>EVOJAĆU</h1>
 <br>
 <div class="nav-container">
-  <button routerLink="/zadatak" class="navigacija">
+  <button routerLink="/zadatak" class="navigacija" routerLinkActive="router-link-active">
     <span *ngIf="jezikService.isBosanski(); else englishZadaci">Zadaci</span>
     <ng-template #englishZadaci>Tasks</ng-template>
   </button>
-  <button routerLink="/pocetna" class="navigacija">
+  <button routerLink="/pocetna" class="navigacija" routerLinkActive="router-link-active">
     <span *ngIf="jezikService.isBosanski(); else englishPocetna">Početna</span>
     <ng-template #englishPocetna>Home</ng-template>
   </button>
-  <button routerLink="/kategorija-dodaj" class="navigacija">
+  <button routerLink="/kategorija-dodaj" class="navigacija" routerLinkActive="router-link-active">
     <span *ngIf="jezikService.isBosanski(); else englishKategorije">Kategorije</span>
     <ng-template #englishKategorije>Categories</ng-template>
   </button>
-  <button routerLink="/ponuda" class="navigacija">
+  <button routerLink="/ponuda" class="navigacija" routerLinkActive="router-link-active">
     <span *ngIf="jezikService.isBosanski(); else englishPonuda">Ponuda</span>
     <ng-template #englishPonuda>Offer</ng-template>
   </button>
-  <button routerLink="/korisnickiProfil" class="navigacija">
+  <button routerLink="/korisnickiProfil" class="navigacija" routerLinkActive="router-link-active">
     <span *ngIf="jezikService.isBosanski(); else englishPotraznja">Korisnički profil</span>
     <ng-template #englishPotraznja>User profile</ng-template>
   </button>
-  <button routerLink="/registracijalogin" class="navigacija">
+  <button routerLink="/registracijalogin" class="navigacija" routerLinkActive="router-link-active">
     <span *ngIf="jezikService.isBosanski(); else englishRegistracijaPrijava">Registracija/Prijava</span>
     <ng-template #englishRegistracijaPrijava>Register/Login</ng-template>
   </button>

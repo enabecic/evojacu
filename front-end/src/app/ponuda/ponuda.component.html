@@ -32,8 +32,10 @@
         </svg>
       </span>
       <span class="clear-filter-button" (click)="clearFilter()">
-        Očisti filter
-      </span>
+  <span *ngIf="jezikService.isBosanski(); else englishClearFilter">Očisti filter</span>
+  <ng-template #englishClearFilter>Clear Filter</ng-template>
+</span>
+
     </div>
   </div>
 </header>
@@ -50,6 +52,8 @@
     </div>
   </div>
 </main>
+
+
 
 <!-- Filter Modal -->
 <div *ngIf="showFilterModal" class="modal fade show" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-modal="true" role="dialog" style="display: block;">
