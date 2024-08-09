@@ -76,66 +76,111 @@
 <!-- Overlay za zamućenje pozadine -->
 <div class="overlay" *ngIf="dodaj_posao != false"></div>
 
-
-
 <div *ngIf="dodaj_posao" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">Novi posao </h5>
+        <h5 class="modal-title" id="exampleModalLiveLabel">
+          <span *ngIf="jezikService.isBosanski(); else englishNoviPosao">Novi posao</span>
+          <ng-template #englishNoviPosao>New Job</ng-template>
+        </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="dodaj_posao=false"></button>
       </div>
       <div class="modal-body">
 
         <div class="mb-3">
-          <label class="form-label" >Zadatak: </label>
-          <select class="form-control"  [(ngModel)]="odabraniZadatakID">
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishZadatak">Zadatak:</span>
+            <ng-template #englishZadatak>Task:</ng-template>
+          </label>
+          <select class="form-control" [(ngModel)]="odabraniZadatakID">
             <option *ngFor="let zadatak of zadaci" [value]="zadatak.zadatakId">{{ zadatak.naziv }}</option>
           </select>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Opis:</label>
-          <input class="form-control" [(ngModel)]="opisPosla" placeholder="Opis" />
-          <div *ngIf="!opisPosla && validationMessages.length > 0" class="text-danger">Opis posla je obavezan.</div>
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishOpis">Opis:</span>
+            <ng-template #englishOpis>Description:</ng-template>
+          </label>
+          <input class="form-control" [(ngModel)]="opisPosla"
+                 [placeholder]="jezikService.isBosanski() ? 'Opis' : 'Description'" />
+          <div *ngIf="!opisPosla && validationMessages.length > 0" class="text-danger">
+            <span *ngIf="jezikService.isBosanski(); else englishValidationOpis">Opis posla je obavezan.</span>
+            <ng-template #englishValidationOpis>Description is required.</ng-template>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Grad: </label>
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishGrad">Grad:</span>
+            <ng-template #englishGrad>City:</ng-template>
+          </label>
           <select class="form-control" [(ngModel)]="odabraniGradID">
             <option *ngFor="let grad of gradovi" [value]="grad.gradID">{{ grad.naziv }}</option>
           </select>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Adresa: </label>
-          <input class="form-control" [(ngModel)]="adresaPosla" placeholder="Adresa" />
-          <div *ngIf="!adresaPosla && validationMessages.length > 0" class="text-danger">Adresa posla je obavezna.</div>
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishAdresa">Adresa:</span>
+            <ng-template #englishAdresa>Address:</ng-template>
+          </label>
+          <input class="form-control" [(ngModel)]="adresaPosla"
+                 [placeholder]="jezikService.isBosanski() ? 'Adresa' : 'Address'" />
+          <div *ngIf="!adresaPosla && validationMessages.length > 0" class="text-danger">
+            <span *ngIf="jezikService.isBosanski(); else englishValidationAdresa">Adresa posla je obavezna.</span>
+            <ng-template #englishValidationAdresa>Address is required.</ng-template>
+          </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Rok izvršenja:</label>
-          <input class="form-control" type="date"  placeholder="Rok izvršenja" >
-          <div *ngIf="odabraniDatum < today && validationMessages.length > 0" class="text-danger">Datum ne može biti stariji od današnjeg.</div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Cijena:</label>
-          <input class="form-control" [(ngModel)]="cijenaPosla" placeholder="Cijena" />
-          <div *ngIf="(cijenaPosla < 0 || cijenaPosla > 1000) && validationMessages.length > 0" class="text-danger">Cijena mora biti između 0 i 1000.</div>
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishRokIzvrsenja">Rok izvršenja:</span>
+            <ng-template #englishRokIzvrsenja>Due Date:</ng-template>
+          </label>
+          <input class="form-control" type="date" [(ngModel)]="odabraniDatum"
+                 [placeholder]="jezikService.isBosanski() ? 'Rok izvršenja' : 'Due Date'" />
+          <div *ngIf="odabraniDatum < today && validationMessages.length > 0" class="text-danger">
+            <span *ngIf="jezikService.isBosanski(); else englishValidationRok">Datum ne može biti stariji od današnjeg.</span>
+            <ng-template #englishValidationRok>Date cannot be earlier than today.</ng-template>
+          </div>
         </div>
 
+        <div class="mb-3">
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishCijena">Cijena:</span>
+            <ng-template #englishCijena>Price:</ng-template>
+          </label>
+          <input class="form-control" [(ngModel)]="cijenaPosla"
+                 [placeholder]="jezikService.isBosanski() ? 'Cijena' : 'Price'" />
+          <div *ngIf="(cijenaPosla < 0 || cijenaPosla > 1000) && validationMessages.length > 0" class="text-danger">
+            <span *ngIf="jezikService.isBosanski(); else englishValidationCijena">Cijena mora biti između 0 i 1000.</span>
+            <ng-template #englishValidationCijena>Price must be between 0 and 1000.</ng-template>
+          </div>
+        </div>
 
         <div class="mb-3 form-group">
-          <label for="gpsCheckbox">Ukljuci GPS:</label>
+          <label for="gpsCheckbox">
+            <span *ngIf="jezikService.isBosanski(); else englishGPS">Ukljuci GPS:</span>
+            <ng-template #englishGPS>Include GPS:</ng-template>
+          </label>
           <input type="checkbox" id="gpsCheckbox" [(ngModel)]="ukljucenGPS">
         </div>
 
-
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn modal-button" (click)="dodaj_posao=false">Close</button>
-        <button type="button" class="btn modal-button" (click)="dodajPosao()">Save changes</button>
+        <button type="button" class="btn modal-button" (click)="dodaj_posao=false">
+          <span *ngIf="jezikService.isBosanski(); else englishClose">Zatvori</span>
+          <ng-template #englishClose>Close</ng-template>
+        </button>
+        <button type="button" class="btn modal-button" (click)="dodajPosao()">
+          <span *ngIf="jezikService.isBosanski(); else englishSaveChanges">Spremi promjene</span>
+          <ng-template #englishSaveChanges>Save changes</ng-template>
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+

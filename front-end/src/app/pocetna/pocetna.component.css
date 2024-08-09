@@ -95,16 +95,31 @@ h2 {
 .korisnickiProfil {
   width: 50px;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
+
+.korisnickiProfil:hover {
+  transform: scale(1.1); /* Povećaj sliku za 10% pri hoveru */
+}
+
+
 
 .slikaDatum {
   width: 250px;
   padding-right: 100px;
   transition: transform 0.3s ease;
+
 }
+
+
 .slikaDatum:hover {
-  transform: scale(1.1); /* Uvećaj ikonu za 10% pri hoveru */
+
+  transform: scale(1.1); /* Povećanje pri hoveru */
 }
+
+
+
+
 p {
   font-family: "Book Antiqua";
 }
