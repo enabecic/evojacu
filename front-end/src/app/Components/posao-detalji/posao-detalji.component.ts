@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MojConfig } from '../moj-config';
-import {JezikService} from "../Services/jezik.service"; // Importujte MojConfig
+import { MojConfig } from '../../moj-config';
+import {JezikService} from "../../Services/jezik.service"; // Importujte MojConfig
 
 interface Posao {
   posaoID: number;

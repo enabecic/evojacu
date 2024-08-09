@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { MojConfig } from '../moj-config';
+import { MojConfig } from '../../moj-config';
 import { Observable } from "rxjs";
 import { Router } from "@angular/router";
-import { JezikService } from "../Services/jezik.service";
+import { JezikService } from "../../Services/jezik.service";
 import {map} from "rxjs/operators";
 
 interface Kategorija {
