@@ -20,7 +20,7 @@ namespace evojacu.Endpoints.Posloprimaoc.Dodaj
             var noviObj = new evojacu.Models.Posloprimaoc
             {
                 KorisnikId = request.KorisnikId,
-                Strucnost = request.Strucnost
+                Strucnost = " "
 
             };
             _applicationDbContext.Posloprimaoci.Add(noviObj);

@@ -20,7 +20,7 @@ namespace test1.Endpoints.Poslodavaoc.Dodaj
             var noviObj = new evojacu.Models.Poslodavac
             {
                 KorisnikId = request.KorisnikId,
-                NazivKompanije = request.NazivKompanije
+                NazivKompanije = " "
                
             };
             _applicationDbContext.Poslodavci.Add(noviObj);
