@@ -18,6 +18,8 @@ interface Grad {
   naziv: string;
 }
 
+
+
 interface Kategorija {
   kategorijaID: number;
   naziv: string;
@@ -31,6 +33,7 @@ export class PonudaComponent implements OnInit {
   poslovi: Posao[] = [];
   filteredPoslovi: Posao[] = [];
   gradovi: Grad[] = [];
+
   searchTerm: string = '';
   minPrice: number = 0;
   maxPrice: number = 1000;

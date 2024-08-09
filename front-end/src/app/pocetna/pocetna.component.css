@@ -5,6 +5,21 @@ body, html {
   background-color: rgb(244, 244, 244);
 }
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Poluprovidna crna pozadina */
+  backdrop-filter: blur(5px); /* Zamućenje pozadine */
+  z-index: 1040; /* Treba biti iznad ostalih sadržaja ali ispod modala */
+}
+
+.modal {
+  z-index: 1050; /* Treba biti iznad overlay-a */
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -85,8 +100,11 @@ h2 {
 .slikaDatum {
   width: 250px;
   padding-right: 100px;
+  transition: transform 0.3s ease;
 }
-
+.slikaDatum:hover {
+  transform: scale(1.1); /* Uvećaj ikonu za 10% pri hoveru */
+}
 p {
   font-family: "Book Antiqua";
 }
@@ -265,4 +283,63 @@ h4 {
   margin-top: 70px;
   margin-bottom: 50px;
   padding-left: 20px;
+}
+
+.modal-button {
+  background-color: rgb(218, 208, 174);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px; /* Povećano zaobljenje */
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.modal-button:hover {
+  background-color: rgb(200, 190, 160);
+}
+
+.modal-dialog {
+  display: flex;
+  align-items: center; /* Centriranje vertikalno */
+  justify-content: center; /* Centriranje horizontalno */
+  position: fixed; /* Fiksna pozicija */
+  top: 0;
+  left: 0;
+  width: 100vw; /* Širina celog ekrana */
+  height: 100vh; /* Visina celog ekrana */
+  overflow: auto; /* Omogućava pomeranje ako je sadržaj veći od ekrana */
+  margin-left: 33%;
+}
+
+
+.modal-content {
+  border-radius: 8px;
+  margin: auto; /* Automatski margin za centriranje */
+  max-width: 600px; /* Maksimalna širina */
+  width: 90%; /* Širina modala u procentima */
+}
+
+.modal-header, .modal-body, .modal-footer {
+  padding: 1rem;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+  text-align: right;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+label{
+  padding-right: 0.5rem;
 }

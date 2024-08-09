@@ -25,11 +25,14 @@
     </p>
     <br>
     <p class="tekst">
-      <span *ngIf="jezikService.isBosanski(); else englishSelectDate">Odaberi datum i vrijeme kada ti je neko potreban</span>
-      <ng-template #englishSelectDate>Select the date and time when someone is needed</ng-template>
+      <span *ngIf="jezikService.isBosanski(); else englishSelectDate">Dodaj posao koji ti je potreban i uštedi svoje vrijeme</span>
+      <ng-template #englishSelectDate>Add job that you need and save your time</ng-template>
     </p>
   </div>
-  <img class="slikaDatum" src="assets/date.png" alt="Datum slika">
+  <svg class="slikaDatum" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" (click)="dodaj_posao=true">
+    <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+
 </div>
 <br><br><br><br>
 <div class="carousel-container">
@@ -65,6 +68,73 @@
       <div class="tekst-container2">
         <p class="TekstPonude">{{ posao.nazivZadatka }}</p>
         <p class="TekstPonude">{{ posao.cijena }} KM</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay za zamućenje pozadine -->
+<div class="overlay" *ngIf="dodaj_posao != false"></div>
+
+
+
+<div *ngIf="dodaj_posao" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel">Novi posao </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="dodaj_posao=false"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="mb-3">
+          <label class="form-label" >Zadatak: </label>
+          <select class="form-control"  [(ngModel)]="odabraniZadatakID">
+            <option *ngFor="let zadatak of zadaci" [value]="zadatak.zadatakId">{{ zadatak.naziv }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Opis:</label>
+          <input class="form-control" [(ngModel)]="opisPosla" placeholder="Opis" />
+          <div *ngIf="!opisPosla && validationMessages.length > 0" class="text-danger">Opis posla je obavezan.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Grad: </label>
+          <select class="form-control" [(ngModel)]="odabraniGradID">
+            <option *ngFor="let grad of gradovi" [value]="grad.gradID">{{ grad.naziv }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Adresa: </label>
+          <input class="form-control" [(ngModel)]="adresaPosla" placeholder="Adresa" />
+          <div *ngIf="!adresaPosla && validationMessages.length > 0" class="text-danger">Adresa posla je obavezna.</div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Rok izvršenja:</label>
+          <input class="form-control" type="date"  placeholder="Rok izvršenja" >
+          <div *ngIf="odabraniDatum < today && validationMessages.length > 0" class="text-danger">Datum ne može biti stariji od današnjeg.</div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Cijena:</label>
+          <input class="form-control" [(ngModel)]="cijenaPosla" placeholder="Cijena" />
+          <div *ngIf="(cijenaPosla < 0 || cijenaPosla > 1000) && validationMessages.length > 0" class="text-danger">Cijena mora biti između 0 i 1000.</div>
+        </div>
+
+
+        <div class="mb-3 form-group">
+          <label for="gpsCheckbox">Ukljuci GPS:</label>
+          <input type="checkbox" id="gpsCheckbox" [(ngModel)]="ukljucenGPS">
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn modal-button" (click)="dodaj_posao=false">Close</button>
+        <button type="button" class="btn modal-button" (click)="dodajPosao()">Save changes</button>
       </div>
     </div>
   </div>
