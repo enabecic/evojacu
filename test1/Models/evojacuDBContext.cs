@@ -31,6 +31,7 @@ namespace evojacu.Models
         public DbSet<Gost> Gosti { get; set; }
         public DbSet<Recenzija> Recenzije { get; set; }
         public DbSet<Zadatak> Zadaci { get; set; }
+        public DbSet<OdabraniPosao> OdabraniPoslovi { get; set; }
 
 
 
