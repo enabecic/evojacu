@@ -53,5 +53,7 @@ namespace evojacu.Models
         public float Cijena { get; set; }
         public bool UkljucenGPS { get; set; }
 
+        public bool jeOdabran { get; set; }=false;
+
     }
 }

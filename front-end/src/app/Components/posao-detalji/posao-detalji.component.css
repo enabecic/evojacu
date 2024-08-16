@@ -127,3 +127,9 @@ h2 {
   text-align: center;
   line-height: 40px; /* Centriranje teksta vertikalno */
 }
+
+.odaberi:disabled {
+  background-color: #ccc; /* Siva boja za onemogućeno dugme */
+  cursor: not-allowed;
+}
+

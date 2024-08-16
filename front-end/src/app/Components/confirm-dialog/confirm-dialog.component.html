@@ -1,0 +1,8 @@
+
+
+<h1 mat-dialog-title class="mat-dialog-title">{{ data.message }}</h1>
+<div mat-dialog-actions class="mat-dialog-actions">
+  <button mat-button class="mat-button" (click)="onCancelClick()">{{ jezikService.isBosanski() ? 'Ne' : 'No' }}</button>
+  <button mat-button class="mat-button" (click)="onConfirmClick()" cdkFocusInitial>{{ jezikService.isBosanski() ? 'Da' : 'Yes' }}</button>
+</div>
+

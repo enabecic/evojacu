@@ -1,6 +1,7 @@
 ﻿using evojacu.Helpers;
 using evojacu.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace evojacu.Endpoints.Posao.Update
 {
@@ -40,5 +41,26 @@ namespace evojacu.Endpoints.Posao.Update
                 PosaoID = posao.ZadatakID
             };
         }
+
+
+        [HttpPost("odaberi/{posaoID}")]
+        public async Task<IActionResult> OdaberiPosao(int posaoID, CancellationToken cancellationToken = default)
+        {
+            var posao = await _applicationDbContext.Poslovi.FirstOrDefaultAsync(x => x.ZadatakID == posaoID, cancellationToken);
+
+            if (posao == null)
+            {
+                return NotFound(new { Message = "Posao not found with ID = " + posaoID });
+            }
+
+            posao.jeOdabran = true;
+
+            await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+            return Ok(new { PosaoID = posao.ZadatakID });
+        }
+
+
+
     }
 }

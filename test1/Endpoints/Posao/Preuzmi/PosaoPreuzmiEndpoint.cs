@@ -43,7 +43,8 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                    DatumObjave=x.DatumObjave, 
                    Cijena=x.Cijena,
                    UkljucenGPS=x.UkljucenGPS,
-                   NazivKategorije=x.Zadatak.Kategorija.Naziv
+                   NazivKategorije=x.Zadatak.Kategorija.Naziv,
+                   jeOdabran=x.jeOdabran
                }).ToListAsync(cancellationToken: cancellationToken);
 
 
@@ -77,7 +78,9 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                     NazivZadatka = x.Zadatak.Naziv,
                     DatumObjave = x.DatumObjave,
                     Cijena = x.Cijena,
-                    UkljucenGPS= x.UkljucenGPS
+                    UkljucenGPS= x.UkljucenGPS,
+                    NazivKategorije = x.Zadatak.Kategorija.Naziv,
+                    jeOdabran = x.jeOdabran
                 })
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 

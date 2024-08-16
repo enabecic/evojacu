@@ -77,12 +77,19 @@
 
   <br><br>
 
-  <div class="dugme">
-    <button class="odaberi">
-      <span *ngIf="jezikService.isBosanski(); else englishOdaberi">Odaberi</span>
-      <ng-template #englishOdaberi>Select</ng-template>
+  <div class="dugme" >
+    <button class="odaberi" (click)="openConfirmDialog()"
+            [disabled]="posao.jeOdabran">
+      <span *ngIf="jezikService.isBosanski(); else englishOdaberi">
+        {{ posao.jeOdabran ? 'Posao odabran' : 'Odaberi' }}
+      </span>
+      <ng-template #englishOdaberi>
+        {{ posao.jeOdabran ? 'Job Selected' : 'Select' }}
+      </ng-template>
     </button>
   </div>
+
+
   <br>
 </div>
 <br>

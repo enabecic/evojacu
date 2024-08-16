@@ -13,6 +13,10 @@ import { PosaoDetaljiComponent } from './Components/posao-detalji/posao-detalji.
 import { KategorijaDodajComponent } from './Components/Kategorija/kategorija-dodaj/kategorija-dodaj.component';
 import { ZadatakComponent } from './Components/Zadatak/zadatak/zadatak.component';
 import { JezikComponent } from './Components/jezik/jezik.component';
+import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 @NgModule({
@@ -27,6 +31,7 @@ import { JezikComponent } from './Components/jezik/jezik.component';
     KategorijaDodajComponent,
     ZadatakComponent,
     JezikComponent,
+    ConfirmDialogComponent,
 
   ],
   imports: [
@@ -44,10 +49,13 @@ import { JezikComponent } from './Components/jezik/jezik.component';
       {path: 'zadatak' , component: ZadatakComponent},
 
 
+
     ]),
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
