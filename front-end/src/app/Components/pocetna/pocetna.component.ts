@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { JezikService } from "../../Services/jezik.service";
 import {map} from "rxjs/operators";
 
+
 interface Kategorija {
   kategorijaID: number;
   naziv: string;
@@ -70,6 +71,9 @@ export class PocetnaComponent implements OnInit {
     this.getGradovi();
     this.getZadaci();
   }
+
+
+
 
   getZadatakSlikaURL(zadatakID: number): string {
     return `${MojConfig.adresa_servera}/Zadatak/slika?id=${zadatakID}`;
@@ -162,18 +166,18 @@ export class PocetnaComponent implements OnInit {
     }
 
     if (this.validationMessages.length > 0) {
-      return; // Ako postoji neka greška, prekidamo dalje izvršavanje.
+      return;
     }
 
-    // Ako nema grešaka, nastavite sa dodavanjem posla.
+
     this.dodajVrijemeIzvrsavanja(this.odabraniDatum).subscribe(vrijemeIzvrsavanjaID => {
       const noviPosao = {
         VrijemeIzvrsavanjaID: vrijemeIzvrsavanjaID,
         GradID: this.odabraniGradID,
-        FazaPoslaID: 1, // FazaPoslaID hardkodiran na 1
+        FazaPoslaID: 1,
         OpisPosla: this.opisPosla,
         Adresa: this.adresaPosla,
-        PoslodavacID: 1, // PoslodavacID hardkodiran na 1
+        PoslodavacID: 1,
         ZadatakStraniID: this.odabraniZadatakID,
         Cijena: this.cijenaPosla,
         UkljucenGPS: this.ukljucenGPS
@@ -181,7 +185,19 @@ export class PocetnaComponent implements OnInit {
 
       this.http.post(`${MojConfig.adresa_servera}/Posao-dodaj`, noviPosao).subscribe(response => {
         alert('Posao je uspješno dodan!');
-        this.dodaj_posao = false; // Zatvaranje dijaloga nakon uspješnog dodavanja
+
+
+        this.opisPosla = '';
+        this.adresaPosla = '';
+        this.cijenaPosla = 0;
+        this.ukljucenGPS = false;
+        this.odabraniGradID = 1;
+        this.odabraniZadatakID = 1;
+        this.odabraniDatum = '';
+
+        this.validationMessages = [];
+
+        this.dodaj_posao = false;
         this.getPoslovi().subscribe((data: any) => {
           this.poslovi = this.filterAndSortPoslovi(data.poslovi);
         });

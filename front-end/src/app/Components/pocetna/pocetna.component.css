@@ -1,7 +1,7 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 230vh;
+  height: 260vh;
   background-color: rgb(244, 244, 244);
 }
 
@@ -11,13 +11,13 @@ body, html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Poluprovidna crna pozadina */
-  backdrop-filter: blur(5px); /* Zamućenje pozadine */
-  z-index: 1040; /* Treba biti iznad ostalih sadržaja ali ispod modala */
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 1040;
 }
 
 .modal {
-  z-index: 1050; /* Treba biti iznad overlay-a */
+  z-index: 1050;
 }
 
 * {
@@ -42,6 +42,10 @@ h2 {
   color: rgb(48, 48, 48);
 }
 
+.noviPosao{
+  font-size: 20px;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -62,12 +66,12 @@ h2 {
   cursor: pointer;
   border-radius: 10px;
   font-weight: bold;
-  transition: transform 0.3s ease, background-color 0.3s ease; /* Dodajte tranziciju */
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .centered-button1:hover {
-  transform: scale(1.05); /* Povećanje dugmeta pri hoveru */
-  background-color: rgb(200, 190, 150);/* Potamnjivanje pozadine pri hoveru */
+  transform: scale(1.05);
+  background-color: rgb(200, 190, 150);
 }
 
 
@@ -99,7 +103,7 @@ h2 {
 }
 
 .korisnickiProfil:hover {
-  transform: scale(1.1); /* Povećaj sliku za 10% pri hoveru */
+  transform: scale(1.1);
 }
 
 
@@ -114,7 +118,7 @@ h2 {
 
 .slikaDatum:hover {
 
-  transform: scale(1.1); /* Povećanje pri hoveru */
+  transform: scale(1.1);
 }
 
 
@@ -183,7 +187,7 @@ p {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: transform 0.2s ease-in-out; /* Dodana animacija */
+  transition: transform 0.2s ease-in-out;
 }
 
 .kategorija-slika {
@@ -191,15 +195,15 @@ p {
   height: 150px;
   border-radius: 10px;
   object-fit: contain;
-  transition: transform 0.3s ease; /* Dodana animacija */
+  transition: transform 0.3s ease;
 }
 
 .kategorija:hover {
-  transform: scale(1.05); /* Povećanje pri hoveru */
+  transform: scale(1.05);
 }
 
 .kategorija:hover .kategorija-slika {
-  transform: scale(1.1); /* Povećanje slike pri hoveru */
+  transform: scale(1.1);
 }
 
 .carousel-button {
@@ -219,44 +223,44 @@ p {
 }
 
 .carousel-button:hover {
-  transform: scale(1.1); /* Povećanje dugmadi pri hoveru */
+  transform: scale(1.1);
 }
 
 .arrow-icon {
-  width: 24px; /* Veličina ikone */
+  width: 24px;
   height: 24px;
   stroke: currentColor;
   transition: transform 0.2s ease-in-out;
 }
 
 .carousel-button:hover .arrow-icon {
-  transform: scale(1.1); /* Povećanje ikone pri hoveru */
+  transform: scale(1.1);
 }
 
 .containerPonude {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Razmak između kartica */
-  gap: 1rem; /* Smanjite razmak između kartica */
-  padding: 2.3rem 5rem; /* Smanjite padding sa strane */
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2.3rem 5rem;
 }
 
 .Pozadina {
   background-color: white;
-  flex: 1 1 calc(33.333% - 1rem); /* Ažurirano zbog smanjenog gap-a */
+  flex: 1 1 calc(33.333% - 1rem);
   max-width: calc(33.333% - 1rem);
-  height: auto; /* Automatska visina */
+  height: auto;
   border-radius: 10px;
-  margin: 10px 0; /* Vertikalni razmak između kartica */
+  margin: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s; /* Dodaj animaciju transformacije */
+  transition: transform 0.2s;
 }
 
 .Pozadina:hover {
-  transform: scale(1.05); /* Povećaj element pri hoveru */
+  transform: scale(1.05);
 }
 
 .Ponuda {
@@ -264,20 +268,20 @@ p {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px; /* Smanjen padding */
+  padding: 10px;
   width: 100%;
 }
 
 .zadatak-slika {
   max-width: 100%;
   height: 170px;
-  margin-bottom: 10px; /* Razmak ispod slike */
-  border-radius: 5%; /* Dodaj zaobljenje slike */
-  transition: transform 0.3s ease; /* Animacija prilikom hovera */
+  margin-bottom: 10px;
+  border-radius: 5%;
+  transition: transform 0.3s ease;
 }
 
 .Pozadina:hover .zadatak-slika {
-  transform: scale(1.1); /* Povećaj sliku pri hoveru */
+  transform: scale(1.1);
 }
 
 .tekst-container2 {
@@ -305,7 +309,7 @@ h4 {
   color: white;
   padding: 10px 20px;
   border: none;
-  border-radius: 10px; /* Povećano zaobljenje */
+  border-radius: 10px;
   font-size: 14px;
   cursor: pointer;
   font-weight: bold;
@@ -319,23 +323,23 @@ h4 {
 
 .modal-dialog {
   display: flex;
-  align-items: center; /* Centriranje vertikalno */
-  justify-content: center; /* Centriranje horizontalno */
-  position: fixed; /* Fiksna pozicija */
+  align-items: center;
+  justify-content: center;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw; /* Širina celog ekrana */
-  height: 100vh; /* Visina celog ekrana */
-  overflow: auto; /* Omogućava pomeranje ako je sadržaj veći od ekrana */
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
   margin-left: 33%;
 }
 
 
 .modal-content {
   border-radius: 8px;
-  margin: auto; /* Automatski margin za centriranje */
-  max-width: 600px; /* Maksimalna širina */
-  width: 90%; /* Širina modala u procentima */
+  margin: auto;
+  max-width: 600px;
+  width: 90%; 
 }
 
 .modal-header, .modal-body, .modal-footer {
@@ -344,6 +348,7 @@ h4 {
 
 .modal-header {
   border-bottom: 1px solid #dee2e6;
+
 }
 
 .modal-footer {

@@ -1,3 +1,4 @@
+<html>
 <div class="containerSlika">
   <div class="left-content">
     <h2>
@@ -67,7 +68,7 @@
       <img class="zadatak-slika" [src]="getZadatakSlikaURL(posao.zadatakStraniID)" alt="Kategorija slika">
       <div class="tekst-container2">
         <p class="TekstPonude">{{ posao.nazivZadatka }}</p>
-        <p class="TekstPonude">{{ posao.cijena }} KM</p>
+        <p class="TekstPonude">{{ posao.cijena | number:'1.2-2' }} KM</p>
       </div>
     </div>
   </div>
@@ -80,9 +81,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLiveLabel">
-          <span *ngIf="jezikService.isBosanski(); else englishNoviPosao">Novi posao</span>
-          <ng-template #englishNoviPosao>New Job</ng-template>
+        <h5 class="modal-title" id="exampleModalLiveLabel" class="noviPosao">
+          <span *ngIf="jezikService.isBosanski(); else englishNoviPosao" class="noviPosao">Novi posao</span>
+          <ng-template #englishNoviPosao >New Job</ng-template>
         </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="dodaj_posao=false"></button>
       </div>
@@ -153,6 +154,7 @@
             <ng-template #englishCijena>Price:</ng-template>
           </label>
           <input class="form-control" [(ngModel)]="cijenaPosla"
+
                  [placeholder]="jezikService.isBosanski() ? 'Cijena' : 'Price'" />
           <div *ngIf="(cijenaPosla < 0 || cijenaPosla > 1000) && validationMessages.length > 0" class="text-danger">
             <span *ngIf="jezikService.isBosanski(); else englishValidationCijena">Cijena mora biti između 0 i 1000.</span>
@@ -183,4 +185,4 @@
   </div>
 </div>
 
-
+</html>
