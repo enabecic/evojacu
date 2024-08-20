@@ -1,4 +1,5 @@
 <html>
+
 <div class="containerSlika">
   <div class="left-content">
     <h2>
@@ -7,17 +8,29 @@
     </h2>
   </div>
   <div routerLink="/korisnickiProfil" class="right-content">
-    <img class="korisnickiProfil" src="../../../assets/profil.png" alt="profil">
+    <img class="korisnickiProfil"
+         src="../../../assets/profil.png"
+         alt="profil"
+         [title]="jezikService.isBosanski() ? 'Korisnički profil' : 'User Profile'">
   </div>
 </div>
+
+
 <br>
+
 <div class="container">
-  <button routerLink="/ponuda" class="centered-button1">
+  <button routerLink="/ponuda" class="centered-button1"
+          [attr.title]="jezikService.isBosanski() ? 'Ponuda' : 'Offer'">
     <span *ngIf="jezikService.isBosanski(); else englishDemand">Ponuda</span>
     <ng-template #englishDemand>Offer</ng-template>
   </button>
 </div>
+
+
+
 <br>
+
+
 <div class="datum">
   <div class="tekst-container">
     <p class="uPotraziSi">
@@ -30,40 +43,75 @@
       <ng-template #englishSelectDate>Add job that you need and save your time</ng-template>
     </p>
   </div>
-  <svg class="slikaDatum" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" (click)="dodaj_posao=true">
-    <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
+
+  <div class="slikaDatum-container">
+    <svg class="slikaDatum" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" (click)="dodaj_posao=true">
+      <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="tooltip-text">
+      <span *ngIf="jezikService.isBosanski(); else englishTooltip">Dodavanje posla</span>
+      <ng-template #englishTooltip>Adding job</ng-template>
+    </span>
+  </div>
+
+
+
 
 </div>
+
+
+
+
 <br><br><br><br>
+
+
+
 <div class="carousel-container">
-  <button (click)="prevPage()" class="carousel-button arrow">
+  <button
+    (click)="prevPage()"
+    class="carousel-button arrow"
+    [attr.title]="jezikService.isBosanski() ? 'Prethodna stranica' : 'Previous page'">
     <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd"/>
     </svg>
   </button>
   <div class="carousel">
     <div class="carousel-inner">
-      <div *ngFor="let kategorija of currentKategorije" class="kategorija" (click)="navigateToPonuda(kategorija.kategorijaID)">
+      <div
+        *ngFor="let kategorija of currentKategorije"
+        class="kategorija"
+        (click)="navigateToPonuda(kategorija.kategorijaID)"
+        [attr.title]="jezikService.isBosanski() ? 'Kategorija' : 'Category'">
         <img class="kategorija-slika" [src]="kategorija.slika" alt="Kategorija slika">
         <p>{{ kategorija.naziv }}</p>
       </div>
     </div>
   </div>
-  <button (click)="nextPage()" class="carousel-button arrow">
+  <button
+    (click)="nextPage()"
+    class="carousel-button arrow"
+    [attr.title]="jezikService.isBosanski() ? 'Sljedeća stranica' : 'Next page'">
     <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" fill="none" fill-rule="evenodd"/>
     </svg>
   </button>
 </div>
+
+
+
+
 <br>
 <h4>
   <span *ngIf="jezikService.isBosanski(); else englishLatestJobs">Najnoviji poslovi</span>
   <ng-template #englishLatestJobs>Latest Jobs</ng-template>
 </h4>
 <br>
+
+
+
 <div class="containerPonude">
-  <div class="Pozadina" *ngFor="let posao of poslovi" (click)="navigateToDetails(posao.posaoID)">
+  <div class="Pozadina" *ngFor="let posao of poslovi" (click)="navigateToDetails(posao.posaoID)"
+       [attr.title]="jezikService.isBosanski() ? 'Posao' : 'Job'">
     <div class="Ponuda">
       <img class="zadatak-slika" [src]="getZadatakSlikaURL(posao.zadatakStraniID)" alt="Kategorija slika">
       <div class="tekst-container2">
@@ -73,6 +121,9 @@
     </div>
   </div>
 </div>
+
+
+
 
 <!-- Overlay za zamućenje pozadine -->
 <div class="overlay" *ngIf="dodaj_posao != false"></div>

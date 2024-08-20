@@ -9,7 +9,9 @@
   backdrop-filter: blur(5px); /* Zamućenje pozadine */
   z-index: 1040; /* Treba biti iznad ostalih sadržaja ali ispod modala */
 }
-
+.dodajKategoriju{
+  font-size: 20px;
+}
 /* Stilizacija za modal */
 .modal {
   z-index: 1050; /* Treba biti iznad overlay-a */

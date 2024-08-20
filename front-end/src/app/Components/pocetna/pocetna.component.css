@@ -29,6 +29,37 @@ html {
   background-color: rgb(244, 244, 244);
 }
 
+.slikaDatum-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+//background-color: rgb(244, 244, 244);
+//color: rgb(218, 208, 174);
+  color: white;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 70%; /* Pozicija iznad ikone */
+  left: 50%;
+  margin-left: -30px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 13px;
+}
+
+.slikaDatum-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
 h1 {
   text-align: center;
   font-family: "Book Antiqua";
@@ -339,7 +370,7 @@ h4 {
   border-radius: 8px;
   margin: auto;
   max-width: 600px;
-  width: 90%; 
+  width: 90%;
 }
 
 .modal-header, .modal-body, .modal-footer {

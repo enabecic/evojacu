@@ -61,6 +61,8 @@ export class PocetnaComponent implements OnInit {
   today: string = new Date().toISOString().split('T')[0];
   odabraniDatum: string = '';
 
+
+
   constructor(private http: HttpClient, private router: Router, public jezikService: JezikService) {}
 
   ngOnInit(): void {
@@ -204,6 +206,8 @@ export class PocetnaComponent implements OnInit {
       });
     });
   }
+
+
 
 
 
