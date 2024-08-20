@@ -11,6 +11,7 @@ interface Posao {
   posaoID: number;
   nazivZadatka: string;
   cijena: number;
+  cijenaString:string;
   gradID: number;
   nazivGrada: string;
   vrijemeIzvrsavanjaID: number;
@@ -22,7 +23,7 @@ interface Posao {
   fazaPoslaID: number;
   nazivFazePosla: string;
   zadatakStraniID: number;
-  datumObjave: Date;
+  datumObjaveString: Date;
   ukljucenGPS: boolean;
   jeOdabran: boolean;
 }

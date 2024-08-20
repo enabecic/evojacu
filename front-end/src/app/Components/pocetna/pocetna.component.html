@@ -116,7 +116,7 @@
       <img class="zadatak-slika" [src]="getZadatakSlikaURL(posao.zadatakStraniID)" alt="Kategorija slika">
       <div class="tekst-container2">
         <p class="TekstPonude">{{ posao.nazivZadatka }}</p>
-        <p class="TekstPonude">{{ posao.cijena | number:'1.2-2' }} KM</p>
+        <p class="TekstPonude">{{ posao.cijenaString  }} KM</p>
       </div>
     </div>
   </div>
@@ -191,8 +191,8 @@
             <span *ngIf="jezikService.isBosanski(); else englishRokIzvrsenja">Rok izvršenja:</span>
             <ng-template #englishRokIzvrsenja>Due Date:</ng-template>
           </label>
-          <input class="form-control" type="date" [(ngModel)]="odabraniDatum"
-                 [placeholder]="jezikService.isBosanski() ? 'Rok izvršenja' : 'Due Date'" />
+          <input class="form-control" type="date" [(ngModel)]="odabraniDatum"/>
+
           <div *ngIf="odabraniDatum < today && validationMessages.length > 0" class="text-danger">
             <span *ngIf="jezikService.isBosanski(); else englishValidationRok">Datum ne može biti stariji od današnjeg.</span>
             <ng-template #englishValidationRok>Date cannot be earlier than today.</ng-template>

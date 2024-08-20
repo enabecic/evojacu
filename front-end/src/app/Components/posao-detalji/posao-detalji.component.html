@@ -35,14 +35,14 @@
       <span *ngIf="jezikService.isBosanski(); else englishDatumObjave">Datum objave:</span>
       <ng-template #englishDatumObjave>Posted Date:</ng-template>
     </strong></p>
-    <p class="value">{{ posao.datumObjave | date }}</p>
+    <p class="value">{{ posao.datumObjaveString }}</p>
   </div>
   <div class="detail-row">
     <p class="label"><strong>
       <span *ngIf="jezikService.isBosanski(); else englishRokIzvrsenja">Rok izvršavanja:</span>
       <ng-template #englishRokIzvrsenja>Deadline:</ng-template>
     </strong></p>
-    <p class="value">{{ posao.krajVremena | date }}</p>
+    <p class="value">{{ posao.krajVremena  }}</p>
   </div>
   <div class="detail-row">
     <p class="label"><strong>
@@ -72,7 +72,7 @@
       <span *ngIf="jezikService.isBosanski(); else englishCijena">Cijena:</span>
       <ng-template #englishCijena>Price:</ng-template>
     </strong></p>
-    <p class="value">{{ posao.cijena }} KM</p>
+    <p class="value">{{ posao.cijenaString }} KM</p>
   </div>
 
   <br><br>

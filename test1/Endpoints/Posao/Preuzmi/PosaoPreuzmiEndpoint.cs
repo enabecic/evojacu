@@ -2,6 +2,7 @@
 using evojacu.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace evojacu.Endpoints.Posao.Preuzmi
 {
@@ -20,9 +21,11 @@ namespace evojacu.Endpoints.Posao.Preuzmi
         [HttpGet]
         public override async Task<PosaoPreuzmiResponse> Obradi([FromQuery]PosaoPreuzmiRequest request, CancellationToken cancellationToken = default)
         {
+            var ci = new CultureInfo("bs-BH");
+
             var poslovi = await _applicationDbContext.Poslovi.Where(x =>
             (request.OpisPosla == null || x.OpisPosla.ToLower().Contains(request.OpisPosla.ToLower())) &&
-            (request.KategorijaID == null || x.Zadatak.KategorijaID == request.KategorijaID) // Dodaj ovaj filter
+            (request.KategorijaID == null || x.Zadatak.KategorijaID == request.KategorijaID) 
         )
                .Select(x => new PosaoPreuzmiResponsePosao()
                {
@@ -32,7 +35,7 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                   // JePonuda = x.JePonuda,
                    GradID = x.GradId,
                    VrijemeIzvrsavanjaID = x.VrijemeIzvrsavanjaId,
-                   KrajVremena=x.VrijemeIzvrsavanja.KrajVremena,
+                   KrajVremena=x.VrijemeIzvrsavanja.KrajVremena.ToString("dd.MM.yyyy HH:mm:ss", new CultureInfo("bs-BH")),
                    NazivGrada = x.Grad.Naziv,
                    OpisPosla = x.OpisPosla,
                    PoslodavacID = x.PoslodavacID,
@@ -40,9 +43,11 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                    PosaoID = x.ZadatakID,
                    ZadatakStraniID= x.ZadatakStraniID,
                    NazivZadatka=x.Zadatak.Naziv,
-                   DatumObjave=x.DatumObjave, 
-                   Cijena=x.Cijena,
-                   UkljucenGPS=x.UkljucenGPS,
+                   DatumObjaveString=x.DatumObjave.ToString("dd.MM.yyyy HH:mm:ss", new CultureInfo("bs-BH")),
+                   DatumObjave=x.DatumObjave,
+                   Cijena = x.Cijena,
+                   CijenaString= x.Cijena.ToString("N2", ci),
+                   UkljucenGPS =x.UkljucenGPS,
                    NazivKategorije=x.Zadatak.Kategorija.Naziv,
                    jeOdabran=x.jeOdabran
                }).ToListAsync(cancellationToken: cancellationToken);
@@ -59,6 +64,8 @@ namespace evojacu.Endpoints.Posao.Preuzmi
         [HttpGet("{id}")]
         public async Task<ActionResult<PosaoPreuzmiResponsePosao>> GetPosaoById(int id, CancellationToken cancellationToken = default)
         {
+            var ci = new CultureInfo("bs-BH");
+
             var posao = await _applicationDbContext.Poslovi
                 .Where(x => x.ZadatakID == id)
                 .Select(x => new PosaoPreuzmiResponsePosao()
@@ -68,7 +75,7 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                     Adresa = x.Adresa,
                     GradID = x.GradId,
                     VrijemeIzvrsavanjaID = x.VrijemeIzvrsavanjaId,
-                    KrajVremena = x.VrijemeIzvrsavanja.KrajVremena,
+                    KrajVremena = x.VrijemeIzvrsavanja.KrajVremena.ToString("dd.MM.yyyy HH:mm:ss", new CultureInfo("bs-BH")),
                     NazivGrada = x.Grad.Naziv,
                     OpisPosla = x.OpisPosla,
                     PoslodavacID = x.PoslodavacID,
@@ -76,9 +83,11 @@ namespace evojacu.Endpoints.Posao.Preuzmi
                     PosaoID = x.ZadatakID,
                     ZadatakStraniID = x.ZadatakStraniID,
                     NazivZadatka = x.Zadatak.Naziv,
-                    DatumObjave = x.DatumObjave,
+                    DatumObjaveString = x.DatumObjave.ToString("dd.MM.yyyy HH:mm:ss", new CultureInfo("bs-BH")),
+                    DatumObjave=x.DatumObjave,
                     Cijena = x.Cijena,
-                    UkljucenGPS= x.UkljucenGPS,
+                    CijenaString= x.Cijena.ToString("N2", ci),
+                    UkljucenGPS = x.UkljucenGPS,
                     NazivKategorije = x.Zadatak.Kategorija.Naziv,
                     jeOdabran = x.jeOdabran
                 })

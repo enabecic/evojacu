@@ -1,6 +1,7 @@
 ﻿using evojacu.Helpers;
 using evojacu.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace evojacu.Endpoints.Posao.Dodaj
 {
@@ -19,6 +20,11 @@ namespace evojacu.Endpoints.Posao.Dodaj
         [HttpPost]
         public override async Task<PosaoDodajResponse> Obradi([FromBody]PosaoDodajRequest request, CancellationToken cancellationToken = default)
         {
+
+            //var ci = new CultureInfo("bs-BH");
+
+            //string formattedCijena = request.Cijena.ToString("N2", ci);
+
             var noviObj = new evojacu.Models.Posao
             {
                 PoslodavacID = request.PoslodavacID,

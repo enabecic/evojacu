@@ -11,7 +11,7 @@
         public int GradID { get; set; }
         public string NazivGrada { get; set; }
         public int VrijemeIzvrsavanjaID { get; set; }
-        public DateTime KrajVremena { get; set; }
+        public string KrajVremena { get; set; }
         public int PoslodavacID { get; set; }
         public string UserName { get; set; }
         public string OpisPosla { get; set; }
@@ -21,8 +21,12 @@
         public string NazivFazePosla { get; set; }
         public int ZadatakStraniID { get; set; }
         public string NazivZadatka { get; set; }
+        public string DatumObjaveString { get; set; }
         public DateTime DatumObjave { get; set; }
+
+        public string CijenaString { get; set; }
         public float Cijena { get; set; }
+
         public bool UkljucenGPS { get; set; }
         public string NazivKategorije { get; set; }
         public bool jeOdabran { get; set; }

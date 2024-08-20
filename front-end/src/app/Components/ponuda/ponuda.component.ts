@@ -9,6 +9,7 @@ interface Posao {
   posaoID: number;
   nazivZadatka: string;
   cijena: number;
+  cijenaString:string;
   zadatakStraniID: number;
   gradID: number;
 }

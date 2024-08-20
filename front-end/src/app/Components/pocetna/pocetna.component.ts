@@ -21,6 +21,7 @@ interface Posao {
   posaoID: number;
   nazivZadatka: string;
   cijena: number;
+  cijenaString:string;
   zadatakStraniID: number;
   gradID: number;
   datumObjave: Date;
@@ -34,7 +35,8 @@ interface Zadatak {
 @Component({
   selector: 'app-pocetna',
   templateUrl: './pocetna.component.html',
-  styleUrls: ['./pocetna.component.css']
+  styleUrls: ['./pocetna.component.css'],
+
 })
 export class PocetnaComponent implements OnInit {
   kategorije: Kategorija[] = [];
@@ -98,9 +100,16 @@ export class PocetnaComponent implements OnInit {
 
   filterAndSortPoslovi(poslovi: Posao[]): Posao[] {
     return poslovi
-      .sort((a, b) => new Date(b.datumObjave).getTime() - new Date(a.datumObjave).getTime()) // Sortiraj po datumu objave, najnoviji prvo
-      .slice(0, 9); // Uzmi prvih 9 poslova
+      .map(posao => ({
+        ...posao,
+        // Pretvori string datum u Date objekat za ispravno sortiranje
+        datumObjaveDate: new Date(posao.datumObjave)
+      }))
+      .sort((a, b) => b.datumObjaveDate.getTime() - a.datumObjaveDate.getTime()) // Sortiraj po datumu objave, najnoviji prvo
+      .slice(0, 9) // Uzmi prvih 9 poslova
   }
+
+
 
   navigateToDetails(id: number): void {
     this.router.navigate(['/posao-detalji', id]);

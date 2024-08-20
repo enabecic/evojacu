@@ -3,5 +3,6 @@
     public class VrijemeIzvrsavanjaDodajResponse
     {
         public int VrijemeID { get; set; }
+        public string KrajVremena { get; set; }
     }
 }

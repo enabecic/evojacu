@@ -8,6 +8,6 @@
     public class VrijemeIzvrsavanjaPreuzmiResponseVremenaIzvrsavanja
     {
         public int VrijemeIzvrsavanjaID { get; set; }
-        public DateTime KrajVremena { get; set; }
+        public string KrajVremena { get; set; }
     }
 }

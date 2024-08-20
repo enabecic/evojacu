@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using evojacu.Helpers;
 using evojacu.Models;
+using System.Globalization;
 
 namespace evojacu.Endpoints.VrijemeIzvrsavanja.Dodaj
 {
@@ -30,9 +31,12 @@ namespace evojacu.Endpoints.VrijemeIzvrsavanja.Dodaj
 
             await _applicationDbContext.SaveChangesAsync();
 
+            var formatiranDatum = noviObj.KrajVremena.ToString("dd.MM.yyyy HH:mm:ss", new CultureInfo("bs-BH"));
+
             return new VrijemeIzvrsavanjaDodajResponse
             {
-                VrijemeID = noviObj.VrijemeIzvrsavanjaID
+                VrijemeID = noviObj.VrijemeIzvrsavanjaID,
+                KrajVremena = formatiranDatum
             };
         }
     }

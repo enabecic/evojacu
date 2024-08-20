@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using evojacu.Models;
 using evojacu.Services; // Dodajte ovo za pristup UserService
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var config = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false)
@@ -44,6 +46,19 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowOrigin"); // CORS policy
+
+
+
+
+var cultureInfo = new CultureInfo("bs-BH"); // Postavi željeni kulturološki kod
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(cultureInfo),
+    SupportedCultures = new[] { cultureInfo },
+    SupportedUICultures = new[] { cultureInfo }
+});
+
+
 
 app.UseAuthorization();
 

@@ -2,6 +2,7 @@
 using evojacu.Helpers;
 using evojacu.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace evojacu.Endpoints.VrijemeIzvrsavanja.Preuzmi
 {
@@ -25,7 +26,7 @@ namespace evojacu.Endpoints.VrijemeIzvrsavanja.Preuzmi
                 .Select(x => new VrijemeIzvrsavanjaPreuzmiResponseVremenaIzvrsavanja()
                 {
                     VrijemeIzvrsavanjaID = x.VrijemeIzvrsavanjaID,
-                    KrajVremena = x.KrajVremena
+                    KrajVremena = x.KrajVremena.ToString("dd.MM.yyyy HH:mm:ss", new CultureInfo("bs-BH"))
                 }).ToListAsync(cancellationToken: cancellationToken);
 
             return new VrijemeIzvrsavanjaPreuzmiResponse
@@ -33,23 +34,7 @@ namespace evojacu.Endpoints.VrijemeIzvrsavanja.Preuzmi
                 VremenaIzvrsavanja = vremenaIzvrsavanja
             }; 
 
-            //var vremena = _applicationDbContext.VremenaIzvrsavanja.ToList();
-
-            //var vrijeme = vremena.FirstOrDefault(k =>  k.KrajVremena == request.KrajnjeVr);
-
-
-            //if (vremena != null)
-            //{
-            //    Console.WriteLine("Vrijeme je pronađeno!");
-            //    throw new Exception("Postojece vrijeme");
-
-
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Vrijeme nije pronađeno!");
-            //    throw new Exception("Ne postoji vrijeme");
-            //}
+          
 
 
         }
