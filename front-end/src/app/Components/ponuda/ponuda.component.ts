@@ -37,9 +37,9 @@ export class PonudaComponent implements OnInit {
   searchTerm: string = '';
   minPrice: number = 0;
   maxPrice: number = 1000;
-  selectedGradID: number = 2; // Default to 1 (city with ID 1)
+  selectedGradID: number = 2;
   showFilterModal: boolean = false;
-  nazivKategorije: string = 'Sve kategorije'; // Default value
+  nazivKategorije: string = 'Sve kategorije';
   kategorije: Kategorija[] = [];
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public jezikService: JezikService) {}
 
@@ -122,12 +122,16 @@ export class PonudaComponent implements OnInit {
 
   applyFilter(): void {
     const searchTermLower = this.searchTerm.toLowerCase();
-    this.filteredPoslovi = this.poslovi.filter(posao =>
-      posao.nazivZadatka.toLowerCase().includes(searchTermLower) &&
-      posao.cijena >= this.minPrice && posao.cijena <= this.maxPrice &&
-      posao.gradID === this.selectedGradID
-    );
-    this.closeFilterModal(); // Close the filter modal
+
+    this.filteredPoslovi = this.poslovi.filter(posao => {
+      const matchesNaziv = !this.searchTerm || posao.nazivZadatka.toLowerCase().includes(searchTermLower);
+      const matchesCijena = (this.minPrice === 0 && this.maxPrice === 1000) || (posao.cijena >= this.minPrice && posao.cijena <= this.maxPrice);
+      const matchesGrad = this.selectedGradID === 2 || posao.gradID === this.selectedGradID;
+
+      return matchesNaziv && matchesCijena && matchesGrad;
+    });
+
+    this.closeFilterModal();
   }
 
   getZadatakSlikaURL(zadatakID: number): string {
@@ -135,19 +139,19 @@ export class PonudaComponent implements OnInit {
   }
 
   clearFilter(): void {
-    // Reset filter values to default
+
     this.minPrice = 0;
     this.maxPrice = 1000;
-    this.selectedGradID = 1;
+    this.selectedGradID = 2;
     this.searchTerm = '';
 
-    // Fetch all jobs again
+
     this.getPoslovi().subscribe((data: any) => {
       this.poslovi = data.poslovi;
-      this.filteredPoslovi = this.poslovi; // Reset filtered list
+      this.applyFilter();
     });
 
-    // Close the filter modal if it's open
+
     this.closeFilterModal();
   }
 
