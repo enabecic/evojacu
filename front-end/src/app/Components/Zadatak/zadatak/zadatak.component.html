@@ -1,4 +1,4 @@
-<!-- Button to Add New Task -->
+
 <hr>
 <br>
 <button class="novi-zadatak-button" (click)="noviZadatak()">
@@ -11,22 +11,22 @@
 <br>
 <br>
 
-<!-- Overlay za zamućenje pozadine -->
+
 <div class="overlay" *ngIf="novi_zadatak != null"></div>
 
-<!-- Modal for Adding or Editing Task -->
+
 <div *ngIf="novi_zadatak != null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLiveLabel">
           <ng-container *ngIf="novi_zadatak.zadatakId === 0">
-            <span *ngIf="jezikService.isBosanski(); else englishModalTitleAdd">Dodaj zadatak</span>
-            <ng-template #englishModalTitleAdd>Add Task</ng-template>
+            <span class="dodajUredi" *ngIf="jezikService.isBosanski(); else englishModalTitleAdd">Dodaj zadatak</span>
+            <ng-template class="dodajUredi" #englishModalTitleAdd>Add Task</ng-template>
           </ng-container>
           <ng-container *ngIf="novi_zadatak.zadatakId !== 0">
-            <span *ngIf="jezikService.isBosanski(); else englishModalTitleEdit">Uredi zadatak</span>
-            <ng-template #englishModalTitleEdit>Edit Task</ng-template>
+            <span class="dodajUredi" *ngIf="jezikService.isBosanski(); else englishModalTitleEdit">Uredi zadatak</span>
+            <ng-template class="dodajUredi" #englishModalTitleEdit>Edit Task</ng-template>
           </ng-container>
         </h5>
         <button type="button" class="btn-close" aria-label="Close" (click)="novi_zadatak = null"></button>
@@ -90,7 +90,7 @@
   </div>
 </div>
 
-<!-- Table -->
+
 <table class="table table-striped">
   <thead>
   <tr>

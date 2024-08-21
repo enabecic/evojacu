@@ -4,8 +4,8 @@
     <button routerLink="/pocetna" class="Nazad"> <- </button>
     <h1>
       <span *ngIf="!nazivKategorije; else kategorijaNaziv">
-        <span *ngIf="jezikService.isBosanski(); else englishSveKategorije">Sve kategorije</span>
-        <ng-template #englishSveKategorije>All Categories</ng-template>
+        <span class="sveKategorije" *ngIf="jezikService.isBosanski(); else englishSveKategorije">Sve kategorije</span>
+        <ng-template class="sveKategorije" #englishSveKategorije>All Categories</ng-template>
       </span>
       <ng-template #kategorijaNaziv>
         {{ nazivKategorije }}
@@ -54,8 +54,8 @@
 </main>
 
 
+<div class="overlay" *ngIf="showFilterModal != false"></div>
 
-<!-- Filter Modal -->
 <div *ngIf="showFilterModal" class="modal fade show" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
