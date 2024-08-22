@@ -9,7 +9,7 @@ import {JezikService} from "../../Services/jezik.service";
   styleUrls: ['./jezik.component.css']
 })
 export class JezikComponent {
-  constructor(private router: Router, private jezikService: JezikService) {} // Inject the service
+  constructor(private router: Router, private jezikService: JezikService) {}
 
   setLanguage(bosanski: boolean) {
     this.jezikService.setLanguage(bosanski);

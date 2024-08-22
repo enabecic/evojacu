@@ -19,7 +19,8 @@ body {
   border-radius: 8px;
   max-width: 800px;
   margin: 20px auto; /* Centriranje kontejnera */
-  box-sizing: border-box; /* Uključuje padding u ukupnu širinu */
+  box-sizing: border-box;
+  position: relative;
 }
 
 strong {
@@ -135,5 +136,25 @@ h2 {
 .odaberi:disabled {
   background-color: #ccc; /* Siva boja za onemogućeno dugme */
   cursor: not-allowed;
+}
+
+.chat-box {
+  position: absolute;
+  top: 910px;
+  left: 140px;
+  background-color: #d9d9d9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-top: 70px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  animation: fadeOut 3s forwards; /* Add a fade-out effect */
+  z-index: 1000; /* Ensure it is above other elements */
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; display: none; }
 }
 

@@ -17,6 +17,7 @@ import { JezikComponent } from './Components/jezik/jezik.component';
 import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PomocComponent } from './Components/pomoc/pomoc.component';
 
 
 
@@ -33,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ZadatakComponent,
     JezikComponent,
     ConfirmDialogComponent,
+    PomocComponent,
 
   ],
   imports: [
@@ -48,6 +50,7 @@ import { MatDialogModule } from '@angular/material/dialog';
       { path: 'posao-detalji/:id', component: PosaoDetaljiComponent },
       {path: 'kategorija-dodaj' , component: KategorijaDodajComponent},
       {path: 'zadatak' , component: ZadatakComponent},
+      {path: 'pomoc' , component: PomocComponent}
 
 
 

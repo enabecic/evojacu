@@ -78,7 +78,9 @@
 
   <br><br>
 
+
   <div class="dugme" >
+
     <button class="odaberi" (click)="openConfirmDialog()"
             [disabled]="posao.jeOdabran">
       <span *ngIf="jezikService.isBosanski(); else englishOdaberi">
@@ -89,6 +91,14 @@
       </ng-template>
     </button>
   </div>
+
+  <div *ngIf="showChatBox" class="chat-box">
+  <span *ngIf="jezikService.isBosanski(); else englishChatBoxMessage">
+    Klikni na dugme da odabereš posao ako nije odabran
+  </span>
+    <ng-template #englishChatBoxMessage>Click the button to select a job if it's not selected</ng-template>
+  </div>
+
 
 
   <br>

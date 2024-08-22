@@ -35,6 +35,7 @@ interface Posao {
 })
 export class PosaoDetaljiComponent implements OnInit {
   posao: Posao | null = null;
+  showChatBox: boolean = false;
 
 
 
@@ -48,6 +49,29 @@ export class PosaoDetaljiComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.getPosaoById(Number(id)).subscribe((data: any) => {
       this.posao = data;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      if (params['fromHelp']) {
+        this.showChatBox = true;
+        setTimeout(() => {
+          this.showChatBox = false;
+        }, 5000);
+
+        // Pomakni stranicu na dno
+        setTimeout(() => {
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+          });
+        }, 0);
+      } else {
+        this.showChatBox = false;
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
     });
   }
 

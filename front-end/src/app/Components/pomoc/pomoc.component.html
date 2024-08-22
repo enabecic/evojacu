@@ -1,0 +1,22 @@
+<p class="faq-heading">
+  <span *ngIf="jezikService.isBosanski(); else englishFAQHeading">
+    Često postavljena pitanja:
+  </span>
+  <ng-template #englishFAQHeading>Frequently Asked Questions:</ng-template>
+</p>
+<hr>
+<br>
+<a class="faq-link" (click)="navigateToPonuda()">
+  <span *ngIf="jezikService.isBosanski(); else englishQuestion1">
+    1. Kako bolje pretražiti poslove?
+  </span>
+  <ng-template #englishQuestion1>1. How to better search for jobs?</ng-template>
+</a>
+<br>
+<br>
+<a class="faq-link" (click)="navigateToDetalji(3)">
+  <span *ngIf="jezikService.isBosanski(); else englishQuestion2">
+    2. Kako odabrati posao koji želim obaviti?
+  </span>
+  <ng-template #englishQuestion2>2. How to choose the job I want to perform?</ng-template>
+</a>

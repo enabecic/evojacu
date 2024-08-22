@@ -27,6 +27,10 @@
     <span *ngIf="jezikService.isBosanski(); else englishRegistracijaPrijava">Registracija/Prijava</span>
     <ng-template #englishRegistracijaPrijava>Register/Login</ng-template>
   </button>
+  <button routerLink="/pomoc" class="navigacija" routerLinkActive="router-link-active">
+    <span *ngIf="jezikService.isBosanski(); else englishPomoc">Pomoć</span>
+    <ng-template #englishPomoc>Help</ng-template>
+  </button>
 </div>
 <br><br>
 

@@ -42,6 +42,8 @@ export class PonudaComponent implements OnInit {
   showFilterModal: boolean = false;
   nazivKategorije: string = 'Sve kategorije';
   kategorije: Kategorija[] = [];
+  showChatBox: boolean = false;
+  showSecondChatBox: boolean = false;
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public jezikService: JezikService) {}
 
   ngOnInit(): void {
@@ -60,8 +62,30 @@ export class PonudaComponent implements OnInit {
           this.nazivKategorije = '';
         });
       }
+
+      if (params['fromHelp']) {
+        this.showChatBox = true;
+        setTimeout(() => {
+          this.showChatBox = false;
+          // Prikazivanje drugog chat box-a nakon prvog nestajanja
+          this.showSecondChatBox = true;
+          setTimeout(() => {
+            this.showSecondChatBox = false;
+          }, 5000);
+        }, 5000);
+      } else {
+        this.showChatBox = false;
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
     });
     this.getGradovi();
+
+
+
   }
 
   getPoslovi(): Observable<any> {
@@ -161,6 +185,5 @@ export class PonudaComponent implements OnInit {
     this.selectedGradID = +selectElement.value; // Ažurirajte selectedGradID
     console.log(`Grad changed to: ${this.selectedGradID}`); // Debug log
   }
-
 
 }
