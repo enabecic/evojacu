@@ -33,12 +33,12 @@ export class KategorijaDodajComponent implements OnInit {
       naziv: '',
       slika_base64_format: ''
     };
-    this.nazivInvalid = false; // Resetujte stanje validacije prilikom dodavanja nove kategorije
+    this.nazivInvalid = false;
   }
 
   snimiKategoriju() {
     if (!this.nova_kategorija.naziv) {
-      this.nazivInvalid = true; // Postavite stanje validacije na true
+      this.nazivInvalid = true;
       return;
     }
 
@@ -47,8 +47,12 @@ export class KategorijaDodajComponent implements OnInit {
       : `${MojConfig.adresa_servera}/Kategorija-update`;
 
     this.http.post(url, this.nova_kategorija).subscribe((x: any) => {
-      alert("uredu");
-      this.getKategorije(); // osveži listu kategorija nakon dodavanja ili uređivanja
+      const successMessage = this.jezikService.isBosanski()
+        ? 'Kategorija snimljena'
+        : 'Category saved';
+
+      alert(successMessage);
+      this.getKategorije();
     });
 
     this.nova_kategorija = null;
@@ -69,19 +73,32 @@ export class KategorijaDodajComponent implements OnInit {
     this.http.get<{ kategorije: Kategorija[] }>(`${MojConfig.adresa_servera}/Kategorija-preuzmi`).subscribe(response => {
       this.kategorije = response.kategorije.map(kat => ({
         ...kat,
-        timestamp: Date.now() // Dodavanje timestamp-a za cache busting
+        timestamp: Date.now()
       }));
     });
   }
 
   obrisiKategoriju(kategorijaID: number): void {
-    if (confirm('Da li ste sigurni da želite obrisati ovu kategoriju?')) {
+
+    const confirmMessage = this.jezikService.isBosanski()
+      ? 'Da li ste sigurni da želite obrisati ovu kategoriju?'
+      : 'Are you sure you want to delete this category?';
+
+    const successMessage = this.jezikService.isBosanski()
+      ? 'Kategorija obrisan'
+      : 'Category deleted';
+
+    const errorMessage = this.jezikService.isBosanski()
+      ? 'Greška prilikom brisanja kategorije'
+      : 'Error while deleting the category';
+
+    if (confirm(confirmMessage)) {
       this.http.delete(`${MojConfig.adresa_servera}/Kategorija-obrisi`, { params: { KategorijaID: kategorijaID.toString() } })
         .subscribe(() => {
-          this.getKategorije(); // Osveži listu kategorija nakon brisanja
-          alert("Kategorija obrisana");
+          this.getKategorije();
+          alert(successMessage);
         }, error => {
-          alert("Greška prilikom brisanja kategorije, kategorija se koristi u zadacima");
+          alert(errorMessage);
         });
     }
   }
@@ -94,7 +111,7 @@ export class KategorijaDodajComponent implements OnInit {
       naziv: item.naziv,
       slika_base64_format: ''
     };
-    this.nazivInvalid = false; // Resetujte stanje validacije prilikom uređivanja kategorije
+    this.nazivInvalid = false;
   }
 
   onNazivChange() {

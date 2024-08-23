@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MojConfig } from '../../moj-config';
 import { Observable } from "rxjs";
-import { Router } from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import { JezikService } from "../../Services/jezik.service";
 import {map} from "rxjs/operators";
 
@@ -63,9 +63,11 @@ export class PocetnaComponent implements OnInit {
   today: string = new Date().toISOString().split('T')[0];
   odabraniDatum: string = '';
 
+  showChatBox: boolean = false;
+  showSecondChatBox: boolean = false;
 
-
-  constructor(private http: HttpClient, private router: Router, public jezikService: JezikService) {}
+  constructor(private http: HttpClient, private router: Router, public jezikService: JezikService,
+              private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.getKategorije();
@@ -74,6 +76,50 @@ export class PocetnaComponent implements OnInit {
     });
     this.getGradovi();
     this.getZadaci();
+
+    this.route.queryParams.subscribe(params => {
+      if (params['fromHelp']) {
+        this.showChatBox = true;
+        setTimeout(() => {
+          this.showChatBox = false;
+        }, 5000);
+
+
+      } else {
+        this.showChatBox = false;
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
+      if (params['fromHelp2']) {
+        this.showSecondChatBox = true;
+
+
+        setTimeout(() => {
+          this.showSecondChatBox = false;
+        }, 5000);
+
+        setTimeout(() => {
+          const pageHeight = document.documentElement.scrollHeight;
+          window.scrollTo({
+            top: pageHeight / 4,
+            behavior: 'smooth'
+          });
+        }, 100);
+      } else {
+        this.showSecondChatBox = false;
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
+
+
+    });
+
+
   }
 
 
@@ -195,7 +241,12 @@ export class PocetnaComponent implements OnInit {
       };
 
       this.http.post(`${MojConfig.adresa_servera}/Posao-dodaj`, noviPosao).subscribe(response => {
-        alert('Posao je uspješno dodan!');
+
+        const successMessage = this.jezikService.isBosanski()
+          ? 'Posao dodan'
+          : 'Job added';
+
+        alert(successMessage);
 
 
         this.opisPosla = '';

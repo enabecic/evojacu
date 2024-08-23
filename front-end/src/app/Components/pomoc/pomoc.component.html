@@ -28,3 +28,19 @@
   </span>
   <ng-template #englishQuestion3>3. How can I change the language?</ng-template>
 </a>
+<br>
+<br>
+<a class="faq-link" (click)="navigateToPocetna()">
+  <span *ngIf="jezikService.isBosanski(); else englishQuestion4">
+    4. Kako dodati novi posao?
+  </span>
+  <ng-template #englishQuestion4>4. How to add a new job?</ng-template>
+</a>
+<br>
+<br>
+<a class="faq-link" (click)="navigateToPocetna2()">
+  <span *ngIf="jezikService.isBosanski(); else englishQuestion5">
+    5. Kako pretražiti poslove po određenoj kategoriji?
+  </span>
+  <ng-template #englishQuestion5>5. How to search jobs by a certain category?</ng-template>
+</a>

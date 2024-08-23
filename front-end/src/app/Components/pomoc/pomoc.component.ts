@@ -22,4 +22,13 @@ export class PomocComponent {
   navigateToJezik() {
     this.router.navigate([''], { queryParams: { fromHelp: true } });
   }
+
+  navigateToPocetna() {
+    this.router.navigate(['/pocetna'], { queryParams: { fromHelp: true } });
+  }
+
+  navigateToPocetna2() {
+    this.router.navigate(['/pocetna'], { queryParams: { fromHelp2: true } });
+
+  }
 }

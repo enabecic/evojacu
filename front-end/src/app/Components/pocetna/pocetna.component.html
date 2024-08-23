@@ -1,5 +1,7 @@
 <html>
 
+
+
 <div class="containerSlika">
   <div class="left-content">
     <h2>
@@ -31,7 +33,18 @@
 <br>
 
 
+
+
+
 <div class="datum">
+
+  <div *ngIf="showChatBox" class="chat-box">
+  <span *ngIf="jezikService.isBosanski(); else englishChatBox1">
+    Klikni na + da dodaš novi posao
+  </span>
+    <ng-template #englishChatBox1>Click on the + to add a new job</ng-template>
+  </div>
+
   <div class="tekst-container">
     <p class="uPotraziSi">
       <span *ngIf="jezikService.isBosanski(); else englishLookingFor">U potrazi si?</span>
@@ -40,11 +53,14 @@
     <br>
     <p class="tekst">
       <span *ngIf="jezikService.isBosanski(); else englishSelectDate">Dodaj posao koji ti je potreban i uštedi svoje vrijeme</span>
-      <ng-template #englishSelectDate>Add job that you need and save your time</ng-template>
+      <ng-template #englishSelectDate>Add a job that you need and save your time</ng-template>
     </p>
   </div>
 
+
+
   <div class="slikaDatum-container">
+
     <svg class="slikaDatum" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" (click)="dodaj_posao=true">
       <path d="M12 5v14m-7-7h14" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -64,9 +80,21 @@
 
 <br><br><br><br>
 
+<div class="drugaPoruka">
+
+  <div *ngIf="showSecondChatBox" class="chat-box second-chat-box">
+  <span *ngIf="jezikService.isBosanski(); else englishChatBox2">
+    Klikni na kategoriju i pregledaj poslove
+  </span>
+    <ng-template #englishChatBox2>Click on a category and browse jobs</ng-template>
+  </div>
+
+</div>
+
 
 
 <div class="carousel-container">
+
   <button
     (click)="prevPage()"
     class="carousel-button arrow"
@@ -122,10 +150,6 @@
   </div>
 </div>
 
-
-
-
-<!-- Overlay za zamućenje pozadine -->
 <div class="overlay" *ngIf="dodaj_posao != false"></div>
 
 <div *ngIf="dodaj_posao" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
