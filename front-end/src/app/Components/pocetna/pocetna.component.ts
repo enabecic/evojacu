@@ -148,11 +148,10 @@ export class PocetnaComponent implements OnInit {
     return poslovi
       .map(posao => ({
         ...posao,
-        // Pretvori string datum u Date objekat za ispravno sortiranje
         datumObjaveDate: new Date(posao.datumObjave)
       }))
       .sort((a, b) => b.datumObjaveDate.getTime() - a.datumObjaveDate.getTime()) // Sortiraj po datumu objave, najnoviji prvo
-      .slice(0, 9) // Uzmi prvih 9 poslova
+      .slice(0, 9)
   }
 
 
@@ -266,10 +265,6 @@ export class PocetnaComponent implements OnInit {
       });
     });
   }
-
-
-
-
 
 
 }

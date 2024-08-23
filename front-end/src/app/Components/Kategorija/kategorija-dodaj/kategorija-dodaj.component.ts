@@ -21,6 +21,10 @@ export class KategorijaDodajComponent implements OnInit {
   nova_kategorija: any;
   nazivInvalid: boolean = false;
 
+
+  trenutnaStranica: number = 1;
+  brojStranica: number = 0;
+  pageSize: number = 4;
   constructor(private route: ActivatedRoute, private http: HttpClient, public jezikService: JezikService) {}
 
   ngOnInit(): void {
@@ -70,12 +74,31 @@ export class KategorijaDodajComponent implements OnInit {
   }
 
   getKategorije(): void {
-    this.http.get<{ kategorije: Kategorija[] }>(`${MojConfig.adresa_servera}/Kategorija-preuzmi`).subscribe(response => {
+
+    const params = {
+      PageNumber: this.trenutnaStranica.toString(),
+      PageSize: this.pageSize.toString()
+    };
+
+    this.http.get<{ kategorije: Kategorija[], ukupanBrojZadataka: number, brojStranica: number }>(`${MojConfig.adresa_servera}/Kategorija-preuzmi/paged`, { params }).subscribe(response => {
       this.kategorije = response.kategorije.map(kat => ({
         ...kat,
         timestamp: Date.now()
       }));
+      this.brojStranica = response.brojStranica;
     });
+  }
+
+
+  promijeniStranicu(stranica: number): void {
+    if (stranica > 0 && stranica <= this.brojStranica) {
+      this.trenutnaStranica = stranica;
+      this.getKategorije();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   }
 
   obrisiKategoriju(kategorijaID: number): void {

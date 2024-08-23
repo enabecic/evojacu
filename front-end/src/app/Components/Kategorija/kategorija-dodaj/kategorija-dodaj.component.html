@@ -1,4 +1,4 @@
-<!-- Dugme za otvaranje modala -->
+<body>
 <hr>
 <br>
 
@@ -14,10 +14,10 @@
 
 <br><br>
 
-<!-- Overlay za zamućenje pozadine -->
+
 <div class="overlay" *ngIf="nova_kategorija != null"></div>
 
-<!-- Modalni dijalog -->
+
 <div *ngIf="nova_kategorija != null" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -94,7 +94,7 @@
     </td>
     <td class="action-buttons">
 
-      <!-- Dugme za brisanje -->
+
       <button class="action-button" (click)="obrisiKategoriju(item.kategorijaID)"
               [attr.title]="jezikService.isBosanski() ? 'Obriši' : 'Delete'">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -104,7 +104,7 @@
         <ng-template #englishDelete>Delete</ng-template>
       </button>
 
-      <!-- Dugme za uređivanje -->
+
       <button class="action-button" (click)="urediKategoriju(item)"
               [attr.title]="jezikService.isBosanski() ? 'Uredi' : 'Edit'">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -120,3 +120,31 @@
   </tr>
   </tbody>
 </table>
+
+
+
+<div *ngIf="brojStranica > 1" class="pagination">
+  <button (click)="promijeniStranicu(1)" [disabled]="trenutnaStranica === 1">
+    <span *ngIf="jezikService.isBosanski(); else englishFirstPage">Prva</span>
+    <ng-template #englishFirstPage>First</ng-template>
+  </button>
+  <button (click)="promijeniStranicu(trenutnaStranica - 1)" [disabled]="trenutnaStranica === 1">
+    <span *ngIf="jezikService.isBosanski(); else englishPreviousPage">Prethodna</span>
+    <ng-template #englishPreviousPage>Previous</ng-template>
+  </button>
+  <span class="tekstPaging">
+    <span *ngIf="jezikService.isBosanski(); else englishPage">Stranica {{ trenutnaStranica }} od {{ brojStranica }}</span>
+    <ng-template #englishPage>Page {{ trenutnaStranica }} of {{ brojStranica }}</ng-template>
+  </span>
+  <button (click)="promijeniStranicu(trenutnaStranica + 1)" [disabled]="trenutnaStranica === brojStranica">
+    <span *ngIf="jezikService.isBosanski(); else englishNextPage">Sljedeća</span>
+    <ng-template #englishNextPage>Next</ng-template>
+  </button>
+  <button (click)="promijeniStranicu(brojStranica)" [disabled]="trenutnaStranica === brojStranica">
+    <span *ngIf="jezikService.isBosanski(); else englishLastPage">Zadnja</span>
+    <ng-template #englishLastPage>Last</ng-template>
+  </button>
+</div>
+
+
+</body>

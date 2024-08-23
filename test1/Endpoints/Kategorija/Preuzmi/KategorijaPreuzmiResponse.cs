@@ -3,6 +3,8 @@
     public class KategorijaPreuzmiResponse
     {
         public List<KategorijaPreuzmiResponseKategorija> Kategorije { get; set; }
+        public int UkupanBrojKategorija { get; set; }
+        public int BrojStranica { get; set; }
     }
 
     public class KategorijaPreuzmiResponseKategorija
