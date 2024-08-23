@@ -9,6 +9,17 @@
   z-index: 1040;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  background-color: rgb(244, 244, 244);
+  height: 115vh;
+}
+
 
 .modal {
   z-index: 1050;
@@ -102,6 +113,44 @@
   padding: 2.5rem 1rem 2.5rem 1rem;
 }
 
-.dodajUredi {
+.modal-title {
   font-size: 20px;
+  padding-top: 10px;
+}
+
+/* Centriranje i razmak između tabele i paginacije */
+.pagination {
+  display: flex;
+  justify-content: center; /* Centriranje pagination-a */
+  margin-top: 80px; /* Veći razmak između tabele i paginacije */
+}
+
+/* Stilizovanje button-a */
+.pagination button {
+  background-color: rgb(218, 208, 174); /* Pozadina button-a */
+  border: none; /* Uklanja border */
+  border-radius: 5px; /* Zaobljeni uglovi */
+  padding: 7px 15px; /* Unutrašnji razmak */
+  margin: 0 7px 5px; /* Razmak između button-a */
+  font-size: 16px; /* Velicina fonta */
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+/* Promjena boje button-a pri hover-u */
+.pagination button:hover {
+  background-color: rgb(200, 190, 160); /* Malo tamnija nijansa */
+}
+
+/* Onemogućeni button */
+.pagination button[disabled] {
+  background-color: #e0e0e0; /* Svetlija boja za onemogućeni button */
+  cursor: not-allowed; /* Indikator da button nije aktivan */
+}
+
+.tekstPaging{
+  padding-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }

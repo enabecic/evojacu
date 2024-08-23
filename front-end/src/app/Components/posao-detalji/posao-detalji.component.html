@@ -79,18 +79,25 @@
   <br><br>
 
 
-  <div class="dugme" >
+  <div class="dugme">
 
     <button class="odaberi" (click)="openConfirmDialog()"
-            [disabled]="posao.jeOdabran">
-      <span *ngIf="jezikService.isBosanski(); else englishOdaberi">
-        {{ posao.jeOdabran ? 'Posao odabran' : 'Odaberi' }}
-      </span>
+            [disabled]="posao.jeOdabran"
+            [title]="jezikService.isBosanski()
+            ? (posao.jeOdabran ? 'Posao je odabrao neko drugi' : 'Odaberi posao ako želiš da ga obaviš')
+            : (posao.jeOdabran ? 'The job has been selected by someone else' : 'Select the job if you want to do it')">
+
+    <span *ngIf="jezikService.isBosanski(); else englishOdaberi">
+      {{ posao.jeOdabran ? 'Posao odabran' : 'Odaberi' }}
+    </span>
+
       <ng-template #englishOdaberi>
         {{ posao.jeOdabran ? 'Job Selected' : 'Select' }}
       </ng-template>
     </button>
+
   </div>
+
 
   <div *ngIf="showChatBox" class="chat-box">
   <span *ngIf="jezikService.isBosanski(); else englishChatBoxMessage">

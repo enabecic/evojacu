@@ -20,3 +20,11 @@
   </span>
   <ng-template #englishQuestion2>2. How to choose the job I want to perform?</ng-template>
 </a>
+<br>
+<br>
+<a class="faq-link" (click)="navigateToJezik()">
+  <span *ngIf="jezikService.isBosanski(); else englishQuestion3">
+    3. Kako da promijenim jezik?
+  </span>
+  <ng-template #englishQuestion3>3. How can I change the language?</ng-template>
+</a>

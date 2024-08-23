@@ -49,6 +49,7 @@ export class PonudaComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       const kategorijaID = params['kategorijaID'];
+      this.searchTerm = '';
       if (kategorijaID) {
         this.getPosloviByKategorija(kategorijaID).subscribe((data: any) => {
           this.poslovi = data.poslovi;
@@ -67,7 +68,7 @@ export class PonudaComponent implements OnInit {
         this.showChatBox = true;
         setTimeout(() => {
           this.showChatBox = false;
-          // Prikazivanje drugog chat box-a nakon prvog nestajanja
+
           this.showSecondChatBox = true;
           setTimeout(() => {
             this.showSecondChatBox = false;
@@ -134,7 +135,7 @@ export class PonudaComponent implements OnInit {
 
   clearSearch(): void {
     this.searchTerm = '';
-    this.applyFilter(); // Update filtered results
+    this.applyFilter();
   }
 
   openFilterModal(): void {
@@ -164,21 +165,28 @@ export class PonudaComponent implements OnInit {
   }
 
   clearFilter(): void {
-
     this.minPrice = 0;
     this.maxPrice = 1000;
     this.selectedGradID = 2;
     this.searchTerm = '';
 
+    const kategorijaID = this.route.snapshot.queryParams['kategorijaID'];
 
-    this.getPoslovi().subscribe((data: any) => {
-      this.poslovi = data.poslovi;
-      this.applyFilter();
-    });
-
+    if (kategorijaID) {
+      this.getPosloviByKategorija(kategorijaID).subscribe((data: any) => {
+        this.poslovi = data.poslovi;
+        this.applyFilter();
+      });
+    } else {
+      this.getPoslovi().subscribe((data: any) => {
+        this.poslovi = data.poslovi;
+        this.applyFilter();
+      });
+    }
 
     this.closeFilterModal();
   }
+
 
   onGradChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;

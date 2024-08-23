@@ -3,6 +3,8 @@
     public class ZadatakPreuzmiResponse
     {
         public List<ZadatakPreuzmiResponseZadatak> Zadaci { get; set; }
+        public int UkupanBrojZadataka { get; set; }
+        public int BrojStranica { get; set; }
     }
 
     public class ZadatakPreuzmiResponseZadatak

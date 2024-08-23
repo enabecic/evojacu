@@ -3,9 +3,9 @@
   <div class="Kategorija">
     <button routerLink="/pocetna" class="Nazad"> <- </button>
     <h1>
-      <span *ngIf="!nazivKategorije; else kategorijaNaziv">
-        <span class="sveKategorije" *ngIf="jezikService.isBosanski(); else englishSveKategorije">Sve kategorije</span>
-        <ng-template class="sveKategorije" #englishSveKategorije>All Categories</ng-template>
+      <span class="sveKategorije" *ngIf="!nazivKategorije; else kategorijaNaziv">
+        <span  *ngIf="jezikService.isBosanski(); else englishSveKategorije">Sve kategorije</span>
+        <ng-template  #englishSveKategorije>All Categories</ng-template>
       </span>
       <ng-template #kategorijaNaziv>
         {{ nazivKategorije }}
@@ -41,7 +41,9 @@
           <path d="M12 10.293l4.707-4.707L18 6.293 13.293 11 18 15.707l-1.293 1.293L12 12.293l-4.707 4.707L6 15.707 10.707 11 6 6.293 7.293 4.707z"/>
         </svg>
       </span>
-      <span class="filter-button" (click)="openFilterModal()">
+      <span class="filter-button" (click)="openFilterModal()"
+            [title]="jezikService.isBosanski()?
+              'Dodatni filteri' : 'Additional filters'">
         <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path d="M10 17l-5-5h10l-5 5zm0-7l-5-5h10l-5 5zm0 7l5-5H5l5 5z"/>
         </svg>

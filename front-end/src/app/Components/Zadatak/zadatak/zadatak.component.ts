@@ -15,6 +15,7 @@ interface Zadatak {
   opis: string;
   kategorijaID: number;
   slika_base64_format?: string;
+  timestamp?: number;
 }
 
 @Component({
@@ -29,6 +30,10 @@ export class ZadatakComponent implements OnInit {
   zadaciPodaci: Zadatak[] = [];
   nazivInvalid: boolean = false;
   opisInvalid: boolean = false;
+
+  trenutnaStranica: number = 1;
+  brojStranica: number = 0;
+  pageSize: number = 4;
 
   constructor(private route: ActivatedRoute, private http: HttpClient, public jezikService: JezikService) {}
 
@@ -71,9 +76,13 @@ export class ZadatakComponent implements OnInit {
       : `${MojConfig.adresa_servera}/Zadatak-update`;
 
     this.http.post(url, this.novi_zadatak).subscribe(() => {
-      alert("Zadatak snimljen");
+      const successMessage = this.jezikService.isBosanski()
+        ? 'Zadatak snimljen'
+        : 'Task saved';
+
+      alert(successMessage);
       this.novi_zadatak = null;
-      this.getZadaci(); // Osvježavanje liste zadataka
+      this.getZadaci();
     });
   }
 
@@ -95,22 +104,53 @@ export class ZadatakComponent implements OnInit {
   }
 
   getZadaci(): void {
-    this.http.get<{ zadaci: Zadatak[] }>(`${MojConfig.adresa_servera}/Zadatak-preuzmi`).subscribe(response => {
-      this.zadaciPodaci = response.zadaci;
-    });
+    const params = {
+      PageNumber: this.trenutnaStranica.toString(),
+      PageSize: this.pageSize.toString()
+    };
+
+    this.http.get<{ zadaci: Zadatak[], ukupanBrojZadataka: number, brojStranica: number }>(`${MojConfig.adresa_servera}/Zadatak-preuzmi/paged`, { params })
+      .subscribe(response => {
+        this.zadaciPodaci = response.zadaci.map(zadatak => ({
+          ...zadatak,
+          timestamp: Date.now() // Assign the current timestamp
+        }));
+        this.brojStranica = response.brojStranica;
+      });
+  }
+
+
+  promijeniStranicu(stranica: number): void {
+    if (stranica > 0 && stranica <= this.brojStranica) {
+      this.trenutnaStranica = stranica;
+      this.getZadaci();
+    }
   }
 
   obrisiZadatak(zadatakId: number): void {
-    if (confirm('Da li ste sigurni da želite obrisati ovaj zadatak?')) {
+    const confirmMessage = this.jezikService.isBosanski()
+      ? 'Da li ste sigurni da želite obrisati ovaj zadatak?'
+      : 'Are you sure you want to delete this task?';
+
+    const successMessage = this.jezikService.isBosanski()
+      ? 'Zadatak obrisan'
+      : 'Task deleted';
+
+    const errorMessage = this.jezikService.isBosanski()
+      ? 'Greška prilikom brisanja zadatka'
+      : 'Error while deleting the task';
+
+    if (confirm(confirmMessage)) {
       this.http.delete(`${MojConfig.adresa_servera}/Zadatak-obrisi`, { params: { ZadatakID: zadatakId.toString() } })
         .subscribe(() => {
           this.getZadaci(); // Osvježavanje liste zadataka nakon brisanja
-          alert("Zadatak obrisan");
+          alert(successMessage);
         }, error => {
-          alert("Greška prilikom brisanja zadatka");
+          alert(errorMessage);
         });
     }
   }
+
 
   urediZadatak(item: Zadatak) {
     this.novi_zadatak = {

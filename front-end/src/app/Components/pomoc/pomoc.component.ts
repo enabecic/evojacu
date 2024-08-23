@@ -18,4 +18,8 @@ export class PomocComponent {
   navigateToDetalji(id:number) {
     this.router.navigate(['/posao-detalji', id], { queryParams: { fromHelp: true } });
   }
+
+  navigateToJezik() {
+    this.router.navigate([''], { queryParams: { fromHelp: true } });
+  }
 }
