@@ -1,18 +1,18 @@
-/* Osnovni stil za html i body */
+
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: rgb(244, 244, 244); /* Boja pozadine za celu stranicu */
+  background-color: rgb(244, 244, 244);
 }
 
-/* Centriranje sadržaja na celoj stranici */
+
 .language-selection {
   display: flex;
   flex-direction: column;
   margin-top: 160px;
-  align-items: center; /* Horizontalno centriranje */
-  height: 100vh; /* Zauzima celu visinu prozora */
+  align-items: center;
+  height: 100vh;
 }
 
 .language-selection h2 {
@@ -25,7 +25,7 @@ html, body {
 .language-buttons {
   display: flex;
   justify-content: center;
-  gap: 10px; /* Razmak između dugmadi */
+  gap: 10px;
 }
 
 .language-button {
@@ -39,17 +39,17 @@ html, body {
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 10px; /* Razmak između ikone i teksta */
-  transition: transform 0.3s ease; /* Animacija za hover efekat */
+  gap: 10px;
+  transition: transform 0.3s ease;
 }
 
 .language-button:hover {
   background-color: rgb(200, 190, 160);
-  transform: scale(1.1); /* Povećanje dugmeta pri hover-u */
+  transform: scale(1.1);
 }
 
 .language-icon {
-  width: 20px; /* Veličina ikone */
+  width: 20px;
   height: 20px;
-  fill: white; /* Boja ikone */
+  fill: white;
 }

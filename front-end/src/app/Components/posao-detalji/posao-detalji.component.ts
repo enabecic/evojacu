@@ -58,7 +58,7 @@ export class PosaoDetaljiComponent implements OnInit {
           this.showChatBox = false;
         }, 5000);
 
-        // Pomakni stranicu na dno
+
         setTimeout(() => {
           window.scrollTo({
             top: document.body.scrollHeight,
@@ -108,16 +108,14 @@ export class PosaoDetaljiComponent implements OnInit {
         PosloprimaocID: 1,
       };
 
-      // Dodaj odabrani posao
+
       this.http.post(`${MojConfig.adresa_servera}/OdabraniPosao-dodaj`, odabraniPosao)
         .subscribe(() => {
-          // Pozovi kontroler za ažuriranje statusa posla koristeći novu putanju s ID-om na kraju
           this.http.post(`${MojConfig.adresa_servera}/Posao-update/odaberi/${posaoID}`, {})
             .subscribe(() => {
-              // Preuzmi ažurirane detalje posla kako bi se promjene reflektovale
               this.getPosaoById(this.posao?.posaoID || 0).subscribe(updatedPosao => {
                 this.posao = updatedPosao;
-                this.cdr.detectChanges(); // Osiguraj da Angular detektuje promjene
+                this.cdr.detectChanges();
               });
 
               alert(this.jezikService.isBosanski()

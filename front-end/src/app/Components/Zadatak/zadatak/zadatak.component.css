@@ -118,35 +118,35 @@ body {
   padding-top: 10px;
 }
 
-/* Centriranje i razmak između tabele i paginacije */
+
 .pagination {
   display: flex;
-  justify-content: center; /* Centriranje pagination-a */
-  margin-top: 80px; /* Veći razmak između tabele i paginacije */
+  justify-content: center;
+  margin-top: 80px;
 }
 
-/* Stilizovanje button-a */
+
 .pagination button {
-  background-color: rgb(218, 208, 174); /* Pozadina button-a */
-  border: none; /* Uklanja border */
-  border-radius: 5px; /* Zaobljeni uglovi */
-  padding: 7px 15px; /* Unutrašnji razmak */
-  margin: 0 7px 5px; /* Razmak između button-a */
-  font-size: 16px; /* Velicina fonta */
+  background-color: rgb(218, 208, 174);
+  border: none;
+  border-radius: 5px;
+  padding: 7px 15px;
+  margin: 0 7px 5px;
+  font-size: 16px;
   cursor: pointer;
   color: white;
   font-weight: bold;
 }
 
-/* Promjena boje button-a pri hover-u */
+
 .pagination button:hover {
-  background-color: rgb(200, 190, 160); /* Malo tamnija nijansa */
+  background-color: rgb(200, 190, 160);
 }
 
-/* Onemogućeni button */
+
 .pagination button[disabled] {
-  background-color: #e0e0e0; /* Svetlija boja za onemogućeni button */
-  cursor: not-allowed; /* Indikator da button nije aktivan */
+  background-color: #e0e0e0;
+  cursor: not-allowed;
 }
 
 .tekstPaging{

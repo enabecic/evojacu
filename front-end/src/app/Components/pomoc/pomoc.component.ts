@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JezikService } from "../../Services/jezik.service";
 
@@ -7,9 +7,18 @@ import { JezikService } from "../../Services/jezik.service";
   templateUrl: './pomoc.component.html',
   styleUrls: ['./pomoc.component.css']
 })
-export class PomocComponent {
+export class PomocComponent implements OnInit {
+
+  private startTime: number = Date.now();
 
   constructor(private router: Router, public jezikService: JezikService) {}
+
+  ngOnInit(): void {
+
+
+  }
+
+
 
   navigateToPonuda() {
     this.router.navigate(['/ponuda'], { queryParams: { fromHelp: true } });
@@ -29,6 +38,5 @@ export class PomocComponent {
 
   navigateToPocetna2() {
     this.router.navigate(['/pocetna'], { queryParams: { fromHelp2: true } });
-
   }
 }

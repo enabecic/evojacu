@@ -1,4 +1,4 @@
-/* Osnovni stilovi za cijelu stranicu */
+
 html, body {
   margin: 0;
   padding: 0;
@@ -10,7 +10,7 @@ body {
   height: 180vh;
 }
 
-/* Kontejner detalja */
+
 .detail-container {
   font-size: 1.3rem;
   font-family: "Book Antiqua";
@@ -18,7 +18,7 @@ body {
   background-color: #f9f9f9;
   border-radius: 8px;
   max-width: 800px;
-  margin: 20px auto; /* Centriranje kontejnera */
+  margin: 20px auto;
   box-sizing: border-box;
   position: relative;
 }
@@ -33,7 +33,7 @@ h2 {
   text-align: center;
 }
 
-/* Raspored redova s lijeva i desna */
+
 .detail-row {
   display: flex;
   justify-content: space-between;
@@ -41,78 +41,78 @@ h2 {
   margin-bottom: 15px;
 }
 
-/* Stil za oznaku (label) */
+
 .label {
   flex: 1;
   text-align: left;
-  padding-right: 10px; /* Razmak od desne strane */
+  padding-right: 10px;
 }
 
-/* Stil za vrijednost */
+
 .value {
   flex: 1;
   text-align: right;
-  padding-left: 10px; /* Razmak od lijeve strane */
+  padding-left: 10px;
 }
 
-/* Stil za sliku zadatka */
+
 .zadatak-slika {
   max-width: 90%;
   height: 300px;
-  max-height: 500px; /* Ograničenje maksimalne visine */
-  display: block; /* Blok element za centriranje */
-  margin: 0 auto; /* Automatsko centriranje */
+  max-height: 500px;
+  display: block;
+  margin: 0 auto;
 }
 
-/* Toggle button kontejner */
+
 .toggle-container {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-/* Stil za vanjski krug (toggle button) */
+
 .toggle-button {
   display: flex;
   align-items: center;
-  width: 60px; /* Promjer vanjskog kruga */
+  width: 60px;
   height: 30px;
-  border-radius: 15px; /* Polumjer da bi bio kružan */
-  background-color: #9E9E9E; /* Zadana boja */
+  border-radius: 15px;
+  background-color: #9E9E9E;
   position: relative;
 }
 
-/* Stil za unutarnji krug (toggle button) */
+
 .inner-circle {
-  width: 26px; /* Promjer unutarnjeg kruga */
+  width: 26px;
   height: 26px;
   border-radius: 50%;
-  background-color: #FFFFFF; /* Boja unutarnjeg kruga */
+  background-color: #FFFFFF;
   position: absolute;
   top: 50%;
-  left: 2px; /* Početni položaj unutarnjeg kruga */
+  left: 2px;
   transform: translateY(-50%);
   transition: transform 0.3s ease-in-out;
 }
 
-/* Toggle button boja kad je omogućeno */
+
 .toggle-button.enabled {
-  background-color: #42b642; /* Zelena boja kad je omogućeno */
+  background-color: #42b642;
 }
 
-/* Toggle button boja kad je onemogućeno */
+
 .toggle-button.disabled {
-  background-color: #9E9E9E; /* Siva boja kad je onemogućeno */
+  background-color: #9E9E9E;
 }
 
-/* Pozicioniranje unutarnjeg kruga kad je omogućeno */
+
 .inner-circle.enabled {
-  left: calc(100% - 28px); /* Pomak za desno */
+  left: calc(100% - 28px);
 }
 
-/* Pozicioniranje unutarnjeg kruga kad je onemogućeno */
+
 .inner-circle.disabled {
-  left: 2px; /* Pomak za lijevo */
+  left: 2px;
 }
 
 .dugme {
@@ -125,16 +125,16 @@ h2 {
   background-color: rgb(218, 208, 174);
   border: 0;
   border-radius: 10px;
-  width: 250px; /* Širina dugmeta */
+  width: 250px;
   height: 40px;
   color: white;
   font-weight: bold;
   text-align: center;
-  line-height: 40px; /* Centriranje teksta vertikalno */
+  line-height: 40px;
 }
 
 .odaberi:disabled {
-  background-color: #ccc; /* Siva boja za onemogućeno dugme */
+  background-color: #ccc;
   cursor: not-allowed;
 }
 
@@ -148,8 +148,8 @@ h2 {
   margin-top: 70px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  animation: fadeOut 3s forwards; /* Add a fade-out effect */
-  z-index: 1000; /* Ensure it is above other elements */
+  animation: fadeOut 3s forwards;
+  z-index: 1000;
 }
 
 @keyframes fadeOut {

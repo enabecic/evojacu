@@ -29,6 +29,9 @@
         <ng-template #englishChatBox2>Search jobs by city and price</ng-template>
       </div>
 
+
+      <canvas *ngIf="showCanvas" id="webgl-canvas" width="90" height="70"></canvas>
+
       <input
         type="text"
         [placeholder]="jezikService.isBosanski() ? 'Pretraži poslove...' : 'Search jobs...'"

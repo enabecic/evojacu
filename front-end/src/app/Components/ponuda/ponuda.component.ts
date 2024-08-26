@@ -44,6 +44,7 @@ export class PonudaComponent implements OnInit {
   kategorije: Kategorija[] = [];
   showChatBox: boolean = false;
   showSecondChatBox: boolean = false;
+  showCanvas:boolean=true;
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public jezikService: JezikService) {}
 
   ngOnInit(): void {
@@ -66,13 +67,21 @@ export class PonudaComponent implements OnInit {
 
       if (params['fromHelp']) {
         this.showChatBox = true;
+
         setTimeout(() => {
           this.showChatBox = false;
 
           this.showSecondChatBox = true;
+          this.initializeWebGL();
           setTimeout(() => {
-            this.showSecondChatBox = false;
-          }, 5000);
+            this.showCanvas=false;
+
+
+            setTimeout(()=>{
+              this.showSecondChatBox = false;
+            },5000);
+
+          }, 2500);
         }, 5000);
       } else {
         this.showChatBox = false;
@@ -190,8 +199,123 @@ export class PonudaComponent implements OnInit {
 
   onGradChange(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
-    this.selectedGradID = +selectElement.value; // Ažurirajte selectedGradID
-    console.log(`Grad changed to: ${this.selectedGradID}`); // Debug log
+    this.selectedGradID = +selectElement.value;
+    console.log(`Grad changed to: ${this.selectedGradID}`);
   }
+
+
+  initializeWebGL(): void {
+    const canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement;
+    if (!canvas) {
+      console.log('Canvas nije pronađen');
+      return;
+    }
+
+    const gl = canvas.getContext('webgl');
+    if (!gl) {
+      console.log('WebGL nije podržan');
+      return;
+    }
+
+    const vertices = new Float32Array([
+      -1.0, -1.0, 0.0,
+      1.0, -1.0, 0.0,
+      -1.0,  1.0, 0.0,
+      1.0,  1.0, 0.0
+    ]);
+
+    const buffer = gl.createBuffer();
+    if (!buffer) {
+      console.log('Ne mogu kreirati bafer');
+      return;
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    const vertexShaderCode = `
+    attribute vec3 position;
+    void main() {
+      gl_Position = vec4(position, 1.0);
+    }
+  `;
+
+    const fragmentShaderCode = `
+    precision mediump float;
+    uniform vec2 u_resolution;
+    uniform vec2 u_center;
+    uniform float u_radius;
+    uniform float u_time;
+
+    void main() {
+      vec2 st = gl_FragCoord.xy / u_resolution;
+      vec2 dist = st - u_center;
+      float len = length(dist);
+      float border = 0.02;
+      float edge = abs(len - u_radius);
+
+      // Ako je pixel unutar granica bordera, boji ga crno, inače transparentno
+      if (edge < border) {
+          gl_FragColor = vec4(0.4, 0.4, 0.4, 1.0);
+      } else {
+        discard; // Transparentno izvan granica bordera
+      }
+    }
+  `;
+
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    if (!vertexShader) {
+      console.log('Ne mogu kreirati vertex shader');
+      return;
+    }
+    gl.shaderSource(vertexShader, vertexShaderCode);
+    gl.compileShader(vertexShader);
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+      console.log('Greška u kompajliranju vertex shader-a: ' + gl.getShaderInfoLog(vertexShader));
+      return;
+    }
+
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    if (!fragmentShader) {
+      console.log('Ne mogu kreirati fragment shader');
+      return;
+    }
+    gl.shaderSource(fragmentShader, fragmentShaderCode);
+    gl.compileShader(fragmentShader);
+    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+      console.log('Greška u kompajliranju fragment shader-a: ' + gl.getShaderInfoLog(fragmentShader));
+      return;
+    }
+
+    const shaderProgram = gl.createProgram();
+    if (!shaderProgram) {
+      console.log('Ne mogu kreirati shader program');
+      return;
+    }
+    gl.attachShader(shaderProgram, vertexShader);
+    gl.attachShader(shaderProgram, fragmentShader);
+    gl.linkProgram(shaderProgram);
+    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+      console.log('Greška u povezivanju shader programa: ' + gl.getProgramInfoLog(shaderProgram));
+      return;
+    }
+    gl.useProgram(shaderProgram);
+
+    const positionLocation = gl.getAttribLocation(shaderProgram, 'position');
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
+
+    const resolutionLocation = gl.getUniformLocation(shaderProgram, 'u_resolution');
+    const centerLocation = gl.getUniformLocation(shaderProgram, 'u_center');
+    const radiusLocation = gl.getUniformLocation(shaderProgram, 'u_radius');
+    const timeLocation = gl.getUniformLocation(shaderProgram, 'u_time');
+
+    gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+    gl.uniform2f(centerLocation, 0.5, 0.65);
+    gl.uniform1f(radiusLocation, 0.3);
+
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
 
 }
