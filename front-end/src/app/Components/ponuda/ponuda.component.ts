@@ -244,7 +244,7 @@ export class PonudaComponent implements OnInit {
     uniform vec2 u_resolution;
     uniform vec2 u_center;
     uniform float u_radius;
-    uniform float u_time;
+    uniform float u_blinkValue;
 
     void main() {
       vec2 st = gl_FragCoord.xy / u_resolution;
@@ -253,9 +253,8 @@ export class PonudaComponent implements OnInit {
       float border = 0.02;
       float edge = abs(len - u_radius);
 
-      // Ako je pixel unutar granica bordera, boji ga crno, inače transparentno
       if (edge < border) {
-          gl_FragColor = vec4(0.4, 0.4, 0.4, 1.0);
+          gl_FragColor = vec4(vec3(u_blinkValue), 1.0);  // Animiramo boju na osnovu u_blinkValue
       } else {
         discard; // Transparentno izvan granica bordera
       }
@@ -307,15 +306,33 @@ export class PonudaComponent implements OnInit {
     const resolutionLocation = gl.getUniformLocation(shaderProgram, 'u_resolution');
     const centerLocation = gl.getUniformLocation(shaderProgram, 'u_center');
     const radiusLocation = gl.getUniformLocation(shaderProgram, 'u_radius');
-    const timeLocation = gl.getUniformLocation(shaderProgram, 'u_time');
+    const blinkValueLocation = gl.getUniformLocation(shaderProgram, 'u_blinkValue');
 
     gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
     gl.uniform2f(centerLocation, 0.5, 0.65);
     gl.uniform1f(radiusLocation, 0.3);
 
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    let blinkValue = 0.0;
+    let increment = 0.03;
+
+    function animate() {
+      blinkValue += increment;
+      if (blinkValue >= 1.0 || blinkValue <= 0.0) {
+        increment = -increment;
+      }
+
+      gl!.uniform1f(blinkValueLocation, blinkValue);
+
+      gl!.clear(gl!.COLOR_BUFFER_BIT);
+      gl!.drawArrays(gl!.TRIANGLE_STRIP, 0, 4);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   }
+
+
 
 
 }
