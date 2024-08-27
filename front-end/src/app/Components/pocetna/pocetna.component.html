@@ -37,7 +37,7 @@
 
 
 <div class="datum">
-
+  <canvas *ngIf="showCanvas" id="webgl-canvas" width="90" height="90"></canvas>
   <div *ngIf="showChatBox" class="chat-box">
   <span *ngIf="jezikService.isBosanski(); else englishChatBox1">
     Klikni na + da dodaš novi posao

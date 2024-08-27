@@ -66,6 +66,8 @@ export class PocetnaComponent implements OnInit {
   showChatBox: boolean = false;
   showSecondChatBox: boolean = false;
 
+
+  showCanvas:boolean=true;
   constructor(private http: HttpClient, private router: Router, public jezikService: JezikService,
               private route: ActivatedRoute) {}
 
@@ -79,10 +81,21 @@ export class PocetnaComponent implements OnInit {
 
     this.route.queryParams.subscribe(params => {
       if (params['fromHelp']) {
-        this.showChatBox = true;
+
+
         setTimeout(() => {
-          this.showChatBox = false;
-        }, 5000);
+          this.showChatBox = true;
+
+          this.initializeWebGL();
+          setTimeout(()=>{
+            this.showCanvas=false;
+
+            setTimeout(()=>{
+              this.showChatBox = false;
+
+            },3000)
+          },2500)
+        }, 1000);
 
 
       } else {
@@ -115,13 +128,9 @@ export class PocetnaComponent implements OnInit {
           behavior: 'smooth'
         });
       }
-
-
     });
 
-
   }
-
 
 
 
@@ -264,6 +273,152 @@ export class PocetnaComponent implements OnInit {
         });
       });
     });
+  }
+
+
+  initializeWebGL(): void {
+    const canvas = document.getElementById('webgl-canvas') as HTMLCanvasElement;
+    if (!canvas) {
+      console.log('Canvas nije pronađen');
+      return;
+    }
+
+    const gl = canvas.getContext('webgl');
+    if (!gl) {
+      console.log('WebGL nije podržan');
+      return;
+    }
+
+    const vertices = new Float32Array([
+      // Vrh strelice (trokut)
+      0.6,  0.0, 0.0,  // Vrh strelice
+      0.0, -0.4, 0.0,  // Donji levi ugao trokuta
+      0.0, 0.4, 0.0,   // Gornji levi ugao trokuta
+
+      // Pravougaonik ispod trokuta
+      0.0, 0.15, 0.0,  // Gornji levi ugao pravougaonika
+      -0.6, 0.15, 0.0, // Gornji desni ugao pravougaonika
+      -0.6, -0.15, 0.0, // Donji desni ugao pravougaonika
+      0.0, -0.15, 0.0  // Donji levi ugao pravougaonika
+    ]);
+
+    const indices = new Uint16Array([
+      0, 1, 2, // Trokut
+      3, 4, 5, // Pravougaonik (donji trougao)
+      3, 5, 6  // Pravougaonik (gornji trougao)
+    ]);
+
+    const vertexBuffer = gl.createBuffer();
+    if (!vertexBuffer) {
+      console.log('Ne mogu kreirati vertex bafer');
+      return;
+    }
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    const indexBuffer = gl.createBuffer();
+    if (!indexBuffer) {
+      console.log('Ne mogu kreirati index bafer');
+      return;
+    }
+    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indices, gl.STATIC_DRAW);
+
+    const vertexShaderCode = `
+    attribute vec3 position;
+    uniform mat4 u_matrix;
+    void main() {
+      gl_Position = u_matrix * vec4(position, 1.0);
+    }
+  `;
+
+    const fragmentShaderCode = `
+    precision mediump float;
+    uniform vec4 u_color;
+    void main() {
+      gl_FragColor = u_color;
+    }
+  `;
+
+    const vertexShader = gl.createShader(gl.VERTEX_SHADER);
+    if (!vertexShader) {
+      console.log('Ne mogu kreirati vertex shader');
+      return;
+    }
+    gl.shaderSource(vertexShader, vertexShaderCode);
+    gl.compileShader(vertexShader);
+    if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
+      console.log('Greška u kompajliranju vertex shader-a: ' + gl.getShaderInfoLog(vertexShader));
+      return;
+    }
+
+    const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+    if (!fragmentShader) {
+      console.log('Ne mogu kreirati fragment shader');
+      return;
+    }
+    gl.shaderSource(fragmentShader, fragmentShaderCode);
+    gl.compileShader(fragmentShader);
+    if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
+      console.log('Greška u kompajliranju fragment shader-a: ' + gl.getShaderInfoLog(fragmentShader));
+      return;
+    }
+
+    const shaderProgram = gl.createProgram();
+    if (!shaderProgram) {
+      console.log('Ne mogu kreirati shader program');
+      return;
+    }
+    gl.attachShader(shaderProgram, vertexShader);
+    gl.attachShader(shaderProgram, fragmentShader);
+    gl.linkProgram(shaderProgram);
+    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+      console.log('Greška u povezivanju shader programa: ' + gl.getProgramInfoLog(shaderProgram));
+      return;
+    }
+    gl.useProgram(shaderProgram);
+
+    const positionLocation = gl.getAttribLocation(shaderProgram, 'position');
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
+
+    const colorLocation = gl.getUniformLocation(shaderProgram, 'u_color');
+    const matrixLocation = gl.getUniformLocation(shaderProgram, 'u_matrix');
+
+    const angle = 1 * Math.PI / 180;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    const rotationMatrix = new Float32Array([
+      cos, -sin, 0.0, 0.0,
+      sin, cos,  0.0, 0.0,
+      0.0, 0.0,  1.0, 0.0,
+      0.0, 0.0,  0.0, 1.0
+    ]);
+
+    gl.uniformMatrix4fv(matrixLocation, false, rotationMatrix);
+
+    let blinkValue = 0.0;
+    let increment = 0.02; // Kontroliše brzinu animacije
+
+    function animate() {
+      blinkValue += increment;
+      if (blinkValue >= 1.0 || blinkValue <= 0.0) {
+        increment = -increment; // Obrće smer animacije
+      }
+
+      // Animiramo boju od bele do sive
+      // Bela je (1.0, 1.0, 1.0), a siva je (blinkValue, blinkValue, blinkValue)
+      // Ako je blinkValue 0.5, onda boja bude svetlo siva
+      gl!.uniform4f(colorLocation, blinkValue, blinkValue, blinkValue, 1.0);
+
+      gl!.clear(gl!.COLOR_BUFFER_BIT);
+      gl!.drawElements(gl!.TRIANGLES, indices.length, gl!.UNSIGNED_SHORT, 0);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
   }
 
 

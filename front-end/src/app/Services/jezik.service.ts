@@ -7,9 +7,8 @@ export class JezikService {
   private readonly LANGUAGE_KEY = 'selectedLanguage';
 
   constructor() {
-    // Initialize language from localStorage
     const storedLanguage = localStorage.getItem(this.LANGUAGE_KEY);
-    this.jeBosanski = storedLanguage === 'true'; // Default to Bosanski if not set
+    this.jeBosanski = storedLanguage === 'true';
   }
 
   private jeBosanski: boolean = true;
