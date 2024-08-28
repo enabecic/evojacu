@@ -2,6 +2,6 @@
 {
     public class RecenzijaPreuzmiRequest
     {
-        public double? Ocjena { get; set; }
+        
     }
 }

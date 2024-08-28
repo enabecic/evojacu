@@ -22,10 +22,8 @@ namespace evojacu.Endpoints.Recenzija.Dodaj
             var noviObj = new evojacu.Models.Recenzija
             {
                 Komentar = request.Komentar,
-                PosaoID = request.PosaoID,
-                PoslodavacID = request.PoslodavacID,
+                PosaoID = request.PosaoID,            
                 PosloprimaocID = request.PosloprimaocID,
-                Ocjena = request.Ocjena
             };
 
             _applicationDbContext.Add(noviObj);

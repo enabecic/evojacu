@@ -10,7 +10,7 @@
         public int RecenzijaID { get; set; }
 
         public int PosaoID { get; set; }
-        public string OpisPosla { get; set; }
+     
 
         public int PoslodavacID { get; set; }
         public string UserPoslodavac { get; set; }
@@ -19,6 +19,6 @@
         public string UserPosloprimaoc { get; set; }
 
         public string Komentar { get; set; }
-        public double Ocjena { get; set; }
+      
     }
 }

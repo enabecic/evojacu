@@ -1,7 +1,9 @@
-﻿using evojacu.Helpers;
+﻿using evojacu.Endpoints.Posao.Preuzmi;
+using evojacu.Helpers;
 using evojacu.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace evojacu.Endpoints.Recenzija.Preuzmi
 {
@@ -20,18 +22,17 @@ namespace evojacu.Endpoints.Recenzija.Preuzmi
         [HttpGet]
         public override async Task<RecenzijaPreuzmiResponse> Obradi([FromQuery]RecenzijaPreuzmiRequest request, CancellationToken cancellationToken = default)
         {
-            var recenzije = await _applicationDbContext.Recenzije.Where(x => request.Ocjena == null || x.Ocjena == request.Ocjena)
+            var recenzije = await _applicationDbContext.Recenzije
                .Select(x => new RecenzijaPreuzmiResponseRecenzija()
                {
                    RecenzijaID = x.RecenzijaID,
                    PosaoID = x.PosaoID,
-                   OpisPosla=x.Posao.OpisPosla,
-                   PoslodavacID = x.PoslodavacID,
-                   UserPoslodavac=x.Poslodavac.Korisnik.Username,
+                   PoslodavacID = x.Posao.PoslodavacID,
+                   UserPoslodavac=x.Posao.Poslodavac.Korisnik.Username,
                    PosloprimaocID = x.PosloprimaocID,
                    UserPosloprimaoc=x.Posloprimaoc.Korisnik.Username,
                    Komentar = x.Komentar,
-                   Ocjena = x.Ocjena
+                  
 
                }).ToListAsync(cancellationToken: cancellationToken);
 
@@ -41,5 +42,36 @@ namespace evojacu.Endpoints.Recenzija.Preuzmi
                 Recenzije = recenzije
             };
         }
+
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<RecenzijaPreuzmiResponseRecenzija>>> GetRecenzijaByPosaoId(int id, CancellationToken cancellationToken = default)
+        {
+           
+            var recenzije = await _applicationDbContext.Recenzije
+                .Where(x => x.PosaoID == id)
+                .Select(x => new RecenzijaPreuzmiResponseRecenzija()
+                {
+                    PosaoID = x.PosaoID,
+                    PoslodavacID = x.Posao.PoslodavacID,
+                    Komentar = x.Komentar,
+                    PosloprimaocID = x.PosloprimaocID,
+                    RecenzijaID = x.RecenzijaID,
+                    UserPoslodavac = x.Posao.Poslodavac.Korisnik.Username,
+                    UserPosloprimaoc = x.Posloprimaoc.Korisnik.Username,
+                })
+                .ToListAsync(cancellationToken: cancellationToken);
+
+            
+            if (recenzije == null || recenzije.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(recenzije);
+        }
+
+
+
     }
 }

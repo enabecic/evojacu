@@ -25,7 +25,7 @@ namespace evojacu.Endpoints.Recenzija.Update
                 throw new Exception("Ne postoji recenzija sa ID = " + request.RecenzijaID);
             }
 
-            recenzija.Ocjena = request.Ocjena;
+            
             recenzija.Komentar = request.Komentar;
 
             await _applicationDbContext.SaveChangesAsync();

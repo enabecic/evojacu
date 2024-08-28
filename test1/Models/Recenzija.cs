@@ -12,16 +12,12 @@ namespace evojacu.Models
         public int PosaoID { get; set; }
         public Posao Posao { get; set; }
 
-        [ForeignKey(nameof(Poslodavac))]
-        public int PoslodavacID { get; set; }
-        public Poslodavac Poslodavac { get; set; }
-
         [ForeignKey(nameof(Posloprimaoc))]
         public int PosloprimaocID { get; set; }
         public Posloprimaoc Posloprimaoc { get; set; }
 
         public string Komentar { get; set; }
-        public double Ocjena { get; set; }
+   
 
     }
 }
