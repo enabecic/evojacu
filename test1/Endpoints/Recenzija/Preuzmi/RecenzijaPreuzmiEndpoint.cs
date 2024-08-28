@@ -45,7 +45,7 @@ namespace evojacu.Endpoints.Recenzija.Preuzmi
 
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<RecenzijaPreuzmiResponseRecenzija>>> GetRecenzijaByPosaoId(int id, CancellationToken cancellationToken = default)
+        public async Task<RecenzijaPreuzmiResponse> GetRecenzijaByPosaoId(int id, CancellationToken cancellationToken = default)
         {
            
             var recenzije = await _applicationDbContext.Recenzije
@@ -63,12 +63,12 @@ namespace evojacu.Endpoints.Recenzija.Preuzmi
                 .ToListAsync(cancellationToken: cancellationToken);
 
             
-            if (recenzije == null || recenzije.Count == 0)
-            {
-                return NotFound();
-            }
+          
 
-            return Ok(recenzije);
+            return new RecenzijaPreuzmiResponse
+            {
+                Recenzije = recenzije
+            };
         }
 
 

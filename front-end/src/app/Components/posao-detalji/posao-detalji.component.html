@@ -9,6 +9,7 @@
   <div class="detail-row">
     <img class="zadatak-slika" [src]="getZadatakSlikaURL(posao.zadatakStraniID)" alt="Kategorija slika">
   </div>
+  <br>
   <div class="detail-row">
     <p class="label"><strong>
       <span *ngIf="jezikService.isBosanski(); else englishNaziv">Naziv posla:</span>
@@ -110,5 +111,94 @@
 
   <br>
 </div>
+
+<div class="kom">
+<h3 *ngIf="jezikService.isBosanski(); else englishNoviKomentari">Komentari:</h3>
+<ng-template  #englishNoviKomentari>Comments:</ng-template>
+</div>
+
+<button class="novi-komentar-button" (click)="novaRecenzija()">
+
+  <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 5v14M5 12h14"/>
+  </svg>
+
+  <span  *ngIf="jezikService.isBosanski(); else englishNoviKomentar">Dodaj komentar</span>
+  <ng-template  #englishNoviKomentar>Add a comment</ng-template>
+
+</button>
+<div class="comment-container">
+  <div class="comment-item" *ngFor="let recenzija of recenzije">
+    <div class="comment-author">{{ recenzija.userPosloprimaoc }}</div>
+
+    <div class="comment-text">{{recenzija.komentar}}</div>
+    <span [title]="jezikService.isBosanski()?
+              'Uredi' : 'Edit'">
+    <svg class="icon2" (click)="urediRecenziju(recenzija)" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 17.25V21h3.75L17.658 9.092l-3.75-3.75L3 17.25zM20.712 7.288a1 1 0 00-1.414 0L16.598 8.704l3.75 3.75 1.414-1.414a1 1 0 000-1.414l-2.05-2.05z"/>
+    </svg>
+      </span>
+    <span [title]="jezikService.isBosanski()?
+              'Obriši' : 'Delete'">
+    <svg class="icon3" (click)="obrisiRecenziju(recenzija)"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 6h12M4 6h16M6 6l1-1h10l1 1M5 6h14v13H5V6zm1 1v12h12V7H6z"/>
+    </svg>
+      </span>
+  </div>
+</div>
 <br>
+
+
+<div class="overlay" *ngIf="nova_recenzija != null  && nova_recenzija.posloprimaocID===1"></div>
+
+
+<div *ngIf="nova_recenzija != null && nova_recenzija.posloprimaocID===1" class="modal fade show" id="exampleModalLive" tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLiveLabel" >
+          <ng-container *ngIf="nova_recenzija.recenzijaID === 0">
+            <span class="dodajUredi" *ngIf="jezikService.isBosanski(); else englishModalTitleAdd">Dodaj komentar</span>
+            <ng-template class="dodajUredi" #englishModalTitleAdd>Add Comment</ng-template>
+          </ng-container>
+          <ng-container *ngIf="nova_recenzija.recenzijaID !== 0">
+            <span class="dodajUredi" *ngIf="jezikService.isBosanski(); else englishModalTitleEdit">Uredi komentar</span>
+            <ng-template class="dodajUredi" #englishModalTitleEdit>Edit Comment</ng-template>
+          </ng-container>
+        </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="nova_recenzija = null"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">
+            <span *ngIf="jezikService.isBosanski(); else englishTaskName">Komentar: </span>
+            <ng-template #englishTaskName>Comment: </ng-template>
+          </label>
+          <input [(ngModel)]="nova_recenzija.komentar" class="form-control"
+                 [placeholder]="jezikService.isBosanski() ? 'Ostavi komentar...' : 'Leave a comment...'"
+                 (input)="onKomentarChange()">
+          <div *ngIf="komentarInvalid" class="text-danger">
+            <span *ngIf="jezikService.isBosanski(); else englishTaskNameRequired">Komentar je obavezno polje.</span>
+            <ng-template #englishTaskNameRequired>Comment is required.</ng-template>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn modal-button" (click)="nova_recenzija = null">
+          <span *ngIf="jezikService.isBosanski(); else englishClose">Zatvori</span>
+          <ng-template #englishClose>Close</ng-template>
+        </button>
+        <button type="button" class="btn modal-button" (click)="snimiRecenziju()">
+          <span *ngIf="jezikService.isBosanski(); else englishSaveChanges">Spremi promjene</span>
+          <ng-template #englishSaveChanges>Save changes</ng-template>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </body>

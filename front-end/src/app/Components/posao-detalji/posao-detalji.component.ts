@@ -28,6 +28,14 @@ interface Posao {
   jeOdabran: boolean;
 }
 
+interface Recenzija {
+  posaoID: number;
+  recenzijaID: number;
+  komentar: string;
+  userPosloprimaoc:string;
+  posloprimaocID: number;
+
+}
 @Component({
   selector: 'app-posao-detalji',
   templateUrl: './posao-detalji.component.html',
@@ -36,7 +44,9 @@ interface Posao {
 export class PosaoDetaljiComponent implements OnInit {
   posao: Posao | null = null;
   showChatBox: boolean = false;
-
+  recenzije: Recenzija[] = [];
+  nova_recenzija: any;
+   komentarInvalid: boolean=false;
 
 
   constructor(private route: ActivatedRoute, private http: HttpClient, public jezikService: JezikService,
@@ -50,6 +60,8 @@ export class PosaoDetaljiComponent implements OnInit {
     this.getPosaoById(Number(id)).subscribe((data: any) => {
       this.posao = data;
     });
+
+    this.getRecenzijeByPosao(Number(id));
 
     this.route.queryParams.subscribe(params => {
       if (params['fromHelp']) {
@@ -77,6 +89,57 @@ export class PosaoDetaljiComponent implements OnInit {
 
   getPosaoById(id: number): Observable<Posao> {
     return this.http.get<Posao>(`${MojConfig.adresa_servera}/Posao-preuzmi/${id}`);
+  }
+
+
+   id = this.route.snapshot.paramMap.get('id');
+
+  novaRecenzija() {
+
+    this.nova_recenzija = {
+      recenzijaID: 0,
+      komentar: '',
+      posloprimaocID: 1,
+      posaoID: Number(this.id)
+    };
+    this.komentarInvalid=false;
+  }
+
+  snimiRecenziju() {
+    if (!this.nova_recenzija?.komentar) {
+      this.komentarInvalid = true;
+    } else {
+      this.komentarInvalid = false;
+    }
+
+
+
+    if (this.komentarInvalid ) {
+      return;
+    }
+
+    const url = this.nova_recenzija.recenzijaID === 0
+      ? `${MojConfig.adresa_servera}/Recenzija-dodaj`
+      : `${MojConfig.adresa_servera}/Recenzija-update`;
+
+
+      this.http.post(url, this.nova_recenzija).subscribe(() => {
+
+        this.nova_recenzija = null;
+        this.getRecenzijeByPosao(Number(this.id));
+      });
+
+  }
+
+  onKomentarChange() {
+    this.komentarInvalid = !this.nova_recenzija?.komentar;
+  }
+
+
+  getRecenzijeByPosao(id: number): void {
+    this.http.get<{recenzije: Recenzija[]}>(`${MojConfig.adresa_servera}/Recenzija-preuzmi/${id}`).subscribe(response=>{
+      this.recenzije= response.recenzije;
+    })
   }
 
   getZadatakSlikaURL(zadatakID: number): string {
@@ -127,5 +190,46 @@ export class PosaoDetaljiComponent implements OnInit {
   }
 
 
+  urediRecenziju(recenzija: Recenzija) {
+    this.nova_recenzija = {
+      recenzijaID: recenzija.recenzijaID,
+      komentar: recenzija.komentar,
+      posloprimaocID: recenzija.posloprimaocID,
+      posaoID: recenzija.posaoID
+    };
+    this.komentarInvalid=false;
+  }
 
+  obrisiRecenziju(recenzija: Recenzija) {
+    const confirmMessage = this.jezikService.isBosanski()
+      ? 'Da li ste sigurni da želite obrisati ovaj komentar?'
+      : 'Are you sure you want to delete this comment?';
+
+    const successMessage = this.jezikService.isBosanski()
+      ? 'Komentar obrisan'
+      : 'Comment deleted';
+
+    const errorMessage = this.jezikService.isBosanski()
+      ? 'Greška prilikom brisanja komentara'
+      : 'Error while deleting the comment';
+
+    const nijeAutorizovan = this.jezikService.isBosanski()
+      ? 'Ne možete izbrisati tuđi komentar'
+      : 'You cannot delete a different users comment';
+
+    if(Number(recenzija.posloprimaocID) === 1) {
+      if (confirm(confirmMessage)) {
+        this.http.delete(`${MojConfig.adresa_servera}/Recenzija-obrisi`, {params: {RecenzijaID: recenzija.recenzijaID.toString()}})
+          .subscribe(() => {
+            this.getRecenzijeByPosao(Number(this.id));
+            alert(successMessage);
+          }, error => {
+            alert(errorMessage);
+          });
+      }
+    }
+    else{
+      alert(nijeAutorizovan);
+    }
+  }
 }

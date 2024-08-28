@@ -143,7 +143,7 @@ export class ZadatakComponent implements OnInit {
     if (confirm(confirmMessage)) {
       this.http.delete(`${MojConfig.adresa_servera}/Zadatak-obrisi`, { params: { ZadatakID: zadatakId.toString() } })
         .subscribe(() => {
-          this.getZadaci(); // Osvježavanje liste zadataka nakon brisanja
+          this.getZadaci();
           alert(successMessage);
         }, error => {
           alert(errorMessage);
