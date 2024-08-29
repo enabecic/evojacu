@@ -27,6 +27,7 @@ namespace evojacu.Modul_TestniPodaci
             data.Add("Poslodavac", _dbContext.Poslodavci.Count());
             data.Add("Posloprimaoc", _dbContext.Posloprimaoci.Count());
             data.Add("Posao", _dbContext.Poslovi.Count());
+            data.Add("Recenzija",_dbContext.Recenzije.Count());
 
             return Ok(data);
         }
@@ -44,31 +45,34 @@ namespace evojacu.Modul_TestniPodaci
             var poslodavci = new List<Poslodavac>();
             var posloprimaoci=new List<Posloprimaoc>();
             var poslovi = new List<Posao>();
+            var recenzije = new List<Recenzija>();
+
 
             fazePoslova.Add(new FazaPosla { Opis = "Posao je aktivan", Naziv = "Aktivan" });
             fazePoslova.Add(new FazaPosla { Opis = "Posao nije aktivan", Naziv = "Neaktivan"});
 
-            gradovi.Add(new Grad { Naziv = "Sarajevo" });
             gradovi.Add(new Grad { Naziv = "Banja Luka" });
-            gradovi.Add(new Grad { Naziv = "Tuzla" });
-            gradovi.Add(new Grad { Naziv = "Zenica" });
-            gradovi.Add(new Grad { Naziv = "Mostar" });
+            gradovi.Add(new Grad { Naziv = "Bihać" });
             gradovi.Add(new Grad { Naziv = "Bijeljina" });
             gradovi.Add(new Grad { Naziv = "Brčko" });
-            gradovi.Add(new Grad { Naziv = "Prijedor" });
-            gradovi.Add(new Grad { Naziv = "Trebinje" });
             gradovi.Add(new Grad { Naziv = "Cazin" });
             gradovi.Add(new Grad { Naziv = "Doboj" });
-            gradovi.Add(new Grad { Naziv = "Sanski Most" });
             gradovi.Add(new Grad { Naziv = "Goražde" });
-            gradovi.Add(new Grad { Naziv = "Travnik" });
-            gradovi.Add(new Grad { Naziv = "Široki Brijeg" });
             gradovi.Add(new Grad { Naziv = "Gradačac" });
-            gradovi.Add(new Grad { Naziv = "Bihać" });
-            gradovi.Add(new Grad { Naziv = "Zvornik" });
             gradovi.Add(new Grad { Naziv = "Gradiška" });
             gradovi.Add(new Grad { Naziv = "Lukavac" });
+            gradovi.Add(new Grad { Naziv = "Mostar" });
+            gradovi.Add(new Grad { Naziv = "Prijedor" });
+            gradovi.Add(new Grad { Naziv = "Sanski Most" });
+            gradovi.Add(new Grad { Naziv = "Sarajevo" });
+            gradovi.Add(new Grad { Naziv = "Široki Brijeg" });
+            gradovi.Add(new Grad { Naziv = "Travnik" });
+            gradovi.Add(new Grad { Naziv = "Trebinje" });
+            gradovi.Add(new Grad { Naziv = "Tuzla" });
             gradovi.Add(new Grad { Naziv = "Visoko" });
+            gradovi.Add(new Grad { Naziv = "Zenica" });
+            gradovi.Add(new Grad { Naziv = "Zvornik" });
+
 
             kategorije.Add(new Kategorija { Naziv = "Životinje" });//0
             kategorije.Add(new Kategorija { Naziv = "Građevinarstvo" });//1
@@ -141,16 +145,21 @@ namespace evojacu.Modul_TestniPodaci
             posloprimaoci.Add(new Posloprimaoc { Korisnik = korisnici[0], Strucnost="Viša stručna sprema" });
             posloprimaoci.Add(new Posloprimaoc { Korisnik = korisnici[1], Strucnost = "Visoka stručna sprema" });
 
-            poslovi.Add(new Posao { Adresa ="Alekse Šantića 12", Cijena=20 , DatumObjave=DateTime.Now, UkljucenGPS=true, OpisPosla="Šetnja pasa kroz park", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[1], VrijemeIzvrsavanja = vremenaIzvrsavanja[2], Zadatak = zadaci[10] });
-            poslovi.Add(new Posao { Adresa = "Alekse Šantića 6", Cijena = 50, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Čuvanje djece u stanu", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[0] });
-            poslovi.Add(new Posao { Adresa = "Splitska 23", Cijena = 80, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Briga o starijim osobama", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[1], VrijemeIzvrsavanja = vremenaIzvrsavanja[3], Zadatak = zadaci[9] });
-            poslovi.Add(new Posao { Adresa = "Dr.Ante Starčevića", Cijena = 45, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Čišćenje stana", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[6] });
-            poslovi.Add(new Posao { Adresa = "Braće Fejića", Cijena = 6, DatumObjave = DateTime.Now, UkljucenGPS = true, OpisPosla = "Dostava hrane", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[1], VrijemeIzvrsavanja = vremenaIzvrsavanja[2], Zadatak = zadaci[1] });
-            poslovi.Add(new Posao { Adresa = "Adema Buća", Cijena = 50, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Branje voća", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[4] });
-            poslovi.Add(new Posao { Adresa = "Franjevačka", Cijena = 50, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Održavanje životinja i bašče na farmi", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[5] });
-            poslovi.Add(new Posao { Adresa = "Kneza Mihajla Viševića Humskog", Cijena = 20, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Popravka slavine", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[11] });
-            poslovi.Add(new Posao { Adresa = "Sjeverni logor bb", Cijena = 70, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Popravka namještaja", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[12] });
-            poslovi.Add(new Posao { Adresa = "Donja Drežnica bb", Cijena = 5, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Zamjena sijalice", FazaPosla = fazePoslova[0], Grad = gradovi[4], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[13] });
+            poslovi.Add(new Posao { Adresa ="Alekse Šantića 12", Cijena=20 , DatumObjave=DateTime.Now, UkljucenGPS=true, OpisPosla="Šetnja pasa kroz park", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[1], VrijemeIzvrsavanja = vremenaIzvrsavanja[2], Zadatak = zadaci[10] });
+            poslovi.Add(new Posao { Adresa = "Alekse Šantića 6", Cijena = 30, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Čuvanje dvoje djece u stanu", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[0] });
+            poslovi.Add(new Posao { Adresa = "Splitska 23", Cijena = 80, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Briga o starijim osobama", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[1], VrijemeIzvrsavanja = vremenaIzvrsavanja[3], Zadatak = zadaci[9] });
+            poslovi.Add(new Posao { Adresa = "Dr.Ante Starčevića", Cijena = 45, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Čišćenje stana", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[6] });
+            poslovi.Add(new Posao { Adresa = "Braće Fejića", Cijena = 6, DatumObjave = DateTime.Now, UkljucenGPS = true, OpisPosla = "Dostava hrane", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[1], VrijemeIzvrsavanja = vremenaIzvrsavanja[2], Zadatak = zadaci[1] });
+            poslovi.Add(new Posao { Adresa = "Adema Buća", Cijena = 50, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Branje voća", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[4] });
+            poslovi.Add(new Posao { Adresa = "Franjevačka", Cijena = 50, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Održavanje životinja i bašče na farmi", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[5] });
+            poslovi.Add(new Posao { Adresa = "Kneza Mihajla Viševića Humskog", Cijena = 20, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Popravka slavine", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[11] });
+            poslovi.Add(new Posao { Adresa = "Sjeverni logor bb", Cijena = 70, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Popravka namještaja", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[12] });
+            poslovi.Add(new Posao { Adresa = "Donja Drežnica bb", Cijena = 5, DatumObjave = DateTime.Now, UkljucenGPS = false, OpisPosla = "Zamjena sijalice", FazaPosla = fazePoslova[0], Grad = gradovi[10], Poslodavac = poslodavci[0], VrijemeIzvrsavanja = vremenaIzvrsavanja[1], Zadatak = zadaci[13] });
+
+            recenzije.Add(new Recenzija { Komentar = "Veoma zanimljiv posao", Posao = poslovi[0], Posloprimaoc = posloprimaoci[0] });
+            recenzije.Add(new Recenzija { Komentar = "wowww psi <3", Posao = poslovi[0], Posloprimaoc = posloprimaoci[1] });
+            recenzije.Add(new Recenzija { Komentar = "Mala cijena za dvoje djece.", Posao = poslovi[1], Posloprimaoc = posloprimaoci[0] });
+
 
             _dbContext.AddRange(fazePoslova);
             _dbContext.AddRange(gradovi);
@@ -161,6 +170,7 @@ namespace evojacu.Modul_TestniPodaci
             _dbContext.AddRange(poslodavci);
             _dbContext.AddRange(posloprimaoci);
             _dbContext.AddRange(poslovi);
+            _dbContext.AddRange(recenzije);
 
             _dbContext.SaveChanges();
 
