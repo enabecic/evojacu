@@ -30,5 +30,6 @@
         public bool UkljucenGPS { get; set; }
         public string NazivKategorije { get; set; }
         public bool jeOdabran { get; set; }
+        public int korisnikId { get; set; }
     }
 }

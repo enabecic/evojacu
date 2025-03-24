@@ -16,5 +16,8 @@
         public string Zanimanje { get; set; }
         public string Adresa { get; set; }
         public string? Telefon { get; set; }
+
+        public string? Slika { get; set; }
+        public string? SlikaMimeType { get; set; }
     }
 }

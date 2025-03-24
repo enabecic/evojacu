@@ -39,6 +39,39 @@ namespace evojacu.Endpoints.Zadatak.Preuzmi
         }
 
 
+
+        [HttpGet("{korisnikId}")]
+        public async Task<ZadatakPreuzmiResponse> GetZadatakByKorisnikId(int korisnikId, [FromQuery] int page = 1, [FromQuery] int pageSize = 4, CancellationToken cancellationToken = default)
+        {
+            var zadaciQuery = _applicationDbContext.Zadaci.Where(x => x.KorisnikId == korisnikId);
+
+            // Ukupno broj zadataka
+            var ukupanBrojZadataka = await zadaciQuery.CountAsync(cancellationToken);
+
+            // Paginacija
+            var zadaci = await zadaciQuery
+                .Skip((page - 1) * pageSize) // Skip za paginaciju
+                .Take(pageSize) // Uzimanje pageSize zadataka
+                .Select(x => new ZadatakPreuzmiResponseZadatak()
+                {
+                    ZadatakId = x.ZadatakId,
+                    KategorijaID = x.KategorijaID,
+                    Naziv = x.Naziv,
+                    NazivKategorije = x.Kategorija.Naziv,
+                    Opis = x.Opis,
+                    KorisnikId = x.KorisnikId
+                })
+                .ToListAsync(cancellationToken);
+
+            return new ZadatakPreuzmiResponse
+            {
+                Zadaci = zadaci,
+                UkupanBrojZadataka = ukupanBrojZadataka,
+                BrojStranica = (int)Math.Ceiling(ukupanBrojZadataka / (double)pageSize)
+            };
+        }
+
+
         [HttpGet("paged")]
         public async Task<ActionResult<ZadatakPreuzmiResponse>> GetPaged([FromQuery] ZadatakPreuzmiRequest request, CancellationToken cancellationToken = default)
         {

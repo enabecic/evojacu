@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using evojacu.Helpers;
 using evojacu.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace evojacu.Endpoints.Korisnik.Preuzmi
 {
     [Route("korisnik-preuzmi")]
-    public class KorisnikPreuzmiEndpoint : MyBaseEndpoint<KorisnikPreuzmiRequest, KorisnikPreuzmiResponse>
+    public class KorisnikPreuzmiEndpoint : ControllerBase
     {
         private readonly evojacuDBContext _applicationDbContext;
 
@@ -15,45 +17,45 @@ namespace evojacu.Endpoints.Korisnik.Preuzmi
             _applicationDbContext = applicationDbContext;
         }
 
-        [HttpGet]
-        public override async Task<KorisnikPreuzmiResponse> Obradi([FromQuery] KorisnikPreuzmiRequest request, CancellationToken cancellationToken = default)
+        [HttpGet("{korisnikId}")] // Prima ID iz URL-a
+        public async Task<ActionResult<KorisnikPreuzmiResponse>> Obradi(
+            [FromRoute] int korisnikId,
+            CancellationToken cancellationToken = default)
         {
-            // Pretraži korisnike na osnovu email-a i lozinke
             var korisnik = await _applicationDbContext.Korisnici
-                .FirstOrDefaultAsync(x => x.Email == request.Email && x.Lozinka == request.Lozinka, cancellationToken);
+                .FirstOrDefaultAsync(x => x.KorisnikID == korisnikId, cancellationToken);
 
-            if (korisnik != null)
+            if (korisnik == null)
             {
-                // Ako je korisnik pronađen, vrati podatke o korisniku
-                var korisnici = new List<KorisnikPreuzmiResponseKorisnici>
-                {
-                    new KorisnikPreuzmiResponseKorisnici
-                    {
-                        Email = korisnik.Email,
-                        Ime = korisnik.Ime,
-                        Prezime = korisnik.Prezime,
-                        Adresa = korisnik.Adresa,
-                        Telefon = korisnik.Telefon,
-                        KorisnikID = korisnik.KorisnikID,
-                        Username = korisnik.Username,
-                        Lozinka = korisnik.Lozinka,
-                        Zanimanje = korisnik.Zanimanje
-                    }
-                };
+                return NotFound(new { Poruka = "Korisnik nije pronađen." });
+            }
 
-                return new KorisnikPreuzmiResponse
-                {
-                    Korisnici = korisnici
-                };
-            }
-            else
+            var mimeType = korisnik.SlikaMimeType ?? "image/jpeg"; // Ako nije postavljen, postavi podrazumevani tip
+            var slika = korisnik.Slika != null ? $"data:{mimeType};base64,{Convert.ToBase64String(korisnik.Slika)}" : null;
+
+            var korisnici = new List<KorisnikPreuzmiResponseKorisnici>
             {
-                // Ako korisnik nije pronađen, vrati praznu listu ili obavijest
-                return new KorisnikPreuzmiResponse
+                new KorisnikPreuzmiResponseKorisnici
                 {
-                    Korisnici = new List<KorisnikPreuzmiResponseKorisnici>()
-                };
-            }
+                    KorisnikID = korisnik.KorisnikID,
+                    Username = korisnik.Username,
+                    Email = korisnik.Email,
+                    Lozinka = korisnik.Lozinka, // Možda ovo ne treba slati iz sigurnosnih razloga?
+                    Ime = korisnik.Ime,
+                    Prezime = korisnik.Prezime,
+                    Zanimanje = korisnik.Zanimanje,
+                    Adresa = korisnik.Adresa,
+                    Telefon = korisnik.Telefon,
+                    Slika = slika,
+                    SlikaMimeType = korisnik.SlikaMimeType
+                }
+            };
+
+            return Ok(new KorisnikPreuzmiResponse
+            {
+                Korisnici = korisnici
+            });
         }
     }
+
 }

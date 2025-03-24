@@ -1,5 +1,5 @@
 import { NgModule} from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import {RouterModule} from "@angular/router";
@@ -18,6 +18,8 @@ import { ConfirmDialogComponent } from './Components/confirm-dialog/confirm-dial
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PomocComponent } from './Components/pomoc/pomoc.component';
+import { WebglLogoComponent } from './webgl-logo/webgl-logo.component';
+
 
 
 
@@ -35,6 +37,7 @@ import { PomocComponent } from './Components/pomoc/pomoc.component';
     JezikComponent,
     ConfirmDialogComponent,
     PomocComponent,
+    WebglLogoComponent,
 
   ],
   imports: [
@@ -57,6 +60,7 @@ import { PomocComponent } from './Components/pomoc/pomoc.component';
     ]),
     FormsModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MatDialogModule
   ],
   providers: [

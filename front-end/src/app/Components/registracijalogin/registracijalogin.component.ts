@@ -46,19 +46,23 @@ export class RegistracijaloginComponent {
   registrationSuccessMessage: string | null = null;
   registrationErrorMessage: string | null = null;
   isRegistrationSuccessful: boolean = false;
-  isFormTouched: boolean = false; // New variable to track form touch status
+
+  url = 'https://localhost:7027';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register() {
+    if (!this.validateRegistrationData()) {
+      this.registrationErrorMessage = 'Sva polja su obavezna!';
+      return;
+    }
+
     const registerUrl = `${this.url}/korisnik/dodaj`;
 
     this.checkIfEmailExists(this.userData.email).pipe(
       switchMap(emailExists => {
         if (emailExists) {
           this.registrationErrorMessage = 'Korisnik s ovim emailom već postoji.';
-          this.registrationSuccessMessage = null;
-          this.isRegistrationSuccessful = false;
           return of(null);
         }
         return this.checkIfUsernameExists(this.userData.username);
@@ -66,40 +70,67 @@ export class RegistracijaloginComponent {
       switchMap(usernameExists => {
         if (usernameExists) {
           this.registrationErrorMessage = 'Korisnik s ovim korisničkim imenom već postoji.';
-          this.registrationSuccessMessage = null;
-          this.isRegistrationSuccessful = false;
           return of(null);
         }
-        return this.http.post(registerUrl, this.userData).pipe(
-          map(response => {
-            this.registrationErrorMessage = null;
-            this.registrationSuccessMessage = 'Registracija uspješna!';
-            this.isRegistrationSuccessful = true;
-            this.clearForm();
-            this.resetFormErrors();
-
-            setTimeout(() => {
-              this.registrationSuccessMessage = null;
-              this.isRegistrationSuccessful = false;
-            }, 3000);
-
-            return response;
-          }),
-          catchError(error => {
-            this.registrationErrorMessage = 'Registracija nije uspjela. Pokušajte ponovo.';
-            this.registrationSuccessMessage = null;
-            this.isRegistrationSuccessful = false;
-            return of(null);
-          })
-        );
-      }),
-      catchError(error => {
-        this.registrationErrorMessage = 'Greška prilikom provjere emaila ili korisničkog imena.';
-        this.registrationSuccessMessage = null;
-        this.isRegistrationSuccessful = false;
-        return of(null);
+        return this.http.post(registerUrl, this.userData);
       })
-    ).subscribe();
+    ).subscribe({
+      next: () => {
+        this.registrationSuccessMessage = 'Registracija uspješna!';
+        this.registrationErrorMessage = null;
+        this.isRegistrationSuccessful = true;
+        this.clearForm();
+
+        setTimeout(() => {
+          this.registrationSuccessMessage = null;
+          this.isRegistrationSuccessful = false;
+        }, 3000);
+      },
+      error: () => {
+        this.registrationErrorMessage = 'Registracija nije uspjela. Pokušajte ponovo.';
+      }
+    });
+  }
+
+  login() {
+    if (!this.loginData.email || !this.loginData.lozinka) {
+      this.loginErrorMessage = 'Unesite email i lozinku.';
+      return;
+    }
+
+    const loginUrl = `${this.url}/korisnik/prijava`;
+
+    console.log("Šaljem zahtev na:", loginUrl);
+    console.log("Podaci za prijavu:", this.loginData);
+
+    this.http.post<{ success: boolean, korisnik: any }>(loginUrl, this.loginData).subscribe({
+      next: (response) => {
+        console.log("Odgovor od servera:", response);
+        if (response.success) {
+          localStorage.setItem('trenutniKorisnik', JSON.stringify(response.korisnik));
+
+          if (response.korisnik.token) {
+            localStorage.setItem('token', response.korisnik.token);
+            console.log("JWT Token spremljen u localStorage:", response.korisnik.token);
+          } else {
+            console.error("GREŠKA: Backend nije poslao JWT token!");
+          }
+
+          this.router.navigate(['/pocetna']);
+        } else {
+          this.loginErrorMessage = 'Neispravni podaci za prijavu.';
+        }
+      },
+      error: (error) => {
+        console.error("Greška od servera:", error);
+        this.loginErrorMessage = 'Greška prilikom prijavljivanja.';
+      }
+    });
+  }
+
+
+  validateRegistrationData(): boolean {
+    return Object.values(this.userData).every(value => value.trim() !== '');
   }
 
   clearForm() {
@@ -115,72 +146,25 @@ export class RegistracijaloginComponent {
     };
   }
 
-  resetFormErrors() {
-    this.isFormTouched = false; // Reset form touch status
-  }
-
-  resetRegistrationMessages(): void {
-    if (!this.registrationSuccessMessage) {
-      this.registrationErrorMessage = null;
-    }
-  }
-
-  resetLoginMessages(): void {
-    this.loginErrorMessage = null;
-  }
-
   checkIfEmailExists(email: string): Observable<boolean> {
-    const checkEmailUrl = `${this.url}/korisnik/provjeri-email?email=${encodeURIComponent(email)}`;
-    return this.http.get<{ Exists: boolean }>(checkEmailUrl).pipe(
-      map(response => response.Exists),
-      catchError(error => {
-        console.error('Greška prilikom provjere emaila:', error);
-        return of(false);
-      })
-    );
+    return this.http.get<{ Exists: boolean }>(`${this.url}/korisnik/provjeri-email?email=${encodeURIComponent(email)}`)
+      .pipe(map(response => response.Exists), catchError(() => of(false)));
   }
 
   checkIfUsernameExists(username: string): Observable<boolean> {
-    const checkUsernameUrl = `${this.url}/korisnik/provjeri-username?username=${encodeURIComponent(username)}`;
-    return this.http.get<{ Exists: boolean }>(checkUsernameUrl).pipe(
-      map(response => response.Exists),
-      catchError(error => {
-        console.error('Greška prilikom provjere korisničkog imena:', error);
-        return of(false);
-      })
-    );
+    return this.http.get<{ Exists: boolean }>(`${this.url}/korisnik/provjeri-username?username=${encodeURIComponent(username)}`)
+      .pipe(map(response => response.Exists), catchError(() => of(false)));
   }
 
-  login() {
-    const loginUrl = `${this.url}/korisnik/prijava`;
+  isFormTouched: boolean = false;
 
-    this.loginUser(this.loginData).pipe(
-      switchMap(success => {
-        if (success) {
-          this.loginErrorMessage = null;
-          this.router.navigate(['/pocetna']);
-        } else {
-          this.loginErrorMessage = 'Prijavljivanje nije uspjelo. Proverite email/lozinku.';
-        }
-        return of(null);
-      }),
-      catchError(error => {
-        this.loginErrorMessage = 'Greška prilikom prijavljivanja.';
-        return of(null);
-      })
-    ).subscribe();
+  resetLoginMessages() {
+    this.loginErrorMessage = null;
   }
 
-  loginUser(loginData: LoginData): Observable<boolean> {
-    const loginUrl = `${this.url}/korisnik/prijava`;
-    return this.http.post<{ success: boolean }>(loginUrl, loginData).pipe(
-      map(response => response.success),
-      catchError(error => {
-        console.error('Greška prilikom prijavljivanja:', error);
-        return of(false);
-      })
-    );
+  resetRegistrationMessages() {
+    this.registrationErrorMessage = null;
+    this.registrationSuccessMessage = null;
   }
 
-  url = 'https://localhost:7027';
 }

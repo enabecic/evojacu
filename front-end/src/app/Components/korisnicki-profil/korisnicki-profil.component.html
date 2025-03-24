@@ -1,34 +1,126 @@
-<div class="container">
-  <div class="profile-sidebar">
-    <img src="assets/profile-placeholder.png" alt="Profilna slika" class="profile-image">
-    <h3>{{ korisnik?.Ime }} {{ korisnik?.Prezime }}</h3>
-    <p>{{ korisnik?.Email }}</p>
-  </div>
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Korisnički Profil</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <img [src]="korisnik.slika || 'https://bootdey.com/img/Content/avatar/avatar3.png'"
+               class="rounded-circle" width="100" alt="Profilna slika">
 
-  <div class="profile-content">
-    <h2>Profile Settings</h2>
-    <div class="form-container">
-      <div class="form-group">
-        <label for="ime">Name</label>
-        <input type="text" id="ime" [(ngModel)]="korisnik.Ime">
+          <button class="edit-icon" (click)="changeProfilePicture()" *ngIf="activeTab === 'urediProfil'">
+            Promjeni
+          </button>
+
+          <div class="star-container left">
+            <svg
+              *ngFor="let userIcon of users; let i = index"
+              class="star-icon"
+              [ngClass]="{'active': userIcon.isActive}"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              (click)="toggleAnimation(i)">
+              <path d="M12 2C13.6569 2 15 3.34315 15 5C15 6.65685 13.6569 8 12 8C10.3431 8 9 6.65685 9 5C9 3.34315 10.3431 2 12 2ZM4 20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+
+          <h3 class="mt-2">{{ korisnik.ime + ' ' +  korisnik.prezime }}</h3>
+          <p class="text-muted">{{ korisnik.email }}</p>
+          <ul class="list-group">
+            <li class="list-group-item" [class.active]="activeTab === 'profil'" (click)="selectTab('profil')">
+              <i class="fa fa-user"></i> Profil
+            </li>
+            <li class="list-group-item" [class.active]="activeTab === 'poslovi'" (click)="selectTab('poslovi')">
+              <i class="fa fa-briefcase"></i> Poslovi
+            </li>
+            <button class="btn btn-primary" [class.active]="activeTab === 'urediProfil'" (click)="selectTab('urediProfil')">
+              <i class="fa fa-edit"></i> Uredi profil
+            </button>
+          </ul>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="prezime">Surname</label>
-        <input type="text" id="prezime" [(ngModel)]="korisnik.Prezime">
+    </div>
+    <div class="col-md-8">
+      <div class="card" *ngIf="activeTab === 'profil'">
+        <div class="card-body">
+          <h4 class="mb-3">Korisnički podaci</h4>
+          <p><strong>Ime:</strong> {{ korisnik.ime }}</p>
+          <p><strong>Prezime:</strong> {{ korisnik.prezime }}</p>
+          <p><strong>Zanimanje:</strong> {{ korisnik.zanimanje }}</p>
+          <p><strong>Adresa:</strong> {{ korisnik.adresa }}</p>
+          <p><strong>Telefon:</strong> {{ korisnik.telefon }}</p>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="telefon">Mobile Number</label>
-        <input type="text" id="telefon" [(ngModel)]="korisnik.Telefon">
+      <div class="card mt-3" *ngIf="activeTab === 'urediProfil'">
+        <div class="card-body">
+          <form [formGroup]="updateForm" (ngSubmit)="spasiProfil()">
+            <div class="form-group">
+              <label>Ime:</label>
+              <input type="text" class="form-control" formControlName="ime">
+            </div>
+            <div class="form-group">
+              <label>Prezime:</label>
+              <input type="text" class="form-control" formControlName="prezime">
+            </div>
+            <div class="form-group">
+              <label>Zanimanje:</label>
+              <input type="text" class="form-control" formControlName="zanimanje">
+            </div>
+            <div class="form-group">
+              <label>Adresa:</label>
+              <input type="text" class="form-control" formControlName="adresa">
+            </div>
+            <div class="form-group">
+              <label>Telefon:</label>
+              <input type="text" class="form-control" formControlName="telefon">
+            </div>
+            <button type="submit" class="btn btn-success">Sačuvaj profil</button>
+          </form>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="adresa">Address</label>
-        <input type="text" id="adresa" [(ngModel)]="korisnik.Adresa">
+
+      <div class="card-container-wrapper" *ngIf="activeTab === 'poslovi'">
+      <div *ngFor="let zadatak of zadaci" class="cardcontainer">
+        <div class="photo">
+
+          <img class="profilna-slika" style="max-width: 100%; height: 100%" [src]="MojConfig.adresa_servera + '/Zadatak/slika?id=' + zadatak.zadatakId + '&timestamp=' + zadatak.timestamp">
+          <div class="photos">Posao</div>
+        </div>
+        <div class="content">
+          <p class="txt4">{{ zadatak.naziv }}</p>
+          <p class="txt5">{{ zadatak.nazivKategorije }}</p>
+          <p class="txt2">{{ zadatak.opis }}</p>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="email">Email ID</label>
-        <input type="email" id="email" [(ngModel)]="korisnik.Email">
-      </div>
-      <button class="save-button" (click)="spasiProfil()">Save Profile</button>
+    </div>
+
+    <!-- Paginacija -->
+    <div class="pagination" *ngIf="activeTab === 'poslovi'">
+      <button (click)="loadPage(currentPage - 1)" [disabled]="currentPage <= 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button (click)="loadPage(currentPage + 1)" [disabled]="currentPage >= totalPages">Next</button>
+    </div>
+
+
+
+
+
+
+
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

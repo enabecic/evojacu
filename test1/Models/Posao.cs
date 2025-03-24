@@ -8,9 +8,9 @@ namespace evojacu.Models
 {
     public class Posao
     {
-            [Key]
-            public int ZadatakID{ get; set; }
-           
+        [Key]
+        public int ZadatakID { get; set; }
+
         // Povezivanje s VrijemeIzvrsavanja
         public int VrijemeIzvrsavanjaId { get; set; }
         [ForeignKey(nameof(VrijemeIzvrsavanjaId))]
@@ -34,7 +34,7 @@ namespace evojacu.Models
 
         //prebacila sam u Transakciju da bude PosaoID
         public string OpisPosla { get; set; }
-       // public bool JePonuda { get; set; }
+        // public bool JePonuda { get; set; }
 
         public string Adresa { get; set; }
 
@@ -53,7 +53,12 @@ namespace evojacu.Models
         public float Cijena { get; set; }
         public bool UkljucenGPS { get; set; }
 
-        public bool jeOdabran { get; set; }=false;
+        public bool jeOdabran { get; set; } = false;
+
+        public int korisnikId { get; set; }
+        [ForeignKey(nameof(korisnikId))]
+        public Korisnik Korisnik { get; set; }
+
 
     }
 }

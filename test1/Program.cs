@@ -1,21 +1,41 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using evojacu.Models;
-using evojacu.Services; // Dodajte ovo za pristup UserService
+using evojacu.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-
-var config = new ConfigurationBuilder()
-    .AddJsonFile("appsettings.json", false)
-    .Build();
+using System.Text;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
+var config = builder.Configuration; // ✅ Koristi direktno builder.Configuration
 
-// Dodajte DbContext i SQL Server podr�ku
+// Dodaj DbContext i SQL Server podršku
 builder.Services.AddDbContext<evojacuDBContext>(options =>
     options.UseSqlServer(config.GetConnectionString("evojacu")));
 
-// Registrujte UserService
+// Registruj UserService
 builder.Services.AddScoped<UserService>();
+
+// Konfiguracija JWT autentifikacije
+var jwtSettings = config.GetSection("Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
 
 // CORS policy
 builder.Services.AddCors(options =>
@@ -28,15 +48,14 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Dodajte usluge u kontejner
+// Dodaj usluge u kontejner
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Konfiguri�ite HTTP request pipeline
+// Konfiguriši HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -44,13 +63,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseCors("AllowOrigin"); // CORS policy
 
-
-
-
-var cultureInfo = new CultureInfo("bs-BH"); // Postavi �eljeni kulturolo�ki kod
+// Postavljanje lokalizacije
+var cultureInfo = new CultureInfo("bs-BH");
 app.UseRequestLocalization(new RequestLocalizationOptions
 {
     DefaultRequestCulture = new RequestCulture(cultureInfo),
@@ -58,9 +74,17 @@ app.UseRequestLocalization(new RequestLocalizationOptions
     SupportedUICultures = new[] { cultureInfo }
 });
 
+// ✅ Ispravno postavljanje statičkih fajlova za slike
+app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads")),
+    RequestPath = "/uploads"
+});
 
-
-app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization(); // ✅ Premješteno prije `app.MapControllers()`
 
 app.MapControllers();
 

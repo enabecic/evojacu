@@ -1,29 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using evojacu.Models;
-using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
-using evojacu.Helpers;
 using evojacu.Services;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Hosting;
+using evojacu.Models;
+using evojacu.Helpers;
 
 namespace evojacu.Endpoints.Korisnik.Dodaj
 {
-    [Route("korisnik")]
-    [ApiController]
-    public class KorisnikDodajEndpoint : ControllerBase
-    {
-        private readonly evojacuDBContext _applicationDbContext;
-        private readonly ILogger<KorisnikDodajEndpoint> _logger;
-        private readonly UserService _userService; // Dodano za slanje email-a
-
-        public KorisnikDodajEndpoint(evojacuDBContext applicationDbContext, ILogger<KorisnikDodajEndpoint> logger, UserService userService)
+        [Route("korisnik")]
+        [ApiController]
+        public class KorisnikDodajEndpoint : ControllerBase
         {
-            _applicationDbContext = applicationDbContext;
-            _logger = logger;
-            _userService = userService; // Inicijalizacija UserService
-        }
+            private readonly evojacuDBContext _applicationDbContext;
+            private readonly ILogger<KorisnikDodajEndpoint> _logger;
+            private readonly UserService _userService;
+            private readonly IConfiguration _configuration;
+            private readonly IWebHostEnvironment _env; // Dodano
 
+            public KorisnikDodajEndpoint(
+                evojacuDBContext applicationDbContext,
+                ILogger<KorisnikDodajEndpoint> logger,
+                UserService userService,
+                IConfiguration configuration,
+                IWebHostEnvironment env) // Dodano
+            {
+                _applicationDbContext = applicationDbContext;
+                _logger = logger;
+                _userService = userService;
+                _configuration = configuration;
+                _env = env; // Inicijalizacija
+            }
+
+            public class LoginData
+        {
+            public string Email { get; set; }
+            public string Lozinka { get; set; }
+        }
         [HttpPost("dodaj")]
         public async Task<IActionResult> DodajKorisnika([FromBody] KorisnikDodajRequest request, CancellationToken cancellationToken = default)
         {
@@ -111,27 +128,108 @@ namespace evojacu.Endpoints.Korisnik.Dodaj
         }
 
         [HttpPost("prijava")]
-        public async Task<IActionResult> PrijaviKorisnika([FromBody] LoginData loginData, CancellationToken cancellationToken = default)
+        public async Task<IActionResult> PrijaviKorisnika([FromBody] LoginData loginData)
         {
             try
             {
-                var korisnik = await _applicationDbContext.Korisnici
-                    .FirstOrDefaultAsync(k => k.Email == loginData.Email && k.Lozinka == loginData.Lozinka, cancellationToken);
+                _logger.LogInformation("Početak prijavljivanja korisnika: {Email}", loginData.Email);
 
-                if (korisnik == null)
+                var korisnik = await _applicationDbContext.Korisnici
+                    .FirstOrDefaultAsync(k => k.Email == loginData.Email);
+
+                if (korisnik == null || loginData.Lozinka != korisnik.Lozinka)
                 {
-                    _logger.LogWarning("Prijavljivanje nije uspelo za korisnika sa email-om {Email}.", loginData.Email);
-                    return Unauthorized(new { Message = "Prijavljivanje nije uspelo. Proverite email i lozinku." });
+                    _logger.LogWarning("Neuspjela prijava: Pogrešan email ili lozinka za {Email}.", loginData.Email);
+                    return Unauthorized(new { Message = "Neispravan email ili lozinka." });
                 }
 
-                _logger.LogInformation("Korisnik prijavljen: {KorisnikID}", korisnik.KorisnikID);
-                return Ok(new { success = true });
+                var token = GenerateJwtToken(korisnik);
+
+                _logger.LogInformation("Korisnik {Email} uspješno prijavljen.", loginData.Email);
+
+                return Ok(new
+                {
+                    success = true,
+                    korisnik = new
+                    {
+                        korisnik.KorisnikID,
+                        korisnik.Username,
+                        korisnik.Email,
+                        korisnik.Ime,
+                        korisnik.Prezime,
+                        korisnik.Adresa,
+                        korisnik.Zanimanje,
+                        korisnik.Telefon,
+                        token
+                    }
+                });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Greška prilikom prijavljivanja korisnika.");
-                return StatusCode(500, "Interna greška servera.");
+                _logger.LogError(ex, "Greška prilikom prijavljivanja korisnika {Email}.", loginData.Email);
+                return StatusCode(500, new { Message = "Interna greška servera.", Error = ex.Message });
             }
+        }
+
+
+
+        private string GenerateJwtToken(evojacu.Models.Korisnik korisnik)
+        {
+            string key = _configuration["Jwt:Key"];
+            string issuer = _configuration["Jwt:Issuer"];
+            string audience = _configuration["Jwt:Audience"];
+
+            _logger.LogInformation("Generisanje JWT tokena za korisnika {Email}", korisnik.Email);
+            _logger.LogInformation("Issuer: {Issuer}, Audience: {Audience}", issuer, audience);
+
+            if (string.IsNullOrEmpty(key))
+            {
+                throw new Exception("JWT Key nije pronađen u konfiguraciji.");
+            }
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+        new Claim(JwtRegisteredClaimNames.Sub, korisnik.KorisnikID.ToString()),
+        new Claim(JwtRegisteredClaimNames.Email, korisnik.Email),
+        new Claim(JwtRegisteredClaimNames.UniqueName, korisnik.Username),
+        new Claim(ClaimTypes.Role, "User"),
+        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+    };
+
+            var token = new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(2),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+
+    
+
+        [HttpGet("{korisnikID}")]
+        public async Task<ActionResult<evojacu.Models.Korisnik>> GetKorisnik(int korisnikID)
+        {
+            var korisnik = await _applicationDbContext.Korisnici
+                                          .FirstOrDefaultAsync(k => k.KorisnikID == korisnikID);
+
+            if (korisnik == null)
+            {
+                return NotFound(); // Ako korisnik nije pronađen
+            }
+
+            return Ok(korisnik); // Vraća korisničke podatke
         }
     }
 }
+
+
+
+

@@ -24,8 +24,8 @@ namespace evojacu.Endpoints.Zadatak.Dodaj
             {
                 Opis = request.Opis,
                 Naziv=request.Naziv,
-                KategorijaID=request.KategorijaID
-                
+                KategorijaID=request.KategorijaID,
+                KorisnikId = request.KorisnikID
             };
 
             _applicationDbContext.Add(noviObj);

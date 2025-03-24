@@ -16,7 +16,11 @@ namespace evojacu.Models
         public string Adresa { get; set; }
         public string? Telefon { get; set; }
 
-        // Dodajte ovo za verifikaciju
+        // Skladištenje slike u Base64 formatu
+        public byte[]? Slika { get; set; }
+        public string? SlikaMimeType { get; set; } // Dodano za MIME tip
+
+        // Dodato za verifikaciju
         public string? VerificationToken { get; set; }
         public DateTime? TokenExpiry { get; set; }
     }

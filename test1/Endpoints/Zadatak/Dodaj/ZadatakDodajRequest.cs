@@ -7,5 +7,7 @@
         public string Naziv { get; set; }
         public string Opis { get; set; }
         public string? Slika_base64_format { get; set; }
+
+        public int KorisnikID { get; set; }
     }
 }

@@ -13,5 +13,10 @@ namespace evojacu.Models
         public string Naziv { get; set; }
         public string Opis { get; set; }
         public string? Slika { get; set; }
+
+
+        public int KorisnikId { get; set; }
+        [ForeignKey(nameof(KorisnikId))]
+        public Korisnik Korisnik { get; set; }
     }
 }

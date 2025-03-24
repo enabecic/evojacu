@@ -35,20 +35,31 @@ export class ZadatakComponent implements OnInit {
   brojStranica: number = 0;
   pageSize: number = 4;
 
+
+  korisnik:any;
+  korisnikId:any;
   constructor(private route: ActivatedRoute, private http: HttpClient, public jezikService: JezikService) {}
 
   ngOnInit(): void {
     this.getKategorije();
     this.getZadaci();
+    const prijavljeniKorisnik = localStorage.getItem('trenutniKorisnik');
+    if (prijavljeniKorisnik) {
+      this.korisnik = JSON.parse(prijavljeniKorisnik);
+      this.korisnikId = this.korisnik.korisnikID;
+    }
   }
 
   noviZadatak() {
+
     this.novi_zadatak = {
       zadatakId: 0,
       naziv: '',
       opis: '',
       kategorijaID: 1,
-      slika_base64_format: ''
+      slika_base64_format: '',
+      korisnikId: this.korisnikId
+
     };
     this.nazivInvalid = false;
     this.opisInvalid = false;

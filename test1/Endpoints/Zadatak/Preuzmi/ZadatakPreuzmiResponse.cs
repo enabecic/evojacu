@@ -14,5 +14,6 @@
         public string NazivKategorije { get; set; }
         public string Naziv { get; set; }
         public string Opis { get; set; }
+        public int KorisnikId { get; set; }
     }
 }

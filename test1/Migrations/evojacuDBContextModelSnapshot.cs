@@ -179,6 +179,12 @@ namespace evojacu.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Slika")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("SlikaMimeType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Telefon")
                         .HasColumnType("nvarchar(max)");
 
@@ -300,6 +306,9 @@ namespace evojacu.Migrations
                     b.Property<bool>("jeOdabran")
                         .HasColumnType("bit");
 
+                    b.Property<int>("korisnikId")
+                        .HasColumnType("int");
+
                     b.HasKey("ZadatakID");
 
                     b.HasIndex("FazaPoslaId");
@@ -311,6 +320,8 @@ namespace evojacu.Migrations
                     b.HasIndex("VrijemeIzvrsavanjaId");
 
                     b.HasIndex("ZadatakStraniID");
+
+                    b.HasIndex("korisnikId");
 
                     b.ToTable("Poslovi");
                 });
@@ -543,6 +554,9 @@ namespace evojacu.Migrations
                     b.Property<int>("KategorijaID")
                         .HasColumnType("int");
 
+                    b.Property<int>("KorisnikId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Naziv")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -557,6 +571,8 @@ namespace evojacu.Migrations
                     b.HasKey("ZadatakId");
 
                     b.HasIndex("KategorijaID");
+
+                    b.HasIndex("KorisnikId");
 
                     b.ToTable("Zadaci");
                 });
@@ -650,9 +666,17 @@ namespace evojacu.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("evojacu.Models.Korisnik", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("korisnikId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("FazaPosla");
 
                     b.Navigation("Grad");
+
+                    b.Navigation("Korisnik");
 
                     b.Navigation("Poslodavac");
 
@@ -756,7 +780,15 @@ namespace evojacu.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("evojacu.Models.Korisnik", "Korisnik")
+                        .WithMany()
+                        .HasForeignKey("KorisnikId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Kategorija");
+
+                    b.Navigation("Korisnik");
                 });
 #pragma warning restore 612, 618
         }
