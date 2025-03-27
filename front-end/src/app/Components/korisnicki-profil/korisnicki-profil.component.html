@@ -43,9 +43,10 @@
             <li class="list-group-item" [class.active]="activeTab === 'poslovi'" (click)="selectTab('poslovi')">
               <i class="fa fa-briefcase"></i> Poslovi
             </li>
-            <button class="btn btn-primary" [class.active]="activeTab === 'urediProfil'" (click)="selectTab('urediProfil')">
+            <button class="btn btn-primary" [class.active]="activeTab === 'urediProfil'" (click)="selectTab('urediProfil'); urediProfil()">
               <i class="fa fa-edit"></i> Uredi profil
             </button>
+
           </ul>
         </div>
       </div>

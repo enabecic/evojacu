@@ -35,6 +35,8 @@ body {
 
 .card img {
   border-radius: 50%;
+  width: 120px; /* Povećana širina profilne slike */
+  height: 120px; /* Povećana visina profilne slike */
 }
 
 h3, p {
@@ -147,16 +149,14 @@ input.form-control:focus {
   margin: 20px;
 }
 
-/* Stil za svaki .cardcontainer u rasporedu 2x2 */
 .cardcontainer {
-  width: calc(50% - 10px);  /* Polovina širine minus razmak između kolona */
+  width: calc(50% - 10px);
   height: 500px;
 }
 
-/* Obavezno da bude responsive za manje ekrane */
 @media (max-width: 768px) {
   .cardcontainer {
-    width: 100%; /* Na manjim ekranima da zauzimaju celu širinu */
+    width: 100%;
   }
 }
 
@@ -174,12 +174,12 @@ input.form-control:focus {
 .photo img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Podesi sliku da se automatski uklopi */
+  object-fit: cover;
   transition: transform 0.3s ease-in-out;
 }
 
 .cardcontainer:hover > .photo img {
-  transform: scale(1.1); /* Uvećanje slike pri hover efektu */
+  transform: scale(1.1);
 }
 
 .photos {
@@ -282,8 +282,8 @@ input.form-control:focus {
 .edit-icon {
   display: inline-flex;
   align-items: center;
-  padding: 5px 10px;
-  font-size: 1rem;
+  padding: 3px 5px; /* Smanjena veličina ikone */
+  font-size: 0.9rem; /* Smanjen font za ikonu */
   background-color: transparent;
   border: 2px solid #007bff;
   border-radius: 30px;

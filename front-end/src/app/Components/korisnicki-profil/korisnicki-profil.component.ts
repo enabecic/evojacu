@@ -61,7 +61,17 @@ export class KorisnickiProfilComponent implements OnInit {
   }
 
   urediProfil() {
+    // Prvo, postavi editMode na true da omogući uređivanje
     this.editMode = true;
+
+    // Ažuriraj formu sa trenutnim podacima korisnika
+    this.updateForm.patchValue({
+      ime: this.korisnik.ime,
+      prezime: this.korisnik.prezime,
+      zanimanje: this.korisnik.zanimanje,
+      adresa: this.korisnik.adresa,
+      telefon: this.korisnik.telefon
+    });
   }
 
   loadPage(page: number) {
