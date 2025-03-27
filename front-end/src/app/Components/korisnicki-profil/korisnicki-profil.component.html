@@ -46,11 +46,34 @@
             <button class="btn btn-primary" [class.active]="activeTab === 'urediProfil'" (click)="selectTab('urediProfil'); urediProfil()">
               <i class="fa fa-edit"></i> Uredi profil
             </button>
-
+            <button class="btn btn-danger mt-3" (click)="confirmLogout()">
+              <i class="fa fa-sign-out"></i> Odjavi se
+            </button>
           </ul>
         </div>
       </div>
     </div>
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showLogoutModal}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Potvrda odjave</h5>
+            <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Da li ste sigurni da želite da se odjavite?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModal()">Ne</button>
+            <button type="button" class="btn btn-danger" (click)="odjaviSe()">Da, odjavi me</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="col-md-8">
       <div class="card" *ngIf="activeTab === 'profil'">
         <div class="card-body">

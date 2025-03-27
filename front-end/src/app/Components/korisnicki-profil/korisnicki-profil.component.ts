@@ -17,6 +17,7 @@ export class KorisnickiProfilComponent implements OnInit {
   activeTab: string = 'profil';
   currentPage: number = 1; // Trenutna stranica
   totalPages: number = 0; // Ukupan broj stranica
+   showLogoutModal: boolean=false;
 
 
   constructor(
@@ -73,6 +74,28 @@ export class KorisnickiProfilComponent implements OnInit {
       telefon: this.korisnik.telefon
     });
   }
+  confirmLogout(): void {
+    console.log('Kliknuo si na dugme Odjavi se');
+    this.showLogoutModal = true;  // Display modal
+  }
+
+  closeModal(): void {
+    console.log('Modal je zatvoren');
+    this.showLogoutModal = false;  // Hide modal
+  }
+
+  odjaviSe(): void {
+    console.log('Odjava u toku...');
+    localStorage.removeItem('token');  // Uklanja token
+    localStorage.removeItem('trenutniKorisnik');  // Uklanja podatke o trenutnom korisniku
+
+    // Resetuj korisničke podatke u aplikaciji
+    this.korisnik = {}; // Resetuj korisnički objekat
+    this.korisnikId = 0; // Resetuj ID korisnika
+
+    this.router.navigate(['/registracijalogin']);  // Preusmeravanje na login
+  }
+
 
   loadPage(page: number) {
     if (page < 1) return; // Prevenira negativne stranice
@@ -185,10 +208,6 @@ export class KorisnickiProfilComponent implements OnInit {
     }
   }
 
-  odjaviSe() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
 
   protected readonly MojConfig = MojConfig;
 }
