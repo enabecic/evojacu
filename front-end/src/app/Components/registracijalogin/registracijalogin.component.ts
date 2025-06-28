@@ -167,4 +167,5 @@ export class RegistracijaloginComponent {
     this.registrationSuccessMessage = null;
   }
 
+
 }

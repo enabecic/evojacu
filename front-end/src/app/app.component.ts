@@ -23,5 +23,7 @@ export class AppComponent implements OnInit {
   idi(s:string){
     this.router.navigate([s])
   }
-
+  get jePrijavljen(): boolean {
+    return localStorage.getItem('trenutniKorisnik') !== null;
+  }
 }
